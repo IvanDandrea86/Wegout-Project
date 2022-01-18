@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import {resolvers} from '../resolvers/index';
 import {ALLOW_ORIGIN} from '../constants/const'
-import { MyContext } from 'src/types/types';
+
 
 
 
@@ -14,11 +14,8 @@ export const apolloLoader=async():Promise<void>=>{
             resolvers:resolvers,
             validate:false, 
         }),
-        context: ({ req, res }):MyContext => ({
-            req,
-            res,
+        context: ({ req, res }) => ({ req, res }),
 
-        })    
     }); 
     await apolloServer.start()
     .then(()=>{

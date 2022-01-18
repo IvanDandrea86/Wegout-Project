@@ -18,8 +18,7 @@ export const seedMongoWithUsers=async(howmuch:number)=>{
             firstname:firstname,
             lastname:lastname,
             email: faker.internet.email(firstname,lastname),
-            password: hashPassword,
-           
+            password: hashPassword, 
           });
           try{
              await user.save();

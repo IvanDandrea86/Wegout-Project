@@ -4,7 +4,7 @@ import { runConnection } from "./loaders/dbLoader";
 import { apolloLoader } from "./loaders/apolloLoader";
 import express from "express";
 import cors from 'cors';
-
+// import path from "path";
 import {
   ALLOW_ORIGIN,
   __prod__,
@@ -31,7 +31,7 @@ let nStartTime = Date.now()
   //Seed with FakeData
   // startSeed(60)
 
-  //CORS middelware
+  // CORS middelware
   app.use(
     cors({
       origin:ALLOW_ORIGIN ,
@@ -40,10 +40,16 @@ let nStartTime = Date.now()
     })
   );
 
+
   //Start Apollo Server for graphql
   apolloLoader().catch((err) => {
     console.error(err);
   });
+
+  // app.use(express.static(path.join(__dirname,'../../client/build')));
+  // app.get("*",(req,res)=>{
+  //   res.sendFile(path.join(__dirname,'../client/build'),"index.html")
+  // })
 
   app.listen( PORT, () => {
   console.log(startTime,`\n🚀 Server running at: http://localhost:${PORT}`);
