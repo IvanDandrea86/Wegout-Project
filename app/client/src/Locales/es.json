@@ -1,0 +1,7 @@
+{
+	"header":{
+        "login":"Login",
+        "register":"Signup",
+        "logout":"Logout"
+    }     
+}

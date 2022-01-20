@@ -9,3 +9,4 @@ query($email:string!,$password:string!){
         }
     }
 }
+

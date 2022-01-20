@@ -1,0 +1,7 @@
+{
+	"header":{
+        "login":"Acceder ",
+        "register":"Inscribirse",
+        "logout":"Cerrar  "
+    }     
+}

@@ -28,4 +28,4 @@ export const themeOptionsDark: ThemeOptions = {
 }
 
 export const themeLight= createTheme(themeOptions)
-export const themDark = createTheme(themeOptionsDark)
+export const themeDark = createTheme(themeOptionsDark)

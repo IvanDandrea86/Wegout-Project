@@ -8,19 +8,17 @@ import { FOOTER_TEXT } from '../../Utils/constants';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary">
+    <Typography variant="body2" color="text.secondary"  textAlign={'center'}>
       {FOOTER_TEXT +' '}
       <Link color="inherit" href="https://localhost:3000">
-        WeGOut
+        WeGOut.io
       </Link>{' '}
       {'.'}
     </Typography>
   );
 }
-
 const  Footer=()=> {
   return (
-  
       <Box
         component="footer"
         sx={{
@@ -34,9 +32,7 @@ const  Footer=()=> {
         }}
       >
         <Container maxWidth="sm">
-          <Typography variant="body1">
-            
-          </Typography>
+         
           <Copyright />
         </Container>
       </Box>
