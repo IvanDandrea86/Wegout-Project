@@ -1,0 +1,11 @@
+query($email:string!,$password:string!){
+    login(email:$email,password:$password){
+        error{
+            field
+            message
+        }
+        user{
+            _id
+        }
+    }
+}

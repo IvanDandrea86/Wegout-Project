@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './media/logo.svg';
-import './App.css';
-import { createClient, Provider } from 'urql';
+import "./App.css";
+import { BrowserRouter,Route,Routes } from "react-router-dom";
+import  Login  from "./Pages/Login/Login";
+import {Hero} from"./Pages/Hero/Hero"
+import {Dashboard} from "./Pages/Dashboard/Dashboard"
+import Register from "./Pages/Register/Register"
 
-const client = createClient({
-  url: 'http://localhost:4000/graphql',
-});
 function App() {
   return (
-    <Provider value={client}>
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit and save to reload.
-        </p>
-      
-      </header>
-    </div>
-    </Provider>
-
+   
+        <BrowserRouter>
+        <Routes>
+          <Route path="/login"  element={<Login/>}/>
+          <Route path="register" element ={<Register/>}/>
+          <Route  path="/" element={<Hero/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
+          </Routes>
+         </ BrowserRouter >
   );
 }
 

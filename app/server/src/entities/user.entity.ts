@@ -42,10 +42,24 @@ export class User{
     @Field(()=>[String])
     @prop({type:String})
     friendList :Array<String>;
+    
+    @Field({nullable:true, defaultValue:false})
+    @prop({default:false})
+    isAdmin: boolean;
 
-    @Field(()=>[String])
+    @Field({nullable:true, defaultValue:false})
+    @prop({default:false})
+    isActive: boolean;
+
+    @Field({nullable:true, defaultValue:false})
+    @prop({default:false})
+    isVerified: boolean;
+
+
+    @Field(()=>String)
     @prop({type:String})
-    postList :Array<String>;
+    location :String;
+
 
     @Field(()=>[String])
     @prop({type:String})

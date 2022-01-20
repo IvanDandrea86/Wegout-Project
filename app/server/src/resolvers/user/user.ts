@@ -1,17 +1,27 @@
-import { Resolver, Arg,  Query, Mutation} from "type-graphql";
+import { Resolver, Arg,  Query, Mutation, Ctx } from "type-graphql";
 import { Service } from "typedi";
 import { User, UserModel } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
-import { UserResponse, FieldError} from "../../types/types";
+import { UserResponse, FieldError, MyContext } from "../../types/types";
+import { COOKIENAME } from "../../constants/const";
 
-
-
+declare module 'express-session' {
+       interface SessionData {
+           userID: string;
+      }
+    }
 
 @Service() // Dependencies injection
 @Resolver(() => User )
 export default class UserResolver {
-
+  @Query(() => User ,{ name: "me",nullable:true })
+  async me(@Ctx() {req}: MyContext) {
+    if (!req.session.userID) {
+      return null;
+    }
+    return UserModel.findOne({_id:req.session.userID});
+  }
   
   @Query(() => User, { name: "findUserById" })
   async findUserById(@Arg("user_id") _id: string) {
@@ -40,7 +50,6 @@ export default class UserResolver {
   async deleteUser(@Arg("_id") id: string) {
     try {
       await UserModel.deleteOne({ _id: id }).exec();
- 
       const document=await UserModel.find({})
       document.forEach(element => {
         if (element.friendList.includes(id)){
@@ -60,7 +69,8 @@ export default class UserResolver {
     @Arg("email") email: String,
     @Arg("password") password: string,
     @Arg("firstname") firstname: String,
-    @Arg("lastname") lastname: String
+    @Arg("lastname") lastname: String,
+    @Ctx() {req}:MyContext
      ): Promise<UserResponse> {
    if (
       !password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
@@ -94,7 +104,7 @@ export default class UserResolver {
       };
     }
   }
-  
+    req.session.userID=user._id;
     return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
@@ -153,7 +163,8 @@ export default class UserResolver {
   @Mutation(() => UserResponse, { name: "login" })
   async login(
     @Arg("email") email: String,
-    @Arg("password") password: string
+    @Arg("password") password: string,
+    @Ctx() {req}:MyContext
   ): Promise<UserResponse> {
 
     const userEmail = await UserModel.findOne({ email: email });
@@ -183,13 +194,26 @@ export default class UserResolver {
         };
       } else {
         const user = userEmail.toObject();
-     
+        req.session.userID=user.user_id;
         return { user };
       }
     }
     return {};
   }
 
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext) {
+    return new Promise((resolve) =>
+      req.session.destroy((err) => {
+        res.clearCookie(COOKIENAME);
+        if (err) {
+          console.log(err);
+          resolve(false);
+          return;
+        }
 
+        resolve(true);
+      })
+    );
   }
-
+}
