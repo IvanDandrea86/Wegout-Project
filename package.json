@@ -1,0 +1,26 @@
+{
+  "name": "wegout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install-client": "cd app && cd client && npm install",
+    "install-server": "cd app & cd serer && npm install",
+    "build-server":"cd app && cd server && npm run build",
+    "build-client":"cd app && cd client && npm run build",
+    "build": "npm run build-server && npm run build-client",
+    "install": "npm run install-server && npm run install-client",
+    "start": "node ./dist/index.js" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanDandrea86/npProject.git"
+  },
+  "keywords": [],
+  "author": "Ivan D'Andrea",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IvanDandrea86/npProject/issues"
+  },
+  "homepage": "https://github.com/IvanDandrea86/npProject#readme"
+}

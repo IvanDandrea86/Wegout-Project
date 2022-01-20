@@ -17,19 +17,21 @@ import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from '../../Utils/constants';
 export default function SignUp() {
 
   const [firstnameError, setFirstNameError] = useState<boolean>(false);
-  const [lastnameError, setLastNameError] = useState(false);
+  const [lastnameError, setLastNameError] = useState<boolean>(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [lastname, setLastName] = useState("");
-  const [emailError, setEmailError] = useState(false);
+  const [emailError, setEmailError] = useState<boolean>(false);
   const [firstname, setFirstName] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
   const [helperPass, setHelperPass] = useState("");
   const [helperEmail, setHelperEmail] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
-  const [colorState, setColorState]=useState()
+  const [colorState, setColorState]=useState<
+  'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
+>()
 
   const handleSubmit = async (event:React.FormEvent) => {
     event.preventDefault();

@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import {  Link } from "@mui/material";
 import Footer from "../../Components/Footer/Footer";
