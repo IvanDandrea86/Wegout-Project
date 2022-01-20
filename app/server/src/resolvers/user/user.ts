@@ -1,37 +1,34 @@
-import { Resolver, Arg, Query, Mutation,UseMiddleware,Ctx, ObjectType, Field } from "type-graphql";
+import { Resolver, Arg,  Query, Mutation, Ctx } from "type-graphql";
 import { Service } from "typedi";
 import { User, UserModel } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
-import { UserResponse, FieldError } from "../../types/types";
-import { MyContext } from "../../types/types";
-import { isAuth } from "../../middleware/isAuth";
-import { sign } from "jsonwebtoken";
+import { UserResponse, FieldError, MyContext } from "../../types/types";
+import { COOKIENAME } from "../../constants/const";
 
-
-@ObjectType()
-class LoginResponse {
-  @Field()
-  accessToken: string;
-}
+declare module 'express-session' {
+       interface SessionData {
+           userID: string;
+      }
+    }
 
 @Service() // Dependencies injection
-@Resolver(() => User)
+@Resolver(() => User )
 export default class UserResolver {
-
-  @Query(() => String)
-  @UseMiddleware(isAuth)
-  async Me(@Ctx() { payload }: MyContext) {
-    return `Your user id : ${payload!.userId}`;
+  @Query(() => User ,{ name: "me",nullable:true })
+  async me(@Ctx() {req}: MyContext) {
+    if (!req.session.userID) {
+      return null;
+    }
+    return UserModel.findOne({_id:req.session.userID});
   }
-
-
+  
   @Query(() => User, { name: "findUserById" })
   async findUserById(@Arg("user_id") _id: string) {
     return await UserModel.findById({ _id: _id });
   }
-
-  @Query(() => User, { name: "findUserByEmail" })
+ 
+  @Query(() => User , { name: "findUserByEmail" })
   async findUserByEmail(@Arg("email") email: string) {
     return await UserModel.findOne({ email: email });
   }
@@ -53,12 +50,11 @@ export default class UserResolver {
   async deleteUser(@Arg("_id") id: string) {
     try {
       await UserModel.deleteOne({ _id: id }).exec();
-
-      const document = await UserModel.find({});
-      document.forEach((element) => {
-        if (element.friendList.includes(id)) {
-          element.friendList = element.friendList.filter((e) => e !== id);
-          element.save();
+      const document=await UserModel.find({})
+      document.forEach(element => {
+        if (element.friendList.includes(id)){
+         element.friendList = element.friendList.filter(e=> e!==id);
+        element.save();
         }
       });
     } catch (err) {
@@ -73,9 +69,12 @@ export default class UserResolver {
     @Arg("email") email: String,
     @Arg("password") password: string,
     @Arg("firstname") firstname: String,
-    @Arg("lastname") lastname: String
-  ): Promise<UserResponse> {
-    if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)) {
+    @Arg("lastname") lastname: String,
+    @Ctx() {req}:MyContext
+     ): Promise<UserResponse> {
+   if (
+      !password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
+    ) {
       const error = new FieldError(
         "password",
         "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
@@ -91,34 +90,31 @@ export default class UserResolver {
       user_id: _id,
       email: email,
       password: hashPassword,
-      firstname: firstname,
-      lastaname: lastname,
+      firstname : firstname,
+      lastaname:lastname
     });
     try {
       await user.save();
     } catch (err) {
       console.error(err);
       if (err.code === 11000 && err.keyPattern.email == 1) {
-        const error = new FieldError("email", "email already exist");
-        return {
-          errors: error,
-        };
-      }
+        const error = new FieldError("email", "email already exist"); 
+      return {
+        errors: error
+      };
     }
-
-    return { user };
+  }
+    req.session.userID=user._id;
+    return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
   async updateUser(
-    @Arg("email") email: String,
+    @Arg("email") email: String ,
     @Arg("lastname") lastname: string,
     @Arg("firstname") firstname: string,
     @Arg("_id") id: string
   ): Promise<User | null> {
-    await UserModel.findOneAndUpdate(
-      { _id: id },
-      { email: email, lastname: lastname, firstname: firstname }
-    ).exec();
+    await UserModel.findOneAndUpdate({ _id: id} ,{email: email,lastname:lastname,firstname:firstname }).exec();
     const user = await UserModel.findOne({ _id: id }).exec();
     return user;
   }
@@ -129,21 +125,21 @@ export default class UserResolver {
     @Arg("reciver_id") reciver_id: string
   ): Promise<boolean> {
     const user = await UserModel.findOne({ _id: user_id });
-    const reciver = await UserModel.findOne({ _id: reciver_id });
-    if (!user || !reciver) {
+    const reciver = await UserModel.findOne({_id:reciver_id})
+    if (!user || ! reciver) {
       return false;
+    } 
+      await UserModel.updateOne(
+        { _id: user_id },
+        { $push: { friendList: reciver_id } }
+      );
+      await UserModel.updateOne(
+        { _id: reciver_id },
+        { $push: { friendList: user_id } }
+      );
+      return true;
     }
-    await UserModel.updateOne(
-      { _id: user_id },
-      { $push: { friendList: reciver_id } }
-    );
-    await UserModel.updateOne(
-      { _id: reciver_id },
-      { $push: { friendList: user_id } }
-    );
-    return true;
-  }
-
+  
   @Mutation(() => Boolean, { name: "removeFriend" })
   async removeFriend(
     @Arg("user_id") user_id: string,
@@ -164,18 +160,23 @@ export default class UserResolver {
       return true;
     }
   }
-  @Mutation(() =>  LoginResponse , { name: "login" })
+  @Mutation(() => UserResponse, { name: "login" })
   async login(
     @Arg("email") email: String,
-    @Arg("password") password: string
-  ): Promise<UserResponse |LoginResponse> {
-    const userEmail = await UserModel.findOne({ email: email }).exec();
+    @Arg("password") password: string,
+    @Ctx() {req}:MyContext
+  ): Promise<UserResponse> {
+
+    const userEmail = await UserModel.findOne({ email: email });
+
     if (!userEmail && email != null) {
       return {
-        errors: {
-          field: "Email",
-          message: "'that email doesn't exist'",
-        },
+        errors: 
+          {
+            field: "Email",
+            message: "'that email doesn't exist'",
+          },
+        
       };
     }
     if (userEmail != null) {
@@ -185,20 +186,34 @@ export default class UserResolver {
       );
       if (!validEmailPassword) {
         return {
-          errors: {
-            field: "Password",
-            message: "wrong password",
-          },
+          errors: 
+            {
+              field: "Password",
+              message: "wrong password",
+            }   
         };
       } else {
         const user = userEmail.toObject();
-        return { accessToken: sign({ userId: userEmail!._id }, "MySecretKey", {
-          expiresIn: "7day"
-        }) };
+        req.session.userID=user.user_id;
+        return { user };
       }
     }
-    return {
-      
-    };
+    return {};
+  }
+
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext) {
+    return new Promise((resolve) =>
+      req.session.destroy((err) => {
+        res.clearCookie(COOKIENAME);
+        if (err) {
+          console.log(err);
+          resolve(false);
+          return;
+        }
+
+        resolve(true);
+      })
+    );
   }
 }

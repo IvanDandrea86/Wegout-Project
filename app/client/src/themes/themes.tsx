@@ -13,4 +13,19 @@ export const themeOptions: ThemeOptions = {
     borderRadius: 12,
   }, 
 }
-export const theme= createTheme(themeOptions)
+export const themeOptionsDark: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#FFE162',
+    },
+    secondary: {
+      main: '#2A0944',
+    },
+  },
+  shape: {
+    borderRadius: 12,
+  }, 
+}
+
+export const themeLight= createTheme(themeOptions)
+export const themDark = createTheme(themeOptionsDark)

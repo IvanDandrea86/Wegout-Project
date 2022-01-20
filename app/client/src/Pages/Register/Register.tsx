@@ -10,18 +10,13 @@ import {
   Link,
   Grid
 } from "@mui/material";
-
 import logo from "../../Assets/Images/logo.svg";
-
-
-
-
-
+import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from '../../Utils/constants';
 
 
 export default function SignUp() {
 
-  const [firstnameError, setFirstNameError] = useState(false);
+  const [firstnameError, setFirstNameError] = useState<boolean>(false);
   const [lastnameError, setLastNameError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,21 +26,12 @@ export default function SignUp() {
   const [firstname, setFirstName] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-
-
   const [helperPass, setHelperPass] = useState("");
   const [helperEmail, setHelperEmail] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
+  const [colorState, setColorState]=useState()
 
-
-  
-
-
-
-   
-    
-
-  const handleSubmit = async (event:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event:React.FormEvent) => {
     event.preventDefault();
     setFirstNameError(false);
     setLastNameError(false);
@@ -68,7 +54,7 @@ export default function SignUp() {
     if(!(confirmPassword === password)) {
       setPasswordError(true);
       setConfirmPasswordError(true)
-      setHelperConfirmPass('Password ar different ')
+      setHelperConfirmPass('Password are different ')
     }
     }
   
@@ -77,8 +63,7 @@ export default function SignUp() {
     if (
       e === "" ||
       !e.match(
-        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )
+      VAILDEMAIL)
     ) {
       setEmailError(true);
       setHelperEmail("Insert a valid email format [*@.*]");
@@ -86,7 +71,6 @@ export default function SignUp() {
     } else {
       setEmailError(false);
       setHelperEmail("");
-  
     }
   };
 
@@ -94,7 +78,7 @@ export default function SignUp() {
     setPassword(e);
     if (
       e === "" ||
-      !e.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
+      !e.match(VALID_PASSWORD_8_A_1)
     ) {
       setPasswordError(true);
       setHelperPass(
@@ -132,7 +116,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 15,
+            marginTop: 10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -164,6 +148,7 @@ export default function SignUp() {
                   id="firstNameNew"
                   label="First Name"
                   autoFocus
+                  color={colorState}
                   error={firstnameError}
                 />
 
@@ -247,6 +232,7 @@ export default function SignUp() {
             </Grid>
             <Button
               type="submit"
+              onSubmit={handleSubmit}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
