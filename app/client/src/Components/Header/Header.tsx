@@ -1,18 +1,11 @@
-import React,{useContext} from 'react';
-
+import React,{FC} from 'react';
 import {Box} from '@mui/material';
 import  {ButtonBase}  from '@mui/material';
-
 import { useNavigate } from 'react-router-dom';
-
 import {
   useMutation,
   gql
 } from "@apollo/client";
-import { AuthContext } from '../../Context/AuthContext';
-
-
-
 
 
 
@@ -21,8 +14,8 @@ mutation{logout}
 `;
 
 
-export default function Header() {
-  const context =useContext(AuthContext)
+const  Header:FC =()=> {
+
   const navigate=useNavigate()
   const [logout] = useMutation(LOGOUT_MUT);
  
@@ -39,13 +32,12 @@ export default function Header() {
 
   return (
     <Box className="header" >
-      {context.auth? 
+  
       <ButtonBase
       onClick={logoutEvent}>Logout</ButtonBase>
-    :
-    <ButtonBase
-      >You are not logged</ButtonBase>
-      }
+
+     
       </Box>
   );
 }
+export default Header;

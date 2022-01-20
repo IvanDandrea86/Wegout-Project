@@ -1,0 +1,8 @@
+query(_id:String!){
+findUserById(user_id : $_id)
+{
+    firstname
+    lastaname
+    email
+}
+}

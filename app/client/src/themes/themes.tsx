@@ -10,8 +10,9 @@ export const themeOptions: ThemeOptions = {
     },
   },
   shape: {
-    borderRadius: 12,
+    borderRadius: 5,
   }, 
+  spacing: 15,
 }
 export const themeOptionsDark: ThemeOptions = {
   palette: {
@@ -23,9 +24,12 @@ export const themeOptionsDark: ThemeOptions = {
     },
   },
   shape: {
-    borderRadius: 12,
-  }, 
+    borderRadius: 5,
+    
+  },
+  spacing: 15,
+  
 }
 
 export const themeLight= createTheme(themeOptions)
-export const themDark = createTheme(themeOptionsDark)
+export const themeDark = createTheme(themeOptionsDark)

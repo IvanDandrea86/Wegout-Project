@@ -1,12 +1,11 @@
 import { useContext } from "react";
-import { AuthContext } from "../../Context/AuthContext";
-import {  Link } from "@mui/material";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 import { Grid } from "@mui/material";
+import { UserContext } from "../../Context/UserContext";
 
 export const Dashboard = () => {
-  const context = useContext(AuthContext);
+  const user =useContext(UserContext)
   return (
     <Grid container spacing={2}>
       <Grid
@@ -23,13 +22,9 @@ export const Dashboard = () => {
         }}
       >
         <Header />
-        {context.auth ? (
-          "Welcome User"
-        ) : (
-          <Link href="/login" variant="body2">
-            You are not logged in go Signin ?
-          </Link>
-        )}
+          Welcome 
+        {user.firstname}
+        {user.lastname}
         <Footer />
       </Grid>
     </Grid>

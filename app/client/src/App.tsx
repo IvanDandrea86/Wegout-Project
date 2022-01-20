@@ -1,21 +1,24 @@
 import "./App.css";
-import { BrowserRouter,Route,Routes } from "react-router-dom";
-import  Login  from "./Pages/Login/Login";
-import {Hero} from"./Pages/Hero/Hero"
-import {Dashboard} from "./Pages/Dashboard/Dashboard"
-import Register from "./Pages/Register/Register"
+import { useContext} from "react";
+import { AuthContext } from "./Context/AuthContext";
+import AuthenticatedApp from "./AuthenticatedApp";
+import UnauthenticatedApp from "./UnauthenticatedApp";
+import { ThemeProvider } from "@mui/material";
+import AuthProvider from "./Context/AuthContext";
+
+import {CustomThemeContext} from './Context/CustomThemeProvider'
+
 
 function App() {
+  const { theme } = useContext(CustomThemeContext)
+  const context =useContext(AuthContext)
+
   return (
-   
-        <BrowserRouter>
-        <Routes>
-          <Route path="/login"  element={<Login/>}/>
-          <Route path="register" element ={<Register/>}/>
-          <Route  path="/" element={<Hero/>}/>
-          <Route path="/dashboard" element={<Dashboard/>}/>
-          </Routes>
-         </ BrowserRouter >
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        {context.auth ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

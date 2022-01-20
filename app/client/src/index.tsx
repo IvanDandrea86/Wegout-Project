@@ -5,18 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./Utils/createApolloClient";
-import { ThemeProvider } from "@mui/material";
-import { themeLight } from "./themes/themes";
-import AuthProvider from './Context/AuthContext'
+import {CustomThemeProvider} from './Context/CustomThemeProvider'
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-        <ThemeProvider theme={themeLight}>
-          <AuthProvider>
-          <App />
-          </AuthProvider>
-        </ThemeProvider>
+      <CustomThemeProvider>
+          <App />   
+          </CustomThemeProvider>
+          
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
