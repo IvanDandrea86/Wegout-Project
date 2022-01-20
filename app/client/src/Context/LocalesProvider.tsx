@@ -3,11 +3,13 @@ import {createContext,useState } from 'react';
 type LanguageContextData =
 {
 	language: Language;
-	setLanguage?: Function;
+	setLanguage: Function;
 }
+
 export const languageContext= createContext<LanguageContextData>({
-	language: 'en',
-});
+	// language: 'en',
+	// setLanguage:(()=>{})
+}as LanguageContextData);
 
 const LanguageProvider: React.FC<{}> = ({ children }) =>
 {

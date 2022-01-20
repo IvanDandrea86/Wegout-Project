@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./Utils/createApolloClient";
+import {CustomThemeProvider} from './Context/CustomThemeProvider'
 
 
 
@@ -12,7 +13,10 @@ import { client } from "./Utils/createApolloClient";
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
+      <CustomThemeProvider>
           <App />   
+          </CustomThemeProvider>
+          
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

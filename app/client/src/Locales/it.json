@@ -1,7 +1,5 @@
 {
-	"header":{
         "login":"Accedi",
         "register":"Iscriviti",
-        "logout":"Logout"
-    }     
+        "logout":"Logout"    
 }
