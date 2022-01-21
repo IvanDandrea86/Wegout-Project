@@ -1,5 +1,10 @@
 {
     "login":"Anmeldung",
     "register":"Registrierung",
-    "logout":"Abmeldung"   
+    "logout":"Abmeldung",
+    "alredyRegister":"Schon ein Konto?",
+    "notRegister":"Noch kein Konto?",
+    "forgotPass":"Passwort vergessen?",
+    "hero":"Stärken Sie Ihr soziales Leben. Finden Sie jede Veranstaltung in Ihrer Nähe und die besten Leute, mit denen Sie hingehen können. Genießen Sie es, neue Leute mit der gleichen Leidenschaft zu entdecken."   
+
 }

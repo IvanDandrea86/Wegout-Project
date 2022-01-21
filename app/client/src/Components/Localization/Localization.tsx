@@ -1,19 +1,28 @@
-import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { languageContext } from '../../Context/LocalesProvider';
-
+import * as React from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { languageContext } from "../../Context/LocalesProvider";
 
 export default function ControlledOpenSelect() {
-  const [language, setLanguages] = React.useState<string >('en');
+  const [language, setLanguages] = React.useState<string>("en");
   const [open, setOpen] = React.useState(false);
-  const {setLanguage}=React.useContext(languageContext)
+  const { setLanguage } = React.useContext(languageContext);
+
+  React.useEffect(() => {
+    if (window.localStorage.getItem("lang") != null) {
+      const value = localStorage.getItem("lang");
+      if (typeof value === "string") {
+        setLanguages(value);
+      }
+    }
+  }, [language]);
 
   const handleChange = (event: SelectChangeEvent<typeof language>) => {
+    window.localStorage.setItem("lang", event.target.value);
     setLanguages(event.target.value);
-    setLanguage(event.target.value)
+    setLanguage(event.target.value);
   };
 
   const handleClose = () => {
@@ -26,7 +35,6 @@ export default function ControlledOpenSelect() {
 
   return (
     <div>
-      
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="select-label">Languages</InputLabel>
         <Select
@@ -39,12 +47,12 @@ export default function ControlledOpenSelect() {
           label="Languages"
           onChange={handleChange}
         >
-          <MenuItem value={'it'}>Italiano</MenuItem>
-          <MenuItem value={'fr'}>Français</MenuItem>
-          <MenuItem value={'en'}>English</MenuItem>
-          <MenuItem value={'de'}>Deutsch</MenuItem>
-          <MenuItem value={'nl'}>Nederlands</MenuItem> 
-          <MenuItem value={'es'}>Español</MenuItem>
+          <MenuItem value={"it"}>Italiano</MenuItem>
+          <MenuItem value={"fr"}>Français</MenuItem>
+          <MenuItem value={"en"}>English</MenuItem>
+          <MenuItem value={"de"}>Deutsch</MenuItem>
+          <MenuItem value={"nl"}>Nederlands</MenuItem>
+          <MenuItem value={"es"}>Español</MenuItem>
         </Select>
       </FormControl>
     </div>

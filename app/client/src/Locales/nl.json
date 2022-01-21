@@ -1,5 +1,10 @@
 {
         "login":"Inloggen ",
         "register":"Registreren",
-        "logout":"Uitloggen  "     
+        "logout":"Uitloggen  ",
+        "notRegister":"Heb je geen account?",
+        "alredyRegister":"Al een account?",
+        "forgotPass":"Bent u uw wachtwoord vergeten?",
+        "hero":"Geef je sociale leven een boost. Vind elk evenement bij jou in de buurt, en de beste mensen om mee te gaan. Geniet van het ontdekken van nieuwe mensen met dezelfde passie."
+
 }

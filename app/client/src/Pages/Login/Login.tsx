@@ -1,5 +1,5 @@
-import  { useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   CssBaseline,
@@ -10,14 +10,13 @@ import {
   FormControlLabel,
   Checkbox,
   Link,
-  Grid
+  Grid,
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
-import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from '../../Utils/constants';
-import {gql,useMutation} from '@apollo/client';
-
-
-
+import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from "../../Utils/constants";
+import { gql, useMutation } from "@apollo/client";
+import ThemeSwitch from "../../Components/ThemeSwitch/ThemeSwitch";
+import Translator from '../../Utils/Translator';
 
 const LOGIN_MUT = gql`
   mutation ($email: String!, $password: String!) {
@@ -34,27 +33,23 @@ const LOGIN_MUT = gql`
 `;
 
 export default function Login() {
-  const history=useNavigate()
+  const history = useNavigate();
 
-
-
-  const [email, setEmail] = useState<String>("");
-  const [password, setPassword] = useState<String>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [emailColor, setEmailColor] = useState<
-  'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
->('primary');
+    "primary" | "secondary" | "error" | "info" | "success" | "warning"
+  >("primary");
   const [passwordColor, setPasswordColor] = useState<
-  'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
-
->('primary');
-  const [helperPass, setHelperPass] = useState<String>("");
-  const [helperEmail, setHelperEmail] = useState<String>("");
+    "primary" | "secondary" | "error" | "info" | "success" | "warning"
+  >("primary");
+  const [helperPass, setHelperPass] = useState<string>("");
+  const [helperEmail, setHelperEmail] = useState<string>("");
   const [login] = useMutation(LOGIN_MUT);
 
-
-  const handleSubmit = async (event:React.SyntheticEvent) => {
+  const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (password === "") {
       setPasswordError(true);
@@ -68,142 +63,131 @@ export default function Login() {
         password: password,
       },
     });
+    
 
     if (data.login.user == null) {
-
-      if(data.login.errors.field ==="Password")
-      {
-    
-        setHelperPass(data.login.errors.message)
+      if (data.login.errors.field === "Password") {
+        setHelperPass(data.login.errors.message);
+      } else if (data.login.errors.field === "Email") {
+        setHelperEmail(data.login.errors.message);
       }
-        else if(data.login.errors.field ==="Email")
-      {
-
-        setHelperEmail(data.login.errors.message)
-      }
-      }
-     else {
+    } else {
       //LOGIN SUCCESS
-      history("/dashboard")
-    } 
+      history("/");
+      window.location.reload()
+    }
   };
-  const handleEmailChange = (e:string) => {
+  const handleEmailChange = (e: string) => {
     setEmail(e);
-    if (
-      e === "" ||
-      !e.match(
-        VAILDEMAIL)
-    ) {
+    if (e === "" || !e.match(VAILDEMAIL)) {
       setEmailError(true);
       setHelperEmail("Insert a valid email format [*@.*]");
     } else {
       setEmailError(false);
-      setHelperEmail("")
+      setHelperEmail("");
       setEmailColor("success");
     }
   };
-  const handlePasswordChange = (e:string) => {
+  const handlePasswordChange = (e: string) => {
     setPassword(e);
-    if (
-      e === "" ||
-      !e.match(VALID_PASSWORD_8_A_1)
-    ) {
+    if (e === "" || !e.match(VALID_PASSWORD_8_A_1)) {
       setPasswordError(true);
       setHelperPass(
         "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
       );
     } else {
       setPasswordError(false);
-      setHelperPass("")
+      setHelperPass("");
 
       setPasswordColor("success");
     }
   };
 
-
   return (
     <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop:10,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <ThemeSwitch />
+
+        <Link href={"/"}>
+          <img src={logo} alt="logo" />
+        </Link>
+        <Typography
+          component="h2"
+          variant="h5"
+          sx={{ mt: 1, fontWeight: "bold" }}
         >
-                      <img src={logo} alt="logo" />
-          <Typography component="h2" variant="h5" sx={{mt:5, fontWeight: 'bold'}}>
-            Sign in
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+          Sign in
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            onChange={(e) => {
+              handleEmailChange(e.target.value);
+            }}
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            value={email}
+            autoFocus
+            error={emailError}
+            color={emailColor}
+            helperText={helperEmail}
+          />
+          <TextField
+            onChange={(e) => handlePasswordChange(e.target.value)}
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            value={password}
+            label="Password"
+            type="password"
+            id="password"
+            color={passwordColor}
+            autoComplete="current-password"
+            error={passwordError}
+            helperText={helperPass}
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <TextField
-              onChange={(e) => {
-                handleEmailChange(e.target.value);
-              }}
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              value={email}
-              autoFocus
-              error={emailError}
-              color={emailColor}
-              helperText={helperEmail}
-            />
-            <TextField
+            Sign In
+          </Button>
 
-              onChange={(e) => handlePasswordChange(e.target.value)}
-
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              value={password}
-              label="Password"
-              type="password"
-              id="password"
-              color={passwordColor}
-              autoComplete="current-password"
-              error={passwordError}
-              helperText={helperPass}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item xs >
-                <Link href="/register" variant="body2">
-                  Not Registered?
-                </Link>
-              </Grid>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+              <Translator trad= "forgotPass" />
+            
+              </Link>
             </Grid>
-          </Box>
+            <Grid item xs>
+              <Link href="/register" variant="body2">
+              <Translator trad= "notRegister" />
+            
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
-      </Container>
-   
+      </Box>
+    </Container>
   );
 }

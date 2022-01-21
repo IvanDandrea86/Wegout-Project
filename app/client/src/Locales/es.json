@@ -1,5 +1,10 @@
 {
         "login":"Inicio de sesión",
         "register":"Inscribirse",
-        "logout":"Cerrar la sesión"   
+        "logout":"Cerrar la sesión",
+        "alredyRegister":"Ya tiene una cuenta?",
+        "notRegister":"¿No tiene una cuenta?",
+        "forgotPass":"¿Ha olvidado su contraseña?",
+        "hero": "Impulsa tu vida social. Encuentra todos los eventos cerca de ti, y la mejor gente con la que ir. Disfruta descubriendo nuevas personas con tu misma pasión."
+
 }

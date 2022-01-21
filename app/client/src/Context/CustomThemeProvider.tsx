@@ -1,5 +1,5 @@
 import React ,{FC}from 'react'
-import { themeDark, themeLight } from "../themes/themes";
+import { themeDark, themeLight } from "../Themes/themes";
 import { Theme } from "@emotion/react";
 
 interface ITheme{

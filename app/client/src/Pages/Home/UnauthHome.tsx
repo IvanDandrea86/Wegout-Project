@@ -1,13 +1,13 @@
 import { Container } from "@mui/material";
 import { FC } from "react";
-import Header from "../../Components/Header/Header";
-import Dashboard from "../Dashboard/Dashboard";
+import UnauthHeader from "../../Components/Header/UnauthHeader";
+import Hero from "../../Components/Hero/Hero";
 
 export const Home: FC = () => {
   return (
     <Container>
-      <Header />
-      <Dashboard />
+      <UnauthHeader />
+      <Hero />
     </Container>
   );
 };

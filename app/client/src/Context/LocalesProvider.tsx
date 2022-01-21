@@ -1,18 +1,18 @@
 import {Language }from "../Locales/Locales";
 import {createContext,useState } from 'react';
-type LanguageContextData =
+interface LanguageContextData 
 {
-	language: Language;
+	language: Language ;
 	setLanguage: Function;
 }
 
 export const languageContext= createContext<LanguageContextData>({
-	// language: 'en',
-	// setLanguage:(()=>{})
 }as LanguageContextData);
 
-const LanguageProvider: React.FC<{}> = ({ children }) =>
+
+ const LanguageProvider: React.FC<{}> = ({ children }) =>
 {
+
 	const [ language, setLanguage ] = useState<Language>('en');
 	return (
 		<languageContext.Provider

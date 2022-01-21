@@ -3,31 +3,46 @@ import { createTheme, ThemeOptions } from '@mui/material';
 export const themeOptions: ThemeOptions = {
   palette: {
     primary: {
-      main: '#2A0944',
+      main: '#000000',
     },
     secondary: {
-      main: '#FFE162',
+      main: '#FFFFFF',
     },
+    background: {
+      default: "#FFFFFF"
+    },
+    text:{
+      primary:"#000000",
+      secondary:"#000000"
+    }
   },
   shape: {
     borderRadius: 5,
   }, 
-  spacing: 15,
+  spacing: 5,
+  
 }
 export const themeOptionsDark: ThemeOptions = {
   palette: {
     primary: {
-      main: '#FFE162',
+      main: '#FFFFFF',
     },
     secondary: {
-      main: '#2A0944',
+      main: '#000000',
     },
+    background: {
+      default: "#000000"
+    },
+    text:{
+      primary:"#FFFFFF",
+      secondary:"#FFFFFF"
+    }
   },
   shape: {
     borderRadius: 5,
     
   },
-  spacing: 15,
+  spacing: 5,
   
 }
 

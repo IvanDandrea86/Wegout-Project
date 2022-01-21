@@ -1,5 +1,9 @@
 {
         "login":"Login",
         "register":"Signup",
-        "logout":"Logout"  
+        "logout":"Logout",
+        "alredyRegister":"Already an account?",
+        "notRegister":"Don't have an account?",
+        "forgotPass":"Forgotten your password?",
+        "hero":"Boost your social life. Find every event near you, and the best people to go with. Enjoy discover new people with your same passion." 
 }
