@@ -260,14 +260,11 @@ export default function Header() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-            
             </IconButton>
-           <IconButton color="inherit" onClick={logoutEvent}>
+          </Box>
+          <IconButton color="inherit" onClick={logoutEvent}>
            <LogoutIcon />
           </IconButton>
-      
-          
-          </Box>
           <ThemeSwitch /> 
         </Toolbar>
       </AppBar>

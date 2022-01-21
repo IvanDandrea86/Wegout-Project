@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Grid, CssBaseline, Typography } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
-
+import FindMe from '../../Utils/geoLocation'
 export const Dashboard = () => {
   const user = useContext(UserContext);
   return (
@@ -24,6 +24,7 @@ export const Dashboard = () => {
           {user.firstname}
           {user.lastname}
         </Typography>
+        <FindMe/>
 
         
       </Grid>
