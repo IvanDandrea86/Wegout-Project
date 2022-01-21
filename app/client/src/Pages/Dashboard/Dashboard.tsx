@@ -1,13 +1,12 @@
 import { useContext } from "react";
-import Footer from "../../Components/Footer/Footer";
-import Header from "../../Components/Header/Header";
-import { Grid } from "@mui/material";
+import { Grid, CssBaseline, Typography } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 
 export const Dashboard = () => {
-  const user =useContext(UserContext)
+  const user = useContext(UserContext);
   return (
     <Grid container spacing={2}>
+      <CssBaseline />
       <Grid
         item
         xs={12}
@@ -21,11 +20,12 @@ export const Dashboard = () => {
           alignItems: "center",
         }}
       >
-        <Header />
-          Welcome 
-        {user.firstname}
-        {user.lastname}
-        <Footer />
+        <Typography variant="h5" color="primary">
+          {user.firstname}
+          {user.lastname}
+        </Typography>
+
+        
       </Grid>
     </Grid>
   );

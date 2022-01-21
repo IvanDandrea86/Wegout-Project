@@ -6,13 +6,13 @@ import {
   Typography,
   TextField,
   Button,
-  
   Link,
   Grid
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from '../../Utils/constants';
-
+import ThemeSwitch from '../../Components/ThemeSwitch/ThemeSwitch';
+import Translator from '../../Utils/Translator';
 
 export default function SignUp() {
 
@@ -60,39 +60,42 @@ export default function SignUp() {
     }
     }
   
-  const handleEmailChange = (e:string) => {
-    setEmail(e);
-    if (
-      e === "" ||
-      !e.match(
-      VAILDEMAIL)
-    ) {
-      setEmailError(true);
-      setHelperEmail("Insert a valid email format [*@.*]");
-
-    } else {
-      setEmailError(false);
-      setHelperEmail("");
+ 
+ const handleChange =(e:string,field:string)=>{ 
+    if(field==="password"){
+      setPassword(e);
+      if (
+        e === "" ||
+        !e.match(VALID_PASSWORD_8_A_1)
+      ) {
+        setPasswordError(true);
+        setHelperPass(
+          "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
+        );
+      } else {
+        setPasswordError(false);
+        setHelperPass("")
+        setColorState('success')
+      }
     }
-  };
-
-  const handlePasswordChange = (e:string) => {
-    setPassword(e);
-    if (
-      e === "" ||
-      !e.match(VALID_PASSWORD_8_A_1)
-    ) {
-      setPasswordError(true);
-      setHelperPass(
-        "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
-      );
-    } else {
-      setPasswordError(false);
-      setHelperPass("")
-
-   
+    else if (field==="email"){
+      setEmail(e);
+      if (
+        e === "" ||
+        !e.match(
+        VAILDEMAIL)
+      ) {
+        setEmailError(true);
+        setHelperEmail("Insert a valid email format [*@.*]");
+  
+      } else {
+        setEmailError(false);
+        setHelperEmail("");
+        setColorState('success')
+      }
     }
-  };
+
+  }
 
   const handlePasswordConfirmChange = (e:string, password:string) => {
     setConfirmPassword(e);
@@ -108,6 +111,7 @@ export default function SignUp() {
       setConfirmPasswordError(false);
       setHelperConfirmPass("");
       setHelperPass("");
+      setColorState('success')
  
     }
   };
@@ -118,14 +122,17 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 10,
+            marginTop: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
-        >
+            >
+              <ThemeSwitch />
+          <Link href={'/'}>
             <img src={logo} alt="logo" />
-          <Typography component="h2" variant="h5" sx={{mt:5, fontWeight: 'bold'}}>
+            </Link>
+          <Typography component="h2" variant="h5" sx={{mt:1, fontWeight: 'bold'}}>
             Don't wait anymore!
           </Typography>
 
@@ -174,7 +181,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  onChange={(e) => handleEmailChange(e.target.value)}
+                  onChange={(e) => handleChange(e.target.value,'email')}
                   required
                   fullWidth
                   value={email}
@@ -183,6 +190,7 @@ export default function SignUp() {
                   error={emailError}
                   name="email"
                   autoComplete="email"
+                  color={colorState}
                   helperText={helperEmail}
                 />
               </Grid>
@@ -199,7 +207,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  onChange={(e) => handlePasswordChange(e.target.value)}
+                  onChange={ (e) => handleChange(e.target.value,'password')}
                   required
                   fullWidth
                   name="password"
@@ -208,7 +216,7 @@ export default function SignUp() {
                   value={password}
                   id="password_register"
                   error={passwordError}
-                  
+                  color={colorState}
                   autoComplete="new-password"
                   helperText={helperPass}
                 />
@@ -227,7 +235,7 @@ export default function SignUp() {
                   id="password_confirm"
                   error={confirmPasswordError}
                   autoComplete="new-password"
-           
+                  color={colorState}
                   helperText={helperConfirmPass}
                 />
               </Grid>
@@ -244,7 +252,8 @@ export default function SignUp() {
             <Grid container>
             <Grid item xs>
               <Link href="/login" variant="body2">
-                Alredy an account?
+             
+             <Translator trad= "alredyRegister" />
               </Link>
             </Grid>
 

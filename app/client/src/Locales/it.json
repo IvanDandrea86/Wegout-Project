@@ -1,5 +1,10 @@
 {
         "login":"Accedi",
         "register":"Iscriviti",
-        "logout":"Logout"    
+        "logout":"Logout",
+        "alredyRegister":"Gia un account?",
+        "notRegister":"Non hai un account?",
+        "forgotPass":"Password dimenticata",
+        "hero":"Aumenta la tua vita sociale. Trova ogni evento vicino a te e le migliori persone con cui andarci. Divertiti a scoprire nuove persone con la tua stessa passione."
+
 }

@@ -6,20 +6,21 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import logo from '../../Assets/Images/logo.svg'
 import Translator from '../../Utils/Translator';
-import Localization from '../Localization/Localization';
 import ThemeSwitch from "../../Components/ThemeSwitch/ThemeSwitch";
 
-
-
 const  UnauthHeader:FC=()=> {
- 
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <img src={logo} alt="logo"  />
+          <img src={logo} alt="logo" style={{
+        flex: 1,
+        alignSelf: 'stretch',
+        width: 110,
+        height: 60,
+        marginTop:10
+    }}  />
           </Typography>
           <Button variant='contained' color="secondary"
           href="/login">
@@ -29,9 +30,7 @@ const  UnauthHeader:FC=()=> {
           <Translator trad="register" /> 
           </Button>
           <ThemeSwitch />
-          <Localization />
         </Toolbar>
-        
       </AppBar>
     </Box>
   );

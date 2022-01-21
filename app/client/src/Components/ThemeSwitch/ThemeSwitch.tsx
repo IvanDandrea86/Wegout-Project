@@ -14,6 +14,7 @@ const ThemeSwitch:FC =()=>{
   };
   return(
 <Switch
+  color="secondary"
   checked={checked}
   onChange={handleChange}
   inputProps={{ 'aria-label': 'controlled' }}

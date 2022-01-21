@@ -1,5 +1,9 @@
 {
         "login":"Connexion",
         "register":"Enregistrez",
-        "logout":"Déconnexion"     
+        "logout":"Déconnexion",
+        "alredyRegister":"Déjà un compte ?",
+        "notRegister":"Pas de compte ?",
+        "forgotPass":"Mot de passe oublié ?",
+        "hero":"Dynamisez votre vie sociale. Trouvez tous les événements près de chez vous, et les meilleures personnes avec qui y aller. Prenez plaisir à découvrir de nouvelles personnes partageant votre passion."     
 }
