@@ -1,12 +1,6 @@
 import React, {useState, useEffect,FC} from 'react'
 import axios from 'axios';
 
-
-
-
-
-
-
 interface IGeoLoc{
     lat:number|null;
     long :number |null;
@@ -32,13 +26,14 @@ const [Location,setLocation]=useState()
             }
           };
           axios.request(options).then(function (response) {
-            console.log(response.data.Country);
+            console.log(response.data)
             setLocation(response.data.Country)
+            
         }).catch(function (error) {
             console.error(error);
         });
           setUserPos(newUserPos) // store data in usestate
-          console.log(newUserPos) // Display your values
+          console.log(userPos) // Display your values
      }, (err) => {
           console.log(err);
      });
@@ -50,7 +45,7 @@ return (
 {Location}</div>
 
  )
-
+    
 }
 
 export default FindMe;

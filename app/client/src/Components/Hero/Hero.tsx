@@ -1,9 +1,37 @@
-import React,{ FC } from "react"
+import React,{ FC, useState ,useEffect} from "react"
 import {Box, Container, Typography,CssBaseline,Skeleton,
 Button,Stack}from "@mui/material"
 import Translator from '../../Utils/Translator';
+import { getPhotos } from "../../Utils/getPhotos";
+ import  {unsplashAPI}  from "../../Utils/constants";
+ import {pexelsAPI} from "../../Utils/constants";
+  import {getVideos} from "../../Utils/getVideos";
+  import {Videos} from '../../Utils/Types/types'
 
-export const Hero:FC=()=>{
+
+
+export const Hero:FC= ()=>{
+
+console.log(unsplashAPI)
+
+console.log(pexelsAPI)
+  
+  // const [data, setData] = useState({} as IImgageData);
+  // const [video,setVideo]=useState({}as Videos)
+
+  // useEffect(() => {
+  // getPhotos(unsplashAPI,"lifestyle",setData)}
+  // , []);
+
+  // useEffect(() => {
+  //  getVideos("party",1,setVideo)}
+  //  , []);
+
+
+
+
+
+
     return(
         <main>
            <CssBaseline />
@@ -22,6 +50,12 @@ export const Hero:FC=()=>{
               align="center"
               gutterBottom
             >
+              {/* <Stack spacing={1}>
+       { data.urls ?  <img src={data.urls.full}alt="" /> :  <Skeleton variant="rectangular" width={210} height={118} /> }
+       </Stack>
+       <Stack spacing={1}>
+       { video.videos ?  <video src={video.videos[0].video_files[0].link} width="600" height="300" loop autoPlay muted  /> :  <Skeleton variant="rectangular" width={210} height={118} /> }
+       </Stack> */}
             We..GO..Out!
             </Typography>
             <Typography variant="h5" align="center"  paragraph>
@@ -37,11 +71,10 @@ export const Hero:FC=()=>{
               <Button variant="contained" href={'/register'}>Join us</Button>
               <Button variant="outlined" href={'/about'}>More about</Button>
             </Stack>
-            <Stack spacing={1}>
-      <Skeleton variant="text" />
-      <Skeleton variant="circular" width={40} height={40} />
-      <Skeleton variant="rectangular" width={210} height={118} />
-    </Stack>
+            
+      
+   
+
           </Container>
         </Box>
      
