@@ -1,5 +1,6 @@
 import React, {useState, useEffect,FC} from 'react'
 import axios from 'axios';
+import {gelocAPI} from '../Utils/constants'
 
 interface IGeoLoc{
     lat:number|null;
@@ -22,7 +23,7 @@ const [Location,setLocation]=useState()
             params: {latitude: newUserPos.lat, longitude: newUserPos.long},
             headers: {
               'x-rapidapi-host': 'geocodeapi.p.rapidapi.com',
-              'x-rapidapi-key': '37b9ca1b01msha9517aa0e7e3cc3p1ec8e5jsnf87e2c8c7974'
+              'x-rapidapi-key': gelocAPI
             }
           };
           axios.request(options).then(function (response) {

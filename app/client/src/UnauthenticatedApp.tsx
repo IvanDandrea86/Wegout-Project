@@ -7,7 +7,9 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Footer from "./Components/Footer/Footer"
 import ErrorUnauth from "./Pages/Errors/ErrorUnauth"
 
+
 const UnauthenticatedApp:FC =()=>{
+  
   
     return(
         <BrowserRouter>
