@@ -17,10 +17,7 @@ const  EventCardSkeleton:FC=()=> {
   return (
     
     <Card   sx={{ maxWidth: 345 }}>
-      
-      
       <Skeleton variant="rectangular" animation="wave"   height={140} />
-      
       <CardContent>
         <Skeleton />
         <Skeleton />

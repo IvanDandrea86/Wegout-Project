@@ -8,19 +8,27 @@ import Typography from '@mui/material/Typography';
 import { getPhotos } from "../../Utils/getPhotos";
 import { unsplashAPI } from "../../Utils/constants";
 import { Skeleton } from '@mui/material';
+import { getEventsDetails } from '../../Utils/getEventDetails';
 
 
 interface IProps{
 
-  title:string |null,
-  desc:string |null,
+  id:string ,
+  
 }
 
 
 
-const  EventCard:FC<IProps>=({title,desc})=> {
-  const [pics,setPics]=useState({} as string)
+const  EventCard:FC<IProps>=({id})=> {
+  const [pics,setPics]=useState<string|null>(null)
+  const [details,setDetails]=useState({}as any)
+
   
+   useEffect(()=>{ 
+    
+     getEventsDetails(id,setDetails)
+    },[])
+
   useEffect(()=>{
     getPhotos(unsplashAPI,"music",setPics)
   },[])
@@ -41,10 +49,16 @@ const  EventCard:FC<IProps>=({title,desc})=> {
       }
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        {title ? title :<Skeleton />}
+        {details.name ? details.name :<Skeleton />}
         </Typography>
+
+        {/* <Typography variant="body1" color="text.secondary">
+        {details.classifications? details.classifications :(
+        <Skeleton />
+        )}
+         </Typography> */}
         <Typography variant="body2" color="text.secondary">
-        {desc? desc :(
+        {details.description? details.description :(
         <Skeleton />
        
         )

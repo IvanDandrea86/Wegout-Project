@@ -40,8 +40,8 @@ const ForgotPassword:FC=()=>{
         token:token,
         newPassword:newPassword
          }}) 
-         console.log(data)
-        if(data.changePassword){
+        
+        if(data.changePassword.errors){
         console.log(data.changePassword.errors.field)
         console.log(data.changePassword.errors.message)
       }
