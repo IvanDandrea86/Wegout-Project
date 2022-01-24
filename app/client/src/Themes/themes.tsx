@@ -19,7 +19,7 @@ export const themeOptions: ThemeOptions = {
   shape: {
     borderRadius: 5,
   }, 
-  spacing: 5,
+  spacing: 1,
   
 }
 export const themeOptionsDark: ThemeOptions = {
@@ -42,7 +42,7 @@ export const themeOptionsDark: ThemeOptions = {
     borderRadius: 5,
     
   },
-  spacing: 5,
+  spacing: 1,
   
 }
 

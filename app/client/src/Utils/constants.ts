@@ -1,6 +1,9 @@
 
 
- const {REACT_APP_UNSPLASH_API,REACT_APP_PEXELS_API,REACT_APP_GEOLOC_APIKEY}=process.env;
+ const {REACT_APP_UNSPLASH_API,REACT_APP_PEXELS_API,
+    REACT_APP_PREDICTHQ_CLIENT_TOKEN,
+    REACT_APP_RAPID_KEY,REACT_APP_GEOLOC_APIKEY,
+    REACT_APP_TICKETMASTER_KEY}=process.env;
 
 // APP TEXT
 export const APP_TITLE = "WeGOut"
@@ -20,3 +23,6 @@ export const VAILDEMAIL=  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)
 export const unsplashAPI = REACT_APP_UNSPLASH_API
  export const pexelsAPI = REACT_APP_PEXELS_API 
  export const gelocAPI= REACT_APP_GEOLOC_APIKEY
+ export const predictHQ=REACT_APP_PREDICTHQ_CLIENT_TOKEN
+ export const rapidKey=REACT_APP_RAPID_KEY
+ export const ticketmasterKey=REACT_APP_TICKETMASTER_KEY
