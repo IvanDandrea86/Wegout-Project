@@ -1,6 +1,8 @@
 import  {createContext,FC,useContext} from "react";
 import {useQuery,gql} from '@apollo/client';
 import { AuthContext } from "./AuthContext";
+import Loading from "../Components/Utility/Loading";
+import ErrorMess from "../Components/Utility/ErrorMess"
 
 interface IUser{
 firstname :string|null;
@@ -28,8 +30,8 @@ const { data,loading,error } = useQuery(FIND_USER,{variables:{
     _id:context.auth
 }})
 
-if (loading) return <p>Loading...</p>;
-if (error) return <p>Error!</p>
+if (loading) return <Loading/>
+if (error) return <ErrorMess/>
 
 
 

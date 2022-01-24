@@ -7,6 +7,7 @@ import cors from "cors";
 import { ALLOW_ORIGIN, __prod__ ,PORT} from "./constants/const";
 import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
+
 // import { startSeed } from "./seeder";
 
 dotenv.config();
@@ -46,4 +47,6 @@ export const main = async () => {
       nEndTime - nStartTime
     )} milliseconds\n------------------------------------------------`
   );
+
+ 
 };

@@ -6,6 +6,7 @@ import UnauthHome from "./Pages/Home/UnauthHome"
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Footer from "./Components/Footer/Footer"
 import ErrorUnauth from "./Pages/Errors/ErrorUnauth"
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 
 const UnauthenticatedApp:FC =()=>{
@@ -17,8 +18,9 @@ const UnauthenticatedApp:FC =()=>{
           <Route path="/" element={<UnauthHome/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/forgot/:token" element={<ForgotPassword />} />
           <Route path ="*" element={<ErrorUnauth/>} />
-          </Routes>
+        </Routes>
         <Footer/>
       </BrowserRouter>
     )

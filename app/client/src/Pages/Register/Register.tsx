@@ -27,11 +27,11 @@ export default function SignUp() {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
   const [helperPass, setHelperPass] = useState("");
-  const [helperEmail, setHelperEmail] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
   const [colorState, setColorState]=useState<
   'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
->()
+  >()
+  const [helperEmail, setHelperEmail] = useState("");
 
   const handleSubmit = async (event:React.FormEvent) => {
     event.preventDefault();
@@ -251,10 +251,10 @@ export default function SignUp() {
             </Button>
             <Grid container>
             <Grid item xs>
-              <Link href="/login" variant="body2">
+              <Button href="/login" variant="text">
              
              <Translator trad= "alredyRegister" />
-              </Link>
+              </Button>
             </Grid>
 
           </Grid>

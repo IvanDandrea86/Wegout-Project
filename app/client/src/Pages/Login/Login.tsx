@@ -17,6 +17,7 @@ import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from "../../Utils/constants";
 import { gql, useMutation } from "@apollo/client";
 import ThemeSwitch from "../../Components/ThemeSwitch/ThemeSwitch";
 import Translator from '../../Utils/Translator';
+import ForgotModal from "../../Components/Modal/ForgotModal";
 
 const LOGIN_MUT = gql`
   mutation ($email: String!, $password: String!) {
@@ -174,16 +175,16 @@ export default function Login() {
 
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              {/* <Link href="#" variant="body2">
               <Translator trad= "forgotPass" />
             
-              </Link>
+              </Link> */}
+              <ForgotModal/>
             </Grid>
             <Grid item xs>
-              <Link href="/register" variant="body2">
+              <Button href="/register" variant="text">
               <Translator trad= "notRegister" />
-            
-              </Link>
+            </Button>
             </Grid>
           </Grid>
         </Box>

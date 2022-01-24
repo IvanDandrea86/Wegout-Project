@@ -5,6 +5,8 @@ import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { COOKIENAME } from "../../constants/const";
+import {v4} from 'uuid';
+import sendMailTest from "../../mailer/sendMailTest";
 
 declare module 'express-session' {
        interface SessionData {
@@ -174,7 +176,7 @@ export default class UserResolver {
         errors: 
           {
             field: "Email",
-            message: "'that email doesn't exist'",
+            message: "This email doesn't exist",
           },
         
       };
@@ -201,7 +203,7 @@ export default class UserResolver {
     return {};
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => Boolean,{ name: "logout" })
   logout(@Ctx() { req, res }: MyContext) {
     return new Promise((resolve) =>
       req.session.destroy((err) => {
@@ -215,5 +217,55 @@ export default class UserResolver {
         resolve(true);
       })
     );
+  }
+@Mutation(()=>Boolean,{ name: "forgotPassword" })
+async forgotPassword(
+  @Arg("email") email:string,
+  @Ctx() {redis}:MyContext)
+  :Promise<Boolean>
+  {
+    const user =await UserModel.findOne({email:email})
+    if (!user) {return true}
+    else{
+    const token=v4()
+    redis.set("ForgotPass"+token,
+    user._id,
+    "ex",
+    1000*60*60)//1hour
+    const HtmlLink=`<a href="http://localhost:3000/forgot/${token}">Here the link to reset yourt password</a> `
+    // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
+      await sendMailTest(user.email,HtmlLink,"WeGOut Password Reset Request")
+    return true
+  }
+  }
+
+  @Mutation(()=>UserResponse|| Boolean,{ name: "changePassword" })
+  async changePass(
+    @Arg("password") password: string,
+    @Arg("token") token:string,
+    @Ctx() {req,redis}:MyContext)
+  : Promise<UserResponse|Boolean> {
+    try{
+    const userId= await redis.get("ForgotPass"+token)
+    if(!userId){
+      return {
+        errors:{
+          field:'token',
+          message:"Your token expired"
+        }
+      }
+    }
+    else{
+      const hashPassword = await bcrypt.hash(password, 8)
+     await UserModel.findOneAndUpdate({_id:userId},{password:hashPassword}).exec() 
+     req.session.userID = userId
+     redis.del("ForgotPass"+token)
+    return true;
+    }
+    }
+    catch(err){
+      console.error(err)
+    }
+    return  {}
   }
 }
