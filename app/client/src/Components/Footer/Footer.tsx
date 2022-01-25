@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid'
 import { FOOTER_TEXT } from '../../Utils/constants';
 import Localization from '../Localization/Localization';
 
-import { CssBaseline } from '@mui/material';
+
 
 function Copyright() {
   return (
@@ -24,21 +24,22 @@ function Copyright() {
 const  Footer=()=> {
   return (
 <footer>
-    {/* <CssBaseline/> */}
+ 
     <Box
     component="footer"
-    sx={{
-     
-      mt: 10,
-      
+    sx={{  
+      mt:5   
     }}
     >
         <Container maxWidth="sm" >
-        <Grid container flex={"center"} justifyContent={"center"} alignItems={"center"}> 
-  
+        <Grid container sx={{
+     display: "flex",
+     justifyContent:"space-around",
+     flexDirection:"row",
+     alignItems:"center"
+   }}> 
           <Copyright />
       <Localization />
-          
           </Grid>
         </Container>
       </Box>

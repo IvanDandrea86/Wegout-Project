@@ -1,9 +1,10 @@
 import { FC, useEffect, useState } from "react";
+import {useSpring,animated,easings } from 'react-spring';
 import {
   Box,
   Container,
   Typography,
-  CssBaseline,
+
   Button,
   Stack,
 } from "@mui/material";
@@ -11,8 +12,8 @@ import Translator from "../../Utils/Translator";
 import { getVideos } from "../../Utils/getVideos";
 import Loading from "../Utility/Loading";
 import styled from "@emotion/styled";
-
 import {BackDropTop,BackDropBottom} from "../BackDrop/BackDrop";
+
 
 //Styles
 const video_container: React.CSSProperties = {
@@ -48,9 +49,20 @@ export const Hero: FC = () => {
     getVideos("dance", 10, setVideo);
   }, []);
 
+  const stylesTitle = useSpring({
+    from:{ opacity: 0, marginTop: -500 },
+      to:{ opacity: 1, marginTop: 0},
+      config:{duration:3000, easing: easings.easeInOutSine}
+  })
+  const stylesSub = useSpring({
+    
+    from:{ opacity: 0, marginTop: -500 },
+    to:{ opacity: 1, marginTop: 0},
+    config:{  duration: 6000, easing: easings.easeInOutSine},
+  })
+
   return (
     <VideoContainer style={video_container}>
-      <CssBaseline />
       {video ? (
         <video loop muted autoPlay style={videoStyle}>
           <source src={video} type="video/mp4" />
@@ -59,15 +71,14 @@ export const Hero: FC = () => {
       ) : (
         <Loading />
         )}
-
       <main>
-        <BackDropTop />
-        <BackDropBottom/>
+      <BackDropTop />
+      <BackDropBottom/>
         <Box
           sx={{
             pt: 8,
             pb: 6,
-            height: "80vh",
+            height: "83vh",
             display:"flex",
             flexDirection:"column",
             justifyContent:"center",
@@ -75,9 +86,14 @@ export const Hero: FC = () => {
           }}
           >
           <Container component="main" maxWidth="sm">
+          <animated.div
+             style={{
+              ...stylesTitle,
+            }}
+          >
             <Typography
               className="linear-wipe "
-              sx={{ mt: 50, fontWeight: "bold" }}
+              sx={{  fontWeight: "bold" }}
               component="h1"
               variant="h2"
               align="center"
@@ -85,6 +101,12 @@ export const Hero: FC = () => {
             >
               We..GO..Out!
             </Typography>
+            
+            <animated.div
+             style={{
+              ...stylesSub,
+            }}
+          >
             <Typography variant="h5" align="center" paragraph>
               <Translator trad="hero" />
             </Typography>
@@ -98,9 +120,13 @@ export const Hero: FC = () => {
                 Join us
               </Button>
               <Button variant="outlined" href={"/about"}>
-                More about
+                 About Us
               </Button>
             </Stack>
+            </animated.div>
+            </animated.div>
+            
+
           </Container>
         </Box>
            

@@ -35,7 +35,7 @@ export default function ControlledOpenSelect() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <FormControl sx={{ m: 1 }}>
         <InputLabel id="select-label">Languages</InputLabel>
         <Select
           labelId="select-label"

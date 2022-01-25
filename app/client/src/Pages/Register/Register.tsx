@@ -1,7 +1,7 @@
 import  { useState } from 'react';
 import {
   Container,
-  CssBaseline,
+
   Box,
   Typography,
   TextField,
@@ -158,11 +158,8 @@ export default function SignUp() {
   const handleSelect=(e:string)=>{
     setLocation(e)
   }
-
   return (
-    
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 2,

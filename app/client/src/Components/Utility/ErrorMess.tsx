@@ -1,13 +1,13 @@
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import  {Box, CssBaseline, Typography } from '@mui/material';
+import  {Box,  Typography } from '@mui/material';
 
 
 
  const ErrorMess=()=> {
   return (
       <div>
-          <CssBaseline/>
+          
     <Box sx={{ display: 'flex',  position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',

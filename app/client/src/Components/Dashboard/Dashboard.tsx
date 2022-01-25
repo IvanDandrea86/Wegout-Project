@@ -1,5 +1,5 @@
 import { useContext,useState } from "react";
-import { Grid, CssBaseline, Typography,Box,  } from "@mui/material";
+import { Grid,  Typography,Box,  } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import FindMe from '../../Utils/geoLocation'
 import EventCard from "../Card/eventCard";
@@ -26,7 +26,7 @@ export const Dashboard = () => {
 
   return (
     <Grid container spacing={2}>
-      <CssBaseline />
+ 
       <Grid
         item
         xs={12}

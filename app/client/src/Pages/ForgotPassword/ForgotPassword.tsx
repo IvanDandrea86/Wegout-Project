@@ -1,6 +1,6 @@
 import { useParams,useNavigate } from "react-router-dom"
 import {FC }from 'react'
-import {CssBaseline,Container,Box,TextField,Button} from '@mui/material'
+import {Container,Box,TextField,Button} from '@mui/material'
 import { useState } from "react"
 import { VALID_PASSWORD_8_A_1 } from "../../Utils/constants"
 import {gql,useMutation} from '@apollo/client'
@@ -95,7 +95,7 @@ const ForgotPassword:FC=()=>{
 
     return (
         <Container component="main" maxWidth="xs">
-        <CssBaseline />
+     
         <Box
           sx={{
             marginTop: 2,

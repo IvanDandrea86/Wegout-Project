@@ -1,12 +1,12 @@
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import  {Box, CssBaseline } from '@mui/material';
+import  {Box } from '@mui/material';
 
 
  const Loading=()=> {
   return (
       <div>
-          <CssBaseline/>
+       
     <Box sx={{ display: 'flex',  position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
