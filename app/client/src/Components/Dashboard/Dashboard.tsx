@@ -22,7 +22,7 @@ export const Dashboard = () => {
 
     },[])
     
-console.log(events)
+
 
   return (
     <Grid container spacing={2}>

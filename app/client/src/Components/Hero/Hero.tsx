@@ -42,7 +42,7 @@ const VideoContainer = styled.div``;
 export const Hero: FC = () => {
   const [video, setVideo] = useState();
 
-  console.log(video);
+
 
   useEffect(() => {
     getVideos("dance", 10, setVideo);

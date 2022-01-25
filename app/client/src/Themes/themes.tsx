@@ -3,17 +3,17 @@ import { createTheme, ThemeOptions } from '@mui/material';
 export const themeOptions: ThemeOptions = {
   palette: {
     primary: {
-      main: '#000000',
+      main: '#090910',
     },
     secondary: {
-      main: '#FFFFFF',
+      main: '#f7f1e3',
     },
     background: {
-      default: "#FFFFFF"
+      default: "#f7f1e3"
     },
     text:{
-      primary:"#000000",
-      secondary:"#000000"
+      primary:"#090910",
+      secondary:"#090910"
     }
   },
   components:{MuiButton:{
@@ -34,17 +34,17 @@ export const themeOptions: ThemeOptions = {
 export const themeOptionsDark: ThemeOptions = {
   palette: {
     primary: {
-      main: '#FFFFFF',
+      main: '#f7f1e3',
     },
     secondary: {
-      main: '#000000',
+      main: '#090910',
     },
     background: {
-      default: "#000000"
+      default: "#090910"
     },
     text:{
-      primary:"#FFFFFF",
-      secondary:"#FFFFFF"
+      primary:"#f7f1e3",
+      secondary:"#f7f1e3"
     }
   },
   components:{MuiButton:{
