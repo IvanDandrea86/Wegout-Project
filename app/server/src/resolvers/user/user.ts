@@ -72,6 +72,7 @@ export default class UserResolver {
     @Arg("password") password: string,
     @Arg("firstname") firstname: String,
     @Arg("lastname") lastname: String,
+    @Arg("location") location:String,
     @Ctx() {req}:MyContext
      ): Promise<UserResponse> {
    if (
@@ -85,6 +86,7 @@ export default class UserResolver {
         errors: error,
       };
     }
+
     const hashPassword = await bcrypt.hash(password, 8);
     const _id = new ObjectId();
     const user = new UserModel({
@@ -93,7 +95,8 @@ export default class UserResolver {
       email: email,
       password: hashPassword,
       firstname : firstname,
-      lastaname:lastname
+      lastname:lastname,
+      location:location
     });
     try {
       await user.save();

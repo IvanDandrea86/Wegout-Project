@@ -7,18 +7,36 @@ import {
   TextField,
   Button,
   Link,
-  Grid
+  Grid,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from '../../Utils/constants';
 import ThemeSwitch from '../../Components/ThemeSwitch/ThemeSwitch';
 import Translator from '../../Utils/Translator';
+import {gql,useMutation} from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+
+const CREATE_USER_MUTATION=gql`
+mutation($lastname:String!,$firstname:String!,$email:String!,$location:String!,$password:String!){
+  createUser(lastname:$lastname,firstname:$firstname,email:$email,location:$location,password:$password){
+    errors{field
+    message}
+user{_id}
+    
+  }}`
+
+
 
 export default function SignUp() {
-
+ const history = useNavigate()
   const [firstnameError, setFirstNameError] = useState<boolean>(false);
   const [lastnameError, setLastNameError] = useState<boolean>(false);
   const [email, setEmail] = useState("");
+  const [location,setLocation]=useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [lastname, setLastName] = useState("");
@@ -26,12 +44,13 @@ export default function SignUp() {
   const [firstname, setFirstName] = useState("");
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
-  const [helperPass, setHelperPass] = useState("");
+  const [helperPass, setHelperPassword] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
   const [colorState, setColorState]=useState<
   'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
   >()
   const [helperEmail, setHelperEmail] = useState("");
+  const [createUser]=useMutation(CREATE_USER_MUTATION)
 
   const handleSubmit = async (event:React.FormEvent) => {
     event.preventDefault();
@@ -40,17 +59,13 @@ export default function SignUp() {
     setEmailError(false);
     setPasswordError(false);
     setConfirmPasswordError(false);
-
-  
-
     if(email === '') {
       setEmailError(true)
       setHelperEmail('This field is empty')
     }
-
     if(confirmPassword === '') {
       setConfirmPasswordError(true)
-      setHelperEmail('This field is empty')
+      setHelperPassword('This field is empty')
     }
 
     if(!(confirmPassword === password)) {
@@ -58,6 +73,31 @@ export default function SignUp() {
       setConfirmPasswordError(true)
       setHelperConfirmPass('Password are different ')
     }
+
+    const { data } = await createUser({
+      variables: {
+        firstname:firstname,
+        lastname:lastname,
+        email: email,
+        password: password,
+        location:location,
+      },
+    });
+
+    if (data.createUser.user == null) {
+      if (data.createUser.errors.field === "Password") {
+        setHelperPassword(data.createUser.errors.message);
+        setPasswordError(true)
+      } else if (data.createUser.errors.field === "Email") {
+        setHelperEmail(data.createUser.errors.message);
+        setEmailError(true)
+      }
+    } else {
+      //createUser SUCCESS
+      history("/");
+      window.location.reload()
+    }
+
     }
   
  
@@ -69,12 +109,12 @@ export default function SignUp() {
         !e.match(VALID_PASSWORD_8_A_1)
       ) {
         setPasswordError(true);
-        setHelperPass(
+        setHelperPassword(
           "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
         );
       } else {
         setPasswordError(false);
-        setHelperPass("")
+        setHelperPassword("")
         setColorState('success')
       }
     }
@@ -101,7 +141,7 @@ export default function SignUp() {
     setConfirmPassword(e);
     if (e === "") {
       setConfirmPasswordError(true);
-      setHelperPass(
+      setHelperPassword(
         "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
       );
     } else if (e !== password) {
@@ -110,11 +150,14 @@ export default function SignUp() {
     } else {
       setConfirmPasswordError(false);
       setHelperConfirmPass("");
-      setHelperPass("");
+      setHelperPassword("");
       setColorState('success')
  
     }
   };
+  const handleSelect=(e:string)=>{
+    setLocation(e)
+  }
 
   return (
     
@@ -168,7 +211,6 @@ export default function SignUp() {
                     setLastName(e.target.value);
                     setLastNameError(false);
                   }}
-
                   required
                   fullWidth
                   id="lastNameNew"
@@ -195,15 +237,67 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="location"
-                  label="Location"
-                  
-                  id="Location"
-                  autoComplete="location"
-                />
+              
+                <FormControl fullWidth>
+  <InputLabel id="Location">Location</InputLabel>
+  <Select
+    labelId="Location"
+    id="LocationSelect"
+    value={location}
+    label="Location"
+    onChange={(e)=>handleSelect(e.target.value)}
+  >
+    <MenuItem value="GB">United Kingdom</MenuItem>
+    <MenuItem value="AL">Albania</MenuItem>
+    <MenuItem value="AD">Andorra</MenuItem>
+    <MenuItem value="AT">Austria</MenuItem>
+    <MenuItem value="BY">Belarus</MenuItem>
+    <MenuItem value="BE">Belgium</MenuItem>
+    <MenuItem value="BA">Bosnia and Herzegovina</MenuItem>
+    <MenuItem value="BG">Bulgaria</MenuItem>
+    <MenuItem value="HR">Croatia (Hrvatska)</MenuItem>
+    <MenuItem value="CY">Cyprus</MenuItem>
+    <MenuItem value="CZ">Czech Republic</MenuItem>
+    <MenuItem value="FR">France</MenuItem>
+    <MenuItem value="GI">Gibraltar</MenuItem>
+    <MenuItem value="DE">Germany</MenuItem>
+    <MenuItem value="GR">Greece</MenuItem>
+    <MenuItem value="VA">Holy See (Vatican City State)</MenuItem>
+    <MenuItem value="HU">Hungary</MenuItem>
+    <MenuItem value="IT">Italy</MenuItem>
+    <MenuItem value="LI">Liechtenstein</MenuItem>
+    <MenuItem value="LU">Luxembourg</MenuItem>
+    <MenuItem value="MK">Macedonia</MenuItem>
+    <MenuItem value="MT">Malta</MenuItem>
+    <MenuItem value="MD">Moldova</MenuItem>
+    <MenuItem value="MC">Monaco</MenuItem>
+    <MenuItem value="ME">Montenegro</MenuItem>
+    <MenuItem value="NL">Netherlands</MenuItem>
+    <MenuItem value="PL">Poland</MenuItem>
+    <MenuItem value="PT">Portugal</MenuItem>
+    <MenuItem value="RO">Romania</MenuItem>
+    <MenuItem value="SM">San Marino</MenuItem>
+    <MenuItem value="RS">Serbia</MenuItem>
+    <MenuItem value="SK">Slovakia</MenuItem>
+    <MenuItem value="SI">Slovenia</MenuItem>
+    <MenuItem value="ES">Spain</MenuItem>
+    <MenuItem value="UA">Ukraine</MenuItem>
+    <MenuItem value="DK">Denmark</MenuItem>
+    <MenuItem value="EE">Estonia</MenuItem>
+    <MenuItem value="FO">Faroe Islands</MenuItem>
+    <MenuItem value="FI">Finland</MenuItem>
+    <MenuItem value="GL">Greenland</MenuItem>
+    <MenuItem value="IS">Iceland</MenuItem>
+    <MenuItem value="IE">Ireland</MenuItem>
+    <MenuItem value="LV">Latvia</MenuItem>
+    <MenuItem value="LT">Lithuania</MenuItem>
+    <MenuItem value="NO">Norway</MenuItem>
+    <MenuItem value="SJ">Svalbard and Jan Mayen Islands</MenuItem>
+    <MenuItem value="SE">Sweden</MenuItem>
+    <MenuItem value="CH">Switzerland</MenuItem>
+    <MenuItem value="TR">Turkey</MenuItem>
+  </Select>
+</FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField
