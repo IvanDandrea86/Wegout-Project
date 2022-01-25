@@ -16,6 +16,15 @@ export const themeOptions: ThemeOptions = {
       secondary:"#000000"
     }
   },
+  components:{MuiButton:{
+    styleOverrides:
+    {    },
+    defaultProps:{
+      sx:{
+        margin:2
+      }
+    }
+  }},
   shape: {
     borderRadius: 5,
   }, 
@@ -38,6 +47,19 @@ export const themeOptionsDark: ThemeOptions = {
       secondary:"#FFFFFF"
     }
   },
+  components:{MuiButton:{
+    styleOverrides:
+    { outlined:{
+      color:"primary"
+      
+    }
+       },
+    defaultProps:{
+      sx:{
+        margin:2,
+      }
+    }
+  }},
   shape: {
     borderRadius: 5,
     

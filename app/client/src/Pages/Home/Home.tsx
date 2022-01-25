@@ -6,12 +6,12 @@ import Navbar from "../../Components/Navbar/Navbar";
 
 export const Home: FC = () => {
   return (
-    <Container>
+<main>
       <Header />
       <Navbar/>
 
       <Dashboard />
-    </Container>
+      </main>
   );
 };
 

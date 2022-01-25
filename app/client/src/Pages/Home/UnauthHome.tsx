@@ -5,10 +5,10 @@ import Hero from "../../Components/Hero/Hero";
 
 export const Home: FC = () => {
   return (
-    <Container>
+   <main>
       <UnauthHeader />
       <Hero />
-    </Container>
+      </main>
   );
 };
 

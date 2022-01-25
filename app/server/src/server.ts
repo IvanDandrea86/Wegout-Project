@@ -9,7 +9,6 @@ import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
 //import { startSeed } from "./seeder";
 dotenv.config();
-
 export const app = express();
 export const main = async () => {
   //Set Start Time

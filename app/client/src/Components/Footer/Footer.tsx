@@ -8,9 +8,11 @@ import Grid from '@mui/material/Grid'
 import { FOOTER_TEXT } from '../../Utils/constants';
 import Localization from '../Localization/Localization';
 
+import { CssBaseline } from '@mui/material';
+
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary"  textAlign={'center'}>
+    <Typography variant='body2' color="text.secondary"  textAlign={'center'}>
       {FOOTER_TEXT +' '}
       <Link color="inherit" href="https://localhost:3000">
         WeGOut.io
@@ -21,24 +23,27 @@ function Copyright() {
 }
 const  Footer=()=> {
   return (
-      <Box
-        component="footer"
-        sx={{
-          py: 3,
-          px: 2,
-          mt: 'auto'
-        }}
-      >
-        <Container maxWidth="sm">
-        <Grid container > 
+<footer>
+    {/* <CssBaseline/> */}
+    <Box
+    component="footer"
+    sx={{
+     
+      mt: 10,
+      
+    }}
+    >
+        <Container maxWidth="sm" >
+        <Grid container flex={"center"} justifyContent={"center"} alignItems={"center"}> 
   
           <Copyright />
+      <Localization />
           
-          <Localization />
           </Grid>
         </Container>
       </Box>
 
+</footer>
   );
 }
 export default Footer;

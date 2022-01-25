@@ -21,7 +21,7 @@ const UnauthenticatedApp:FC =()=>{
           <Route path="/forgot/:token" element={<ForgotPassword />} />
           <Route path ="*" element={<ErrorUnauth/>} />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     )
 }

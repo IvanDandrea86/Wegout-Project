@@ -38,6 +38,7 @@ console.log(events)
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          height:"85vh"
         }}
       >
         <Typography variant="h5" color="primary">

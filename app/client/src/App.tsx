@@ -25,7 +25,7 @@ function App() {
     
       <ThemeProvider theme={theme}>
         {context.auth ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-      </ThemeProvider>
+     </ThemeProvider>
    
   );
 }
