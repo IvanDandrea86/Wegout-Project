@@ -7,6 +7,7 @@ import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { COOKIENAME } from "../../constants/const";
 import {v4} from 'uuid';
 import sendMailTest from "../../mailer/sendMailTest";
+import { sendMail } from "src/mailer/sendMail";
 
 declare module 'express-session' {
        interface SessionData {
@@ -109,7 +110,10 @@ export default class UserResolver {
       };
     }
   }
+  //Succes Case
+
     req.session.userID=user._id;
+
     return {user};
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
@@ -237,8 +241,13 @@ async forgotPassword(
     1000*60*60)//1hour
     const HtmlLink=`<a href="http://localhost:3000/forgot/${token}">Here the link to reset yourt password</a> `
     // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
+    try{
       await sendMailTest(user.email,HtmlLink,"WeGOut Password Reset Request")
-    return true
+    }
+    catch(err){
+      console.error(err)
+    }
+      return true
   }
   }
 

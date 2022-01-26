@@ -5,7 +5,7 @@ export const getVideos = async (query:string,page:number,setVideo:Function) => {
     var options:any|undefined = {
         method: 'GET',
         headers:{
-            Accept:'application/jsom',
+            Accept:'application/json',
             Authorization:pexelsAPI,
         },
         url: 'https://api.pexels.com/videos/search?',

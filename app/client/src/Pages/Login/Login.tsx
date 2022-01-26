@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { gql, useMutation } from "@apollo/client";
-import ThemeSwitch from "../../Components/ThemeSwitch/ThemeSwitch";
+
 import Translator from '../../Utils/Translator';
 import ForgotModal from "../../Components/Modal/ForgotModal";
 import { isEmptyString, isValidEmail, isValidPassword } from "../../Components/Utility/validation";
@@ -80,6 +80,7 @@ export default function Login() {
  
 
   const handleChange=(e:HTMLTextAreaElement | HTMLInputElement)=>{
+    
     if(e.name==="email"){
       setEmail(e.value)
       if (!isValidEmail(e.value) || !isEmptyString(e.value)){

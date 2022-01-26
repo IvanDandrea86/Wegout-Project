@@ -13,36 +13,27 @@ import { getEventsDetails } from '../../Utils/getEventDetails';
 
 interface IProps{
 
-  id:string ,
+  details:any,
+  
   
 }
 
 
 
-const  EventCard:FC<IProps>=({id})=> {
-  const [pics,setPics]=useState<string|null>(null)
-  const [details,setDetails]=useState({}as any)
+const  EventCard:FC<IProps>=({details})=> {
+  
+ console.log(details)
+    
+ return(
 
   
-   useEffect(()=>{ 
-    
-     getEventsDetails(id,setDetails)
-    },[])
-
-  useEffect(()=>{
-    getPhotos(unsplashAPI,"music",setPics)
-  },[])
-  
-
-  return (
-    
     <Card   sx={{ maxWidth: 345 }}>
-      {pics?
+      {details.images[0].url?
       <CardMedia
         component="img"
         alt="green iguana"
         height="140"
-        image={pics}
+        image={details.images[0].url}
       />
       :
       <Skeleton variant="rectangular" animation="wave"   height={140} />
@@ -52,11 +43,16 @@ const  EventCard:FC<IProps>=({id})=> {
         {details.name ? details.name :<Skeleton />}
         </Typography>
 
-        {/* <Typography variant="body1" color="text.secondary">
-        {details.classifications? details.classifications :(
+        <Typography variant="body1" color="text.secondary">
+        {details.classifications? details.classifications[0].segment.name :(
         <Skeleton />
         )}
-         </Typography> */}
+         </Typography>
+         <Typography variant="body1" color="text.secondary">
+        {details.dates? details.dates.start.localDate :(
+        <Skeleton />
+        )}
+         </Typography>
         <Typography variant="body2" color="text.secondary">
         {details.description? details.description :(
         <Skeleton />

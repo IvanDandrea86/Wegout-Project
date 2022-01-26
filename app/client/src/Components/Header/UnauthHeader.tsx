@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC,useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,8 +8,14 @@ import logo from "../../Assets/Images/logo.svg";
 import Translator from "../../Utils/Translator";
 import ThemeSwitch from "../../Components/ThemeSwitch/ThemeSwitch";
 import Grid from "@mui/material/Grid";
+import { navigatioContext } from "../../Context/NavContext";
 
-const UnauthHeader: FC = () => {
+
+
+
+const UnauthHeader: FC = (props) => {
+  const navigation=useContext(navigatioContext)
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -29,12 +35,12 @@ const UnauthHeader: FC = () => {
           </IconButton>
           <Grid container spacing={2}></Grid>
           <Grid item>
-            <Button variant="contained" color="secondary" href="/login">
+            <Button variant="contained" color="secondary" onClick={()=>{navigation.setLink("login")}}>
               <Translator trad="login" />
             </Button>
           </Grid>
           <Grid item>
-          <Button variant="outlined" color="secondary" href="/register">
+          <Button variant="outlined" color="secondary" onClick={()=>{navigation.setLink("register")}}>
             <Translator trad="register" />
           </Button>
           </Grid>

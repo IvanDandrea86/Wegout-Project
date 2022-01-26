@@ -168,7 +168,6 @@ export default function SignUp() {
             alignItems: "center",
           }}
             >
-              <ThemeSwitch />
           <Link href={'/'}>
             <img src={logo} alt="logo" />
             </Link>

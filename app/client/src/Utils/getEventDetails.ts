@@ -4,7 +4,7 @@ import { ticketmasterKey } from "./constants";
 export const getEventsDetails = async (id: string, setData: Function) => {
   var options: any | undefined = {
     method: "GET",
-    url: `https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${ticketmasterKey}$locale=fr`,
+    url: `https://app.ticketmaster.com/discovery/v2/events/${id}.json?apikey=${ticketmasterKey}`,
     header: {
       "Access-Control-Allow-Origin": "*",
     },

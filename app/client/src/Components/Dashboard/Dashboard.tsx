@@ -11,6 +11,7 @@ import EventCardSkeleton from "../Skeleton/EventCardSkeleton";
 export const Dashboard = () => {
   const user = useContext(UserContext);
  const [events,setEvents]=useState<Array<any>>([]as any)
+
    useEffect(()=>{ 
       getEvents_new(setEvents)
     },[])
@@ -18,18 +19,13 @@ export const Dashboard = () => {
 
 
   return (
-   
- 
-   
       <Grid
         container
-        xs={12}
-        sm={12}
-        md={12}
+       
         sx={{
           mb: 1,
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -40,14 +36,30 @@ export const Dashboard = () => {
           {user.lastname}
         </Typography>
         <FindMe/>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}  sx={{
+          
+          display: "flex",
+          flexDirection: "row",
+
+          justifyContent: "space-around",
+          alignItems: "center",
+        }}>
          { events ? events.map((event:any) => (
-          <Grid item xs={12} sm={4} md={4} key={event.id}>
-           <EventCard   id={event.id} />
+          <Grid item xs={12} md={3} key={event.id}
+          sx={{
+            m:1,
+            display: "flex",
+            flexDirection: "row",
+  
+          justifyContent: "space-around",
+            alignItems: "center",
+          }}
+          >
+           <EventCard   details={event} />
           </Grid>))
         :
         Array.from(Array(12)).map((_, index) => (
-          <Grid item xs={12} sm={4} md={4} key={index}>
+          <Grid item xs={12} sm={3} md={4} key={index}>
            <EventCardSkeleton />
           </Grid>
         ))
