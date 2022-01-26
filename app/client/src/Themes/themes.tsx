@@ -59,6 +59,14 @@ export const themeOptionsDark: ThemeOptions = {
         margin:2,
       }
     }
+  },
+  MuiMenuItem:{
+    defaultProps:{
+      sx:{
+        backgroundColor:"primary",
+        color:"black"
+      }
+    }
   }},
   shape: {
     borderRadius: 5,

@@ -18,6 +18,7 @@ const AuthProvider:FC= (props) => {
 const { data,loading,error } = useQuery(IS_ME)
 
 if (loading) return <Loading/>;
+
 if (error) return <ErrorMess/>
 
 

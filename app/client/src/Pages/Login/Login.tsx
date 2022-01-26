@@ -106,7 +106,7 @@ export default function Login() {
     }
   }
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{zIndex:2}}>
   
       <Box
         sx={{
@@ -116,7 +116,7 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <ThemeSwitch />
+       
 
         <Link href={"/"}>
           <img src={logo} alt="logo" />
@@ -176,10 +176,7 @@ export default function Login() {
 
           <Grid container>
             <Grid item xs>
-              {/* <Link href="#" variant="body2">
-              <Translator trad= "forgotPass" />
-            
-              </Link> */}
+             
               <ForgotModal/>
             </Grid>
             <Grid item xs>

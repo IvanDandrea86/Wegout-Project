@@ -12,7 +12,6 @@ export const getEvents_new = async (setData: Function) => {
             "Access-Control-Allow-Origin": "*"
         }
         };
-
       axios
         .request(options)
         .then(function (response) {
