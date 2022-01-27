@@ -1,0 +1,4 @@
+mutation($token:String!,$newPassword:String!){changePassword(token:$token,password:$newPassword){
+  errors{field message}
+  user{_id}
+}}

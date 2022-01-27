@@ -2,11 +2,13 @@ import { prop } from "@typegoose/typegoose";
 import { Field, ObjectType,} from "type-graphql";
 import {User} from '../entities/user.entity'
 import { Request,Response } from "express";
+import { Redis } from "ioredis";
 
 
 export type MyContext={
   res:Response
-  req:Request 
+  req:Request
+  redis:Redis 
 }
 
 @ObjectType()

@@ -1,0 +1,7 @@
+mutation($lastname:String!,$firstname:String!,$email:String!,$location:String!,$password:String!){
+  createUser(lastname:$lastname,firstname:$firstname,email:$email,location:$location,password:$password){
+    errors{field
+    message}
+user{_id}
+    
+  }}

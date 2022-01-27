@@ -1,8 +1,8 @@
-import { useState } from "react";
+import {  useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
-  CssBaseline,
+
   Box,
   Typography,
   TextField,
@@ -13,10 +13,13 @@ import {
   Grid,
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
-import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from "../../Utils/constants";
 import { gql, useMutation } from "@apollo/client";
-import ThemeSwitch from "../../Components/ThemeSwitch/ThemeSwitch";
+import {useSpring,animated} from 'react-spring'
 import Translator from '../../Utils/Translator';
+import ForgotModal from "../../Components/Modal/ForgotModal";
+import { isEmptyString, isValidEmail, isValidPassword } from "../../Components/Utility/validation";
+import {LoginAnimation} from "../../Assets/Animation/animation"
+import { navigatioContext } from "../../Context/NavContext";
 
 const LOGIN_MUT = gql`
   mutation ($email: String!, $password: String!) {
@@ -33,10 +36,15 @@ const LOGIN_MUT = gql`
 `;
 
 export default function Login() {
-  const history = useNavigate();
 
+  const navigation=useContext(navigatioContext)
+  const fadeLeft=useSpring(LoginAnimation)
+
+  const history = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [helperPassword,setHelperPassword]=useState<string>("")
+  const [helperEmail,setHelperEmail]=useState<string>("")
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [emailColor, setEmailColor] = useState<
@@ -45,8 +53,6 @@ export default function Login() {
   const [passwordColor, setPasswordColor] = useState<
     "primary" | "secondary" | "error" | "info" | "success" | "warning"
   >("primary");
-  const [helperPass, setHelperPass] = useState<string>("");
-  const [helperEmail, setHelperEmail] = useState<string>("");
   const [login] = useMutation(LOGIN_MUT);
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
@@ -63,13 +69,13 @@ export default function Login() {
         password: password,
       },
     });
-    
-
     if (data.login.user == null) {
       if (data.login.errors.field === "Password") {
-        setHelperPass(data.login.errors.message);
+        setHelperPassword(data.login.errors.message);
+        setPasswordError(true)
       } else if (data.login.errors.field === "Email") {
         setHelperEmail(data.login.errors.message);
+        setEmailError(true)
       }
     } else {
       //LOGIN SUCCESS
@@ -77,35 +83,40 @@ export default function Login() {
       window.location.reload()
     }
   };
-  const handleEmailChange = (e: string) => {
-    setEmail(e);
-    if (e === "" || !e.match(VAILDEMAIL)) {
-      setEmailError(true);
-      setHelperEmail("Insert a valid email format [*@.*]");
-    } else {
-      setEmailError(false);
-      setHelperEmail("");
-      setEmailColor("success");
-    }
-  };
-  const handlePasswordChange = (e: string) => {
-    setPassword(e);
-    if (e === "" || !e.match(VALID_PASSWORD_8_A_1)) {
-      setPasswordError(true);
-      setHelperPass(
-        "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
-      );
-    } else {
-      setPasswordError(false);
-      setHelperPass("");
+ 
 
-      setPasswordColor("success");
+  const handleChange=(e:HTMLTextAreaElement | HTMLInputElement)=>{
+    
+    if(e.name==="email"){
+      setEmail(e.value)
+      if (!isValidEmail(e.value) || !isEmptyString(e.value)){
+        setHelperEmail("Insert a valid email format [*@.*]")
+        setEmailError(true)
+      }
+      else{
+        setEmailError(false);
+        setHelperEmail("")
+        setEmailColor("success");
+      }
     }
-  };
-
+    if(e.name==="password"){
+      setPassword(e.value)
+      if (!isValidPassword(e.value) || !isEmptyString(e.value)){
+        setHelperPassword("Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character")
+        setPasswordError(true)
+      }
+      else{
+        setPasswordError(false);
+        setHelperPassword("")
+        setPasswordColor("success");
+      }
+    }
+  }
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    
+    <animated.div style={fadeLeft}>
+    <Container component="main" maxWidth="xs" sx={ {zIndex:0}}>
+  
       <Box
         sx={{
           marginTop: 2,
@@ -114,7 +125,7 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <ThemeSwitch />
+       
 
         <Link href={"/"}>
           <img src={logo} alt="logo" />
@@ -129,7 +140,7 @@ export default function Login() {
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             onChange={(e) => {
-              handleEmailChange(e.target.value);
+              handleChange(e.target);
             }}
             margin="normal"
             required
@@ -145,7 +156,7 @@ export default function Login() {
             helperText={helperEmail}
           />
           <TextField
-            onChange={(e) => handlePasswordChange(e.target.value)}
+            onChange={(e) => handleChange(e.target)}
             margin="normal"
             required
             fullWidth
@@ -157,7 +168,7 @@ export default function Login() {
             color={passwordColor}
             autoComplete="current-password"
             error={passwordError}
-            helperText={helperPass}
+            helperText={helperPassword}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -173,21 +184,18 @@ export default function Login() {
           </Button>
 
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-              <Translator trad= "forgotPass" />
-            
-              </Link>
+            <Grid item xs>  
+              <ForgotModal/>
             </Grid>
             <Grid item xs>
-              <Link href="/register" variant="body2">
+              <Button onClick={()=>{navigation.setLink("register")}} variant="text">
               <Translator trad= "notRegister" />
-            
-              </Link>
+            </Button>
             </Grid>
           </Grid>
         </Box>
       </Box>
     </Container>
+    </animated.div>
   );
 }

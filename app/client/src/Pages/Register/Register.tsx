@@ -1,24 +1,45 @@
-import  { useState } from 'react';
+import  { useContext, useState } from 'react';
 import {
   Container,
-  CssBaseline,
   Box,
   Typography,
   TextField,
   Button,
   Link,
-  Grid
+  Grid,
+  FormControl,
+  Select,
+  InputLabel
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from '../../Utils/constants';
-import ThemeSwitch from '../../Components/ThemeSwitch/ThemeSwitch';
+import { useSpring,animated } from 'react-spring';
 import Translator from '../../Utils/Translator';
+import {gql,useMutation} from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+import { RegisterAnimation } from '../../Assets/Animation/animation';
+import {CountryMenuItem} from '../../Components/FormComponents/ContryMenuItem'
+import { navigatioContext } from '../../Context/NavContext';
+const CREATE_USER_MUTATION=gql`
+mutation($lastname:String!,$firstname:String!,$email:String!,$location:String!,$password:String!){
+  createUser(lastname:$lastname,firstname:$firstname,email:$email,location:$location,password:$password){
+    errors{field
+    message}
+user{_id}
+    
+  }}`
+
+
 
 export default function SignUp() {
+const navigation =useContext(navigatioContext)
+  const fadeRight=useSpring(RegisterAnimation)
 
+ const history = useNavigate()
   const [firstnameError, setFirstNameError] = useState<boolean>(false);
   const [lastnameError, setLastNameError] = useState<boolean>(false);
   const [email, setEmail] = useState("");
+  const [location,setLocation]=useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [lastname, setLastName] = useState("");
@@ -26,12 +47,13 @@ export default function SignUp() {
   const [firstname, setFirstName] = useState("");
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
-  const [helperPass, setHelperPass] = useState("");
-  const [helperEmail, setHelperEmail] = useState("");
+  const [helperPass, setHelperPassword] = useState("");
   const [helperConfirmPass, setHelperConfirmPass] = useState("");
   const [colorState, setColorState]=useState<
   'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
->()
+  >()
+  const [helperEmail, setHelperEmail] = useState("");
+  const [createUser]=useMutation(CREATE_USER_MUTATION)
 
   const handleSubmit = async (event:React.FormEvent) => {
     event.preventDefault();
@@ -40,17 +62,13 @@ export default function SignUp() {
     setEmailError(false);
     setPasswordError(false);
     setConfirmPasswordError(false);
-
-  
-
     if(email === '') {
       setEmailError(true)
       setHelperEmail('This field is empty')
     }
-
     if(confirmPassword === '') {
       setConfirmPasswordError(true)
-      setHelperEmail('This field is empty')
+      setHelperPassword('This field is empty')
     }
 
     if(!(confirmPassword === password)) {
@@ -58,9 +76,32 @@ export default function SignUp() {
       setConfirmPasswordError(true)
       setHelperConfirmPass('Password are different ')
     }
+
+    const { data } = await createUser({
+      variables: {
+        firstname:firstname,
+        lastname:lastname,
+        email: email,
+        password: password,
+        location:location,
+      },
+    });
+
+    if (data.createUser.user == null) {
+      if (data.createUser.errors.field === "Password") {
+        setHelperPassword(data.createUser.errors.message);
+        setPasswordError(true)
+      } else if (data.createUser.errors.field === "Email") {
+        setHelperEmail(data.createUser.errors.message);
+        setEmailError(true)
+      }
+    } else {
+      //createUser SUCCESS
+      history("/");
+      window.location.reload()
     }
-  
- 
+    }
+
  const handleChange =(e:string,field:string)=>{ 
     if(field==="password"){
       setPassword(e);
@@ -69,12 +110,12 @@ export default function SignUp() {
         !e.match(VALID_PASSWORD_8_A_1)
       ) {
         setPasswordError(true);
-        setHelperPass(
+        setHelperPassword(
           "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
         );
       } else {
         setPasswordError(false);
-        setHelperPass("")
+        setHelperPassword("")
         setColorState('success')
       }
     }
@@ -101,7 +142,7 @@ export default function SignUp() {
     setConfirmPassword(e);
     if (e === "") {
       setConfirmPasswordError(true);
-      setHelperPass(
+      setHelperPassword(
         "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
       );
     } else if (e !== password) {
@@ -110,16 +151,17 @@ export default function SignUp() {
     } else {
       setConfirmPasswordError(false);
       setHelperConfirmPass("");
-      setHelperPass("");
+      setHelperPassword("");
       setColorState('success')
  
     }
   };
-
+  const handleSelect=(e:string)=>{
+    setLocation(e)
+  }
   return (
-    
+    <animated.div style={fadeRight}> 
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 2,
@@ -128,7 +170,6 @@ export default function SignUp() {
             alignItems: "center",
           }}
             >
-              <ThemeSwitch />
           <Link href={'/'}>
             <img src={logo} alt="logo" />
             </Link>
@@ -168,7 +209,6 @@ export default function SignUp() {
                     setLastName(e.target.value);
                     setLastNameError(false);
                   }}
-
                   required
                   fullWidth
                   id="lastNameNew"
@@ -195,15 +235,19 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="location"
-                  label="Location"
-                  
-                  id="Location"
-                  autoComplete="location"
-                />
+              
+                <FormControl fullWidth>
+  <InputLabel id="Location">Location</InputLabel>
+  <Select
+    labelId="Location"
+    id="LocationSelect"
+    value={location}
+    label="Location"
+    onChange={(e)=>handleSelect(e.target.value)}
+  >
+    <CountryMenuItem/>
+  </Select>
+</FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -251,10 +295,10 @@ export default function SignUp() {
             </Button>
             <Grid container>
             <Grid item xs>
-              <Link href="/login" variant="body2">
+              <Button onClick={()=>{navigation.setLink("login")}} variant="text">
              
              <Translator trad= "alredyRegister" />
-              </Link>
+              </Button>
             </Grid>
 
           </Grid>
@@ -265,6 +309,6 @@ export default function SignUp() {
  
         
       </Container>
-
+      </animated.div>
   );
 }

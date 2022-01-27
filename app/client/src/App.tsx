@@ -4,7 +4,7 @@ import { AuthContext } from "./Context/AuthContext";
 import AuthenticatedApp from "./AuthenticatedApp";
 import UnauthenticatedApp from "./UnauthenticatedApp";
 import { ThemeProvider } from "@mui/material";
-
+import { CssBaseline } from "@mui/material";
 import * as React from 'react';
 import {CustomThemeContext} from './Context/CustomThemeProvider'
 import { languageContext } from "./Context/LocalesProvider";
@@ -24,8 +24,9 @@ function App() {
   return (
     
       <ThemeProvider theme={theme}>
+        <CssBaseline/>
         {context.auth ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-      </ThemeProvider>
+     </ThemeProvider>
    
   );
 }

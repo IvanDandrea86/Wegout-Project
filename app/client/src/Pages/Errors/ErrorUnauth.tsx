@@ -6,6 +6,7 @@ export const ErrorUnauth:FC=()=>{
 
     return(
         <div>
+            ERROR 404-
             Unauthorized Access
             <Link href="/">Back Home</Link>
         </div>

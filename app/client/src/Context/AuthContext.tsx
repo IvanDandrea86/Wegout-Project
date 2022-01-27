@@ -1,5 +1,7 @@
 import  {createContext,FC} from "react";
 import {useQuery,gql} from '@apollo/client';
+import Loading from "../Components/Utility/Loading";
+import ErrorMess from "../Components/Utility/ErrorMess"
 
 interface IAuth{
 auth:string|null;
@@ -15,8 +17,9 @@ const AuthProvider:FC= (props) => {
   
 const { data,loading,error } = useQuery(IS_ME)
 
-if (loading) return <p>Loading...</p>;
-if (error) return <p>Error!</p>
+if (loading) return <Loading/>;
+
+if (error) return <ErrorMess/>
 
 
 if(data.me !=null){

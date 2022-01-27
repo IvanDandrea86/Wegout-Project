@@ -12,7 +12,7 @@ const [Location,setLocation]=useState()
 
  useEffect(() => {
       navigator.geolocation.getCurrentPosition((pos) =>{
-          console.log(pos.coords.latitude + " " + pos.coords.longitude) // display VALUE
+     
           const newUserPos = { 
                 lat: pos.coords.latitude,
                 long: pos.coords.longitude,
@@ -27,14 +27,14 @@ const [Location,setLocation]=useState()
             }
           };
           axios.request(options).then(function (response) {
-            console.log(response.data)
+            
             setLocation(response.data.Country)
             
         }).catch(function (error) {
             console.error(error);
         });
           setUserPos(newUserPos) // store data in usestate
-          console.log(userPos) // Display your values
+     
      }, (err) => {
           console.log(err);
      });
@@ -42,9 +42,9 @@ const [Location,setLocation]=useState()
 
 return (
 
- <div>
-{Location}</div>
-
+<span>
+{Location}
+</span>
  )
     
 }

@@ -31,13 +31,17 @@ export class User{
     @prop({unique:true})
     email !:string;
 
-    @Field({nullable:true})
+    @Field()
     @prop()
     firstname !:string;
 
-    @Field({nullable:true})
+    @Field()
     @prop()
     lastname !:string;
+
+    @Field()
+    @prop()
+    location !:string;
 
     @Field(()=>[String])
     @prop({type:String})
@@ -54,12 +58,6 @@ export class User{
     @Field({nullable:true, defaultValue:false})
     @prop({default:false})
     isVerified: boolean;
-
-
-    @Field(()=>String)
-    @prop({type:String})
-    location :String;
-
 
     @Field(()=>[String])
     @prop({type:String})

@@ -4,27 +4,22 @@ import { runConnection } from "./loaders/dbLoader";
 import { apolloLoader } from "./loaders/apolloLoader";
 import express from "express";
 import cors from "cors";
-import { ALLOW_ORIGIN, __prod__ ,PORT} from "./constants/const";
+import { ALLOW_ORIGIN, __prod__, PORT } from "./constants/const";
 import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
-// import { startSeed } from "./seeder";
-
-
-
+//import { startSeed } from "./seeder";
 dotenv.config();
-
 export const app = express();
-
 export const main = async () => {
   //Set Start Time
   let startTime = new Date();
   let nStartTime = Date.now();
   //Connect DB
-  runConnection().catch((err) => {  
+  runConnection().catch((err) => {
     console.error(err);
   });
   //Seed with FakeData
-   //startSeed(60)
+  //  startSeed(60)
   //CORS middelware
   app.use(
     cors({
@@ -38,7 +33,6 @@ export const main = async () => {
   apolloLoader().catch((err) => {
     console.error(err);
   });
-
   app.listen(PORT, () => {
     console.log(startTime, `\n🚀 Server running at: http://localhost:${PORT}`);
   });

@@ -5,7 +5,9 @@ declare namespace NodeJS{
         SECRET:string ;
         REDIS_URL:string| undefined;
         ALLOWED_ORIGIN:string;
-        
+        SMTP_USER:string;
+        SMTP_PASS:string;
+        SMTP_HOST:string;
     }
 }
 

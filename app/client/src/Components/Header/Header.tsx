@@ -1,12 +1,12 @@
 
 
-import React,{useContext} from 'react';
+import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,11 +19,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import { useMutation,gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import {Stack,Avatar} from '@mui/material'
+
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
-import { stringAvatar } from '../../Utils/stringAvatar';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { UserContext } from '../../Context/UserContext';
+
+
+import { Button, Grid } from '@mui/material';
 
 const LOGOUT_MUT = gql`
   mutation {
@@ -75,7 +75,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header() {
 
     const navigate = useNavigate();
-  const user =useContext(UserContext)
+  
   const [logout] = useMutation(LOGOUT_MUT);
 
   const logoutEvent = async (event: React.SyntheticEvent) => {
@@ -132,7 +132,7 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
     </Menu>
   );
 
@@ -154,7 +154,7 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <IconButton size="large" aria-label="show 4 new mails" color="primary">
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
@@ -197,7 +197,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <IconButton aria-label="" href="/">
              <img
              src={logo}
              alt="logo"
@@ -209,7 +209,10 @@ export default function Header() {
                marginTop: 10,
                }}
             />
-           </Typography>
+      </IconButton>
+           
+        <Grid container spacing={0} sx={{display:"flex", justifyContent:"space-between",flexWrap:"nowrap"}}>
+          
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -218,10 +221,19 @@ export default function Header() {
               onChange={handleSearch}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-            />
+              />
           </Search>
-          <Box sx={{ flexGrow: 1 }} />
+          
+         <Grid item>
+          <Button variant="text" color="inherit" onClick={logoutEvent}  >
+           Profile
+          </Button>
+          <Button variant="text" color="inherit" onClick={logoutEvent}>
+            Logout
+          </Button>
+          </Grid>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Grid item>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -231,7 +243,7 @@ export default function Header() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
-            >
+              >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
@@ -243,14 +255,13 @@ export default function Header() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="secondary"
-            >
-                   <Stack direction="row" spacing={2}>
-       <Avatar {...stringAvatar(`${user.firstname} ${user.lastname}`)} />
-    </Stack>
+              color="inherit"
+              >       
             </IconButton>
+            <ThemeSwitch /> 
+            </Grid>
           </Box>
-    
+          
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -259,13 +270,10 @@ export default function Header() {
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
-            >
+              >
             </IconButton>
           </Box>
-          <IconButton color="inherit" onClick={logoutEvent}>
-           <LogoutIcon />
-          </IconButton>
-          <ThemeSwitch /> 
+              </Grid>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -275,46 +283,4 @@ export default function Header() {
 }
 
 
-//   return (
-//     <Box sx={{ flexGrow: 1 }}>
-//       <AppBar position="static">
-//         <Toolbar>
-//           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-//             <img
-//               src={logo}
-//               alt="logo"
-//               style={{
-//                 flex: 1,
-//                 alignSelf: "stretch",
-//                 width: 110,
-//                 height: 60,
-//                 marginTop: 10,
-//               }}
-//             />
-//           </Typography>
-//           {/* Notification Button Icon */}
-//           <IconButton color="inherit">
-//             <Badge badgeContent={1} color="secondary">
-//               <NotificationsIcon />
-//             </Badge>
-//           </IconButton>
-//           {/* Message Button Icon */}
-//           <IconButton color="inherit">
-//             <Badge badgeContent={5} color="secondary">
-//               <MailOutlineIcon />
-//             </Badge>
-//           </IconButton>
-//           {/* Logout Button Icon */}
-//           <IconButton color="inherit" onClick={logoutEvent}>
-//             <LogoutIcon />
-//           </IconButton>
-//           <Stack direction="row" spacing={2}>
-//       <Avatar {...stringAvatar(`${user.firstname} ${user.lastname}`)} />
-//     </Stack>
-//           <ThemeSwitch />
-//         </Toolbar>
-//       </AppBar>
-//     </Box>
-//   );
-// };
-// export default Header;
+

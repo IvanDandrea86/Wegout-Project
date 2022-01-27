@@ -8,9 +8,11 @@ import Grid from '@mui/material/Grid'
 import { FOOTER_TEXT } from '../../Utils/constants';
 import Localization from '../Localization/Localization';
 
+
+
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary"  textAlign={'center'}>
+    <Typography variant='body2' color="text.secondary"  textAlign={'center'}>
       {FOOTER_TEXT +' '}
       <Link color="inherit" href="https://localhost:3000">
         WeGOut.io
@@ -21,23 +23,23 @@ function Copyright() {
 }
 const  Footer=()=> {
   return (
-      <Box
-        component="footer"
-        sx={{
-          py: 3,
-          px: 2,
-          mt: 'auto'
-        }}
-      >
-        <Container maxWidth="sm">
-        <Grid container > 
+
+ 
   
+       
+        <Grid container sx={{
+     display: "flex",
+     justifyContent:"space-around",
+     flexDirection:"row",
+     alignItems:"center",
+     position:"relative"
+   }}> 
           <Copyright />
-          
-          <Localization />
+      <Localization />
           </Grid>
-        </Container>
-      </Box>
+     
+    
+
 
   );
 }

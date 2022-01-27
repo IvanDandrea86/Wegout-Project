@@ -18,7 +18,6 @@ const availableLanguages: { [key: string]: any } = {
 };
 
 
-
 export const useTranslator = (key: string): string =>
 {
 	const { language } = useContext(languageContext);
