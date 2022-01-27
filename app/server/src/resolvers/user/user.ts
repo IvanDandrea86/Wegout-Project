@@ -7,7 +7,7 @@ import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { COOKIENAME } from "../../constants/const";
 import {v4} from 'uuid';
 import sendMailTest from "../../mailer/sendMailTest";
-import { sendMail } from "src/mailer/sendMail";
+
 
 declare module 'express-session' {
        interface SessionData {
