@@ -18,7 +18,7 @@ import {useSpring,animated} from 'react-spring'
 import Translator from '../../Utils/Translator';
 import ForgotModal from "../../Components/Modal/ForgotModal";
 import { isEmptyString, isValidEmail, isValidPassword } from "../../Components/Utility/validation";
-
+import {LoginAnimation} from "../../Assets/Animation/animation"
 const LOGIN_MUT = gql`
   mutation ($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -36,11 +36,7 @@ const LOGIN_MUT = gql`
 export default function Login() {
 
 
-  const fadeLeft=useSpring({
-   from:{ opacity :0, marginLeft:-200},
-   to:{ opacity :1,marginLeft:0},
-   config:{duration:1000}
-   })
+  const fadeLeft=useSpring(LoginAnimation)
 
   const history = useNavigate();
   const [email, setEmail] = useState<string>("");
@@ -185,8 +181,7 @@ export default function Login() {
           </Button>
 
           <Grid container>
-            <Grid item xs>
-             
+            <Grid item xs>  
               <ForgotModal/>
             </Grid>
             <Grid item xs>
