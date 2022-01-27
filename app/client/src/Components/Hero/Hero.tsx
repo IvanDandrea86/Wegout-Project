@@ -11,7 +11,7 @@ import Login from "../../Pages/Login/Login";
 import { Box } from "@mui/material";
 import Register from "../../Pages/Register/Register";
 import { navigatioContext } from "../../Context/NavContext";
-import { CustomThemeContext } from "../../Context/CustomThemeProvider";
+
 
 //Styles
 const video_container: React.CSSProperties = {
@@ -50,22 +50,18 @@ const VideoContainer = styled.div``;
 
 export const Hero: FC = () => {
   const navigation=useContext(navigatioContext)
-  console.log(navigation.link)
   const [video, setVideo] = useState();
+  const [toggle,setToggle]=useState(false)
+console.log(toggle)
+  const fadeIn=useSpring({
+   opacity: toggle ? 0 :1,
+  })
 
-  // const fadeIn=useSpring({
-  //   // from:{ opacity: 0, marginTop: -500 },
-  //   // to:{ opacity: 1, marginTop: 0},
-  //   config:{duration:3000, easing: easings.easeInOutSine},
-  // //  transform: isToggle ? "rotate(0deg)" :"rotate(45deg)",
-  // })
-
-  // const fadeDown=useSpring({
-  //   from:{ opacity: 0},
-  //   to:{ opacity: 1 },
-  //   config:{duration:3000, easing: easings.easeInOutSine},
-  //   //  transform: isToggle ? "rotate(0deg)" :"rotate(45deg)",
-  // })
+  const fadeDown=useSpring({
+    opacity: toggle ? 0 :1,
+    // transform: toggle ? 'scale(0)' : 'scale(1)',
+      
+  })
 
   useEffect(() => {
     getVideos("dance", 10, setVideo);
@@ -83,12 +79,12 @@ export const Hero: FC = () => {
       ) : (
         <Loading />
         )}
-        {/* <animated.div style={fadeIn}> */}
+         <animated.div style={fadeIn}> 
       <BackDropTop  />
-      {/* </animated.div > */}
-      {/* <animated.div style={fadeDown}> */}
+      </animated.div > 
+       <animated.div style={fadeDown}>
       <BackDropBottom />
-      {/* </animated.div> */}
+       </animated.div> 
       <Box sx={centerBox}>
   
       {navigation.link ==="hero" ?
@@ -99,6 +95,9 @@ export const Hero: FC = () => {
         <Register/>
        :null
       }
+      <Button variant="contained" color="primary" onClick={()=>{setToggle(!toggle)}}>
+        Rotate
+      </Button>
 
 </Box>
     </VideoContainer>

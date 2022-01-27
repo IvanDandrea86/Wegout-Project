@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { gql, useMutation } from "@apollo/client";
-
+import {useSpring,animated} from 'react-spring'
 import Translator from '../../Utils/Translator';
 import ForgotModal from "../../Components/Modal/ForgotModal";
 import { isEmptyString, isValidEmail, isValidPassword } from "../../Components/Utility/validation";
@@ -34,6 +34,14 @@ const LOGIN_MUT = gql`
 `;
 
 export default function Login() {
+
+
+  const fadeLeft=useSpring({
+   from:{ opacity :0, marginLeft:-200},
+   to:{ opacity :1,marginLeft:0},
+   config:{duration:1000}
+   })
+
   const history = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -107,6 +115,7 @@ export default function Login() {
     }
   }
   return (
+    <animated.div style={fadeLeft}>
     <Container component="main" maxWidth="xs" sx={{zIndex:2}}>
   
       <Box
@@ -189,5 +198,6 @@ export default function Login() {
         </Box>
       </Box>
     </Container>
+    </animated.div>
   );
 }

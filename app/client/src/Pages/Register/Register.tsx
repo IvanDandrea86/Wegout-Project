@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from '../../Utils/constants';
-import ThemeSwitch from '../../Components/ThemeSwitch/ThemeSwitch';
+import { useSpring,animated } from 'react-spring';
 import Translator from '../../Utils/Translator';
 import {gql,useMutation} from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +32,13 @@ user{_id}
 
 
 export default function SignUp() {
+
+  const fadeRight=useSpring({
+    from:{ opacity :0, marginLeft:200},
+    to:{ opacity :1,marginLeft:0},
+    config:{duration:1000}
+    })
+
  const history = useNavigate()
   const [firstnameError, setFirstNameError] = useState<boolean>(false);
   const [lastnameError, setLastNameError] = useState<boolean>(false);
@@ -159,6 +166,7 @@ export default function SignUp() {
     setLocation(e)
   }
   return (
+    <animated.div style={fadeRight}> 
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -355,6 +363,6 @@ export default function SignUp() {
  
         
       </Container>
-
+      </animated.div>
   );
 }
