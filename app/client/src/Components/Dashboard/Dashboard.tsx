@@ -13,7 +13,7 @@ export const Dashboard = () => {
  const [events,setEvents]=useState<Array<any>>([]as any)
 
    useEffect(()=>{ 
-      getEvents_new(setEvents)
+      getEvents_new(100,setEvents)
     },[])
     
 

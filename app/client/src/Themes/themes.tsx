@@ -17,9 +17,56 @@ export const themeOptions: ThemeOptions = {
     }
   },
   components:
-  {MuiButton:{
+  {MuiCardContent:{
+    defaultProps:{
+      sx:{
+        color:"#f7f1e3",
+        backgroundColor:"#090910",
+      
+       
+      }
+    }
+  },
+  MuiCard:{
+    defaultProps:{
+      sx:{
+          }
+    }
+  },
+  MuiCardActions:{
+    defaultProps:{
+      sx:{
+        color:"#f7f1e3",
+        backgroundColor:"#090910",
+     
+       
+      }
+    }
+  },
+    MuiButton:{
     styleOverrides:
-    {    },
+    { text:
+      {color:"inherit",
+        position:"relative",
+        display:"inline-block",
+       
+         "&:after" :{    
+           background: "none repeat scroll 0 0 transparent",
+           backgroundColor:"#f7f1e3",
+           bottom: 0,
+           content: '""',
+           display: "block",
+           height: "2px",
+           left: "50%",
+           position: "absolute",
+           transition: "width 0.3s ease 0s, left 0.3s ease 0s",
+           width: 0,
+         },
+         "&:hover:after" :{ 
+           width: "100%", 
+           left: 0, 
+         },}
+      },
     defaultProps:{
       sx:{
         margin:2
@@ -59,7 +106,32 @@ export const themeOptionsDark: ThemeOptions = {
       secondary:"#f7f1e3"
     }
   },
-  components:{MuiTextField:{
+  components:{MuiCardContent:{
+    defaultProps:{
+      sx:{
+        color:"#090910",
+        backgroundColor:"#f7f1e3",
+      
+       
+      }
+    }
+  },
+  MuiCard:{
+    defaultProps:{
+      sx:{
+          }
+    }
+  },
+  MuiCardActions:{
+    defaultProps:{
+      sx:{
+        color:"#090910",
+        backgroundColor:"#f7f1e3",
+     
+       
+      }
+    }
+  },MuiTextField:{
     defaultProps:{
 
       sx:{
@@ -76,7 +148,28 @@ export const themeOptionsDark: ThemeOptions = {
     { outlined:{
       color:"primary"
       
-    }
+    },
+    text:
+      {color:"inherit",
+        position:"relative",
+        display:"inline-block",
+       
+         "&:after" :{    
+           background: "none repeat scroll 0 0 transparent",
+           backgroundColor:"#090910",
+           bottom: 0,
+           content: '""',
+           display: "block",
+           height: "2px",
+           left: "50%",
+           position: "absolute",
+           transition: "width 0.3s ease 0s, left 0.3s ease 0s",
+           width: 0,
+         },
+         "&:hover:after" :{ 
+           width: "100%", 
+           left: 0, 
+         },}
        },
     defaultProps:{
       sx:{

@@ -19,11 +19,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import { useMutation,gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import {Stack,Avatar} from '@mui/material'
+
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
-import { stringAvatar } from '../../Utils/stringAvatar';
-import LogoutIcon from '@mui/icons-material/Logout';
+
 import { UserContext } from '../../Context/UserContext';
+import { Button } from '@mui/material';
 
 const LOGOUT_MUT = gql`
   mutation {
@@ -223,6 +223,7 @@ export default function Header() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <ThemeSwitch /> 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -246,10 +247,9 @@ export default function Header() {
               onClick={handleProfileMenuOpen}
               color="secondary"
             >
-                   <Stack direction="row" spacing={2}>
-       <Avatar {...stringAvatar(`${user.firstname} ${user.lastname}`)} />
-    </Stack>
+       
             </IconButton>
+
           </Box>
     
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -263,10 +263,13 @@ export default function Header() {
             >
             </IconButton>
           </Box>
-          <IconButton color="inherit" onClick={logoutEvent}>
-           <LogoutIcon />
-          </IconButton>
-          <ThemeSwitch /> 
+         
+          <Button variant="text" color="inherit" onClick={logoutEvent}  >
+           Profile
+          </Button>
+          <Button variant="text" color="inherit" onClick={logoutEvent}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -276,46 +279,4 @@ export default function Header() {
 }
 
 
-//   return (
-//     <Box sx={{ flexGrow: 1 }}>
-//       <AppBar position="static">
-//         <Toolbar>
-//           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-//             <img
-//               src={logo}
-//               alt="logo"
-//               style={{
-//                 flex: 1,
-//                 alignSelf: "stretch",
-//                 width: 110,
-//                 height: 60,
-//                 marginTop: 10,
-//               }}
-//             />
-//           </Typography>
-//           {/* Notification Button Icon */}
-//           <IconButton color="inherit">
-//             <Badge badgeContent={1} color="secondary">
-//               <NotificationsIcon />
-//             </Badge>
-//           </IconButton>
-//           {/* Message Button Icon */}
-//           <IconButton color="inherit">
-//             <Badge badgeContent={5} color="secondary">
-//               <MailOutlineIcon />
-//             </Badge>
-//           </IconButton>
-//           {/* Logout Button Icon */}
-//           <IconButton color="inherit" onClick={logoutEvent}>
-//             <LogoutIcon />
-//           </IconButton>
-//           <Stack direction="row" spacing={2}>
-//       <Avatar {...stringAvatar(`${user.firstname} ${user.lastname}`)} />
-//     </Stack>
-//           <ThemeSwitch />
-//         </Toolbar>
-//       </AppBar>
-//     </Box>
-//   );
-// };
-// export default Header;
+

@@ -100,10 +100,8 @@ const navigation =useContext(navigatioContext)
       history("/");
       window.location.reload()
     }
-
     }
-  
- 
+
  const handleChange =(e:string,field:string)=>{ 
     if(field==="password"){
       setPassword(e);

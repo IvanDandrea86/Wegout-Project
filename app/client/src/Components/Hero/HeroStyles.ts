@@ -24,7 +24,7 @@ export const video_container: React.CSSProperties = {
   export const centerBox ={
       pt: 8,
       pb: 6,
-      height: "80vh",
+      height: "83vh",
       display:"flex",
       flexDirection:"column",
       justifyContent:"center",

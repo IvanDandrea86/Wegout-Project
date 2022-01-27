@@ -1,10 +1,13 @@
 import * as React from 'react';
-import {TextField,Box,Button,Modal} from '@mui/material';
+import {TextField,Box,Button,Modal, Typography} from '@mui/material';
 import Translator from "../../Utils/Translator"
 import { useState } from 'react';
 import {VAILDEMAIL} from '../../Utils/constants'
 import { useMutation,gql } from '@apollo/client';
 import ErrorMess from "../../Components/Utility/ErrorMess"
+import { useNavigate } from 'react-router-dom';
+import { PopUp } from './PopUp';
+import { sleep } from '../../Utils/utils';
 
 
 
@@ -27,10 +30,13 @@ const style = {
 
 export default function BasicModal() {
 
-
+const history=useNavigate()
     const [send]=useMutation(FORGOT_MUT)
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
+  const [message,setMessage]=useState("")
+  const [titleMessage,setTitleMessage]=useState("")
+  
   const handleClose = () => setOpen(false);
   const [forgotEmail,setforgotEmail]=useState('');
   const [forgotEmailError,setforgotEmailError]=useState(false)
@@ -64,8 +70,29 @@ const { data,errors} =  await  send({
     },
   });
   if (errors) return <ErrorMess/>
-if(data)return console.log("email sent")
+if(data){
+  if (forgotEmail===""){
+    setTitleMessage("Alert")
+    setMessage("Email field is empty!")
+  }
+  else{
+    setTitleMessage("Email Sent")
+    setMessage("Check your mailbox, if this email is in our database you will find the link to rest your password")
+  }
+  handleOpenPopUp()
+  await  sleep(5000)
+  history("/");
+  window.location.reload()
+
 }
+}
+const [openPop, setOpenPop] = React.useState(false);
+const handleOpenPopUp = () => {
+  setOpenPop(true);
+};
+const handleClosePopup = () => {
+  setOpenPop(false);
+};
 
   return (
     <div>
@@ -78,10 +105,13 @@ if(data)return console.log("email sent")
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+        
           <Box
           sx={style}
         >    
           <Box component="form" onSubmit={handleSendEmail} noValidate sx={{ mt: 1 }}>
+            <Typography variant="h5" color="inherit">Insert Your Email</Typography>
+            <Typography variant="subtitle2" color="inherit">If your email is in our database you will recive the link to rest your password.</Typography>
             <TextField
               onChange={(e) => {
                 handleChange(e.target.value,e.target.name);
@@ -108,6 +138,21 @@ if(data)return console.log("email sent")
               Send Email
             </Button> 
           </Box>
+          <Modal
+        hideBackdrop
+        open={openPop}
+        onClose={handleClosePopup}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box sx={{ ...style, width: 200 }}>
+          <h2 id="child-modal-title">{titleMessage}</h2>
+          <p id="child-modal-description">
+            {message}
+          </p>
+          <Button onClick={handleClosePopup}>Close</Button>
+        </Box>
+      </Modal>
           </Box>
           </Modal>
     </div>

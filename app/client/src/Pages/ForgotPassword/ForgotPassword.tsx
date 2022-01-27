@@ -1,6 +1,6 @@
 import { useParams,useNavigate } from "react-router-dom"
 import {FC }from 'react'
-import {Container,Box,TextField,Button} from '@mui/material'
+import {Container,Box,TextField,Button, Typography} from '@mui/material'
 import { useState } from "react"
 import { VALID_PASSWORD_8_A_1 } from "../../Utils/constants"
 import {gql,useMutation} from '@apollo/client'
@@ -95,7 +95,6 @@ const ForgotPassword:FC=()=>{
 
     return (
         <Container component="main" maxWidth="xs">
-     
         <Box
           sx={{
             marginTop: 2,
@@ -104,7 +103,8 @@ const ForgotPassword:FC=()=>{
             alignItems: "center",
           }}
         >
-
+             <Typography variant="h5" color="inherit">Reset Password</Typography>
+            <Typography variant="subtitle2" color="inherit">Choose your new password.</Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               onChange={(e) => {

@@ -44,7 +44,7 @@ const HeroTitle:FC=()=>{
             direction="row"
             justifyContent="center"
           >
-            <Button variant="contained" href={"/register"}>
+            <Button variant="contained" href={"/register"} sx={{minWidth: '60px', minHeight: '60px'}}>
               Join us
             </Button>
             <Button variant="outlined" >

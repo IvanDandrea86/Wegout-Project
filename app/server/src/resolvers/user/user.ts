@@ -238,7 +238,7 @@ async forgotPassword(
     redis.set("ForgotPass"+token,
     user._id,
     "ex",
-    1000*60*60)//1hour
+    60*60)//1hour
     const HtmlLink=`<a href="http://localhost:3000/forgot/${token}">Here the link to reset yourt password</a> `
     // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     try{
