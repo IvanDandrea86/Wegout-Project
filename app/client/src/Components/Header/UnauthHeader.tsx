@@ -35,12 +35,12 @@ const UnauthHeader: FC = (props) => {
           </IconButton>
           <Grid container spacing={2}></Grid>
           <Grid item>
-            <Button variant="text" color="secondary" onClick={()=>{navigation.setLink("login")}}>
+            <Button variant="text"  onClick={()=>{navigation.setLink("login")}}>
               <Translator trad="login" />
             </Button>
           </Grid>
           <Grid item>
-          <Button variant="text" color="secondary" onClick={()=>{navigation.setLink("register")}}>
+          <Button variant="text"  onClick={()=>{navigation.setLink("register")}}>
             <Translator trad="register" />
           </Button>
           </Grid>

@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid'
 
 
 
@@ -12,11 +13,14 @@ import Button from '@mui/material/Button';
 const Navbar:FC=()=>{
     return(
         <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color="secondary">
+        <AppBar position="static" >
           <Toolbar>
-          <Button href="#text-buttons">Categories</Button>
-          <Button href="#text-buttons">Today</Button>
-          <Button href="#text-buttons">Suggested for you</Button>
+            <Grid container spacing={2} sx={{display:"flex",justifyContent:"center"}}>
+              
+          <Button variant="text" >Today</Button>
+          <Button variant="text" >Suggested for you</Button>
+          <Button variant="text" >Filter</Button>
+            </Grid>
           </Toolbar>
         </AppBar>
       </Box>

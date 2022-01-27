@@ -13,7 +13,7 @@ export const Dashboard = () => {
  const [events,setEvents]=useState<Array<any>>([]as any)
 
    useEffect(()=>{ 
-      getEvents_new(100,setEvents)
+      getEvents_new('date,asc',0,50,45,setEvents)
     },[])
     
 
@@ -32,16 +32,18 @@ export const Dashboard = () => {
       >
 
         <Typography variant="h5" color="primary">
-          {user.firstname}
-          {user.lastname}
+         Hey {user.firstname} where you want to go...
+         
         </Typography>
-        <FindMe/>
+        <Typography variant="h5" color="primary">
+         Here the next events in <FindMe/>
+        </Typography>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}  sx={{
           
           display: "flex",
           flexDirection: "row",
 
-          justifyContent: "space-around",
+          justifyContent: "center",
           alignItems: "center",
         }}>
          { events ? events.map((event:any) => (
@@ -50,12 +52,13 @@ export const Dashboard = () => {
             m:1,
             display: "flex",
             flexDirection: "row",
-  
-          justifyContent: "space-around",
+            justifyContent: "center",
             alignItems: "center",
           }}
           >
+            <Box sx={{ boxShadow: 5 }} >
            <EventCard   details={event} />
+           </Box>
           </Grid>))
         :
         Array.from(Array(12)).map((_, index) => (

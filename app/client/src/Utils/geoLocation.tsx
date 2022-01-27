@@ -42,9 +42,9 @@ const [Location,setLocation]=useState()
 
 return (
 
- <div>
-{Location}</div>
-
+<span>
+{Location}
+</span>
  )
     
 }

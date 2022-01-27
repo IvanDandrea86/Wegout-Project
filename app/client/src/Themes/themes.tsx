@@ -1,5 +1,5 @@
 import { createTheme, ThemeOptions } from '@mui/material';
-
+     
 export const themeOptions: ThemeOptions = {
   palette: {
     primary: {

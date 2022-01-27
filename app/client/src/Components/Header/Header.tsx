@@ -1,6 +1,6 @@
 
 
-import React,{useContext} from 'react';
+import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,8 +22,8 @@ import { useNavigate } from 'react-router-dom';
 
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 
-import { UserContext } from '../../Context/UserContext';
-import { Button } from '@mui/material';
+
+import { Button, Grid } from '@mui/material';
 
 const LOGOUT_MUT = gql`
   mutation {
@@ -75,7 +75,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header() {
 
     const navigate = useNavigate();
-  const user =useContext(UserContext)
+  
   const [logout] = useMutation(LOGOUT_MUT);
 
   const logoutEvent = async (event: React.SyntheticEvent) => {
@@ -211,6 +211,8 @@ export default function Header() {
             />
       </IconButton>
            
+        <Grid container spacing={0} sx={{display:"flex", justifyContent:"space-between",flexWrap:"nowrap"}}>
+          
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -219,11 +221,19 @@ export default function Header() {
               onChange={handleSearch}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-            />
+              />
           </Search>
-          <Box sx={{ flexGrow: 1 }} />
+          
+         <Grid item>
+          <Button variant="text" color="inherit" onClick={logoutEvent}  >
+           Profile
+          </Button>
+          <Button variant="text" color="inherit" onClick={logoutEvent}>
+            Logout
+          </Button>
+          </Grid>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <ThemeSwitch /> 
+          <Grid item>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -233,7 +243,7 @@ export default function Header() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
-            >
+              >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
@@ -245,13 +255,13 @@ export default function Header() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="secondary"
-            >
-       
+              color="inherit"
+              >       
             </IconButton>
-
+            <ThemeSwitch /> 
+            </Grid>
           </Box>
-    
+          
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -260,16 +270,10 @@ export default function Header() {
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
-            >
+              >
             </IconButton>
           </Box>
-         
-          <Button variant="text" color="inherit" onClick={logoutEvent}  >
-           Profile
-          </Button>
-          <Button variant="text" color="inherit" onClick={logoutEvent}>
-            Logout
-          </Button>
+              </Grid>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
