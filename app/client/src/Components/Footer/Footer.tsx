@@ -23,28 +23,24 @@ function Copyright() {
 }
 const  Footer=()=> {
   return (
-<footer>
+
  
-    <Box
-    component="footer"
-    sx={{  
-      mt:5   
-    }}
-    >
-        <Container maxWidth="sm" >
+  
+       
         <Grid container sx={{
      display: "flex",
      justifyContent:"space-around",
      flexDirection:"row",
-     alignItems:"center"
+     alignItems:"center",
+     position:"relative"
    }}> 
           <Copyright />
       <Localization />
           </Grid>
-        </Container>
-      </Box>
+     
+    
 
-</footer>
+
   );
 }
 export default Footer;

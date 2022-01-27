@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -19,6 +19,8 @@ import Translator from '../../Utils/Translator';
 import ForgotModal from "../../Components/Modal/ForgotModal";
 import { isEmptyString, isValidEmail, isValidPassword } from "../../Components/Utility/validation";
 import {LoginAnimation} from "../../Assets/Animation/animation"
+import { navigatioContext } from "../../Context/NavContext";
+
 const LOGIN_MUT = gql`
   mutation ($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -35,7 +37,7 @@ const LOGIN_MUT = gql`
 
 export default function Login() {
 
-
+  const navigation=useContext(navigatioContext)
   const fadeLeft=useSpring(LoginAnimation)
 
   const history = useNavigate();
@@ -111,8 +113,9 @@ export default function Login() {
     }
   }
   return (
+    
     <animated.div style={fadeLeft}>
-    <Container component="main" maxWidth="xs" sx={{zIndex:2}}>
+    <Container component="main" maxWidth="xs" sx={ {zIndex:0}}>
   
       <Box
         sx={{
@@ -185,7 +188,7 @@ export default function Login() {
               <ForgotModal/>
             </Grid>
             <Grid item xs>
-              <Button href="/register" variant="text">
+              <Button onClick={()=>{navigation.setLink("register")}} variant="text">
               <Translator trad= "notRegister" />
             </Button>
             </Grid>

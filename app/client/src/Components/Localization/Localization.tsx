@@ -1,9 +1,9 @@
 import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { languageContext } from "../../Context/LocalesProvider";
+import LanguageIcon from '@mui/icons-material/Language';
 
 export default function ControlledOpenSelect() {
   const [language, setLanguages] = React.useState<string>("en");
@@ -36,16 +36,14 @@ export default function ControlledOpenSelect() {
   return (
     <div>
       <FormControl sx={{ m: 1 }}>
-        <InputLabel id="select-label">Languages</InputLabel>
         <Select
-          labelId="select-label"
           id="select"
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
           value={language}
-          label="Languages"
           onChange={handleChange}
+          IconComponent={LanguageIcon}
         >
           <MenuItem value={"it"}>Italiano</MenuItem>
           <MenuItem value={"fr"}>Français</MenuItem>

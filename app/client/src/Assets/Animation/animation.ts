@@ -1,13 +1,13 @@
 import { easings } from "react-spring"
 export const TitleAnimation ={
     from:{ opacity: 0, marginTop: -500 },
-      to:{ opacity: 1, marginTop: 0},
-      config:{duration:1000, easing: easings.easeInOutSine}
+      to:{ opacity: 1, marginTop: -0},
+      config:{duration:3000, easing: easings.easeInOutSine}
   }
 
  export const SubTitleAnimation= {   
-    from:{ opacity: 0, marginTop: -500 },
-    to:{ opacity: 1, marginTop: 0},
+    from:{ opacity: 0 },
+    to:{ opacity: 1 },
     config:{  duration: 6000, easing: easings.easeInOutSine},
   }
   export const LoginAnimation ={

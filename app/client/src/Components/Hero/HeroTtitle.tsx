@@ -1,24 +1,16 @@
-import {Box,Container, Typography,Stack,Button } from "@mui/material"
-import { animated,useSpring ,easings} from "react-spring"
+import {Container, Typography,Stack,Button } from "@mui/material"
+import { animated,useSpring}  from "react-spring"
 
 import Translator from "../../Utils/Translator"
 import {FC}from "react"
+import { SubTitleAnimation, TitleAnimation } from "../../Assets/Animation/animation"
 
 
 
 const HeroTitle:FC=()=>{
     
-    const stylesTitle = useSpring({
-        from:{ opacity: 0, marginTop: -500 },
-          to:{ opacity: 1, marginTop: 0},
-          config:{duration:1000, easing: easings.easeInOutSine}
-      })
-      const stylesSub = useSpring({
-        
-        from:{ opacity: 0, marginTop: -500 },
-        to:{ opacity: 1, marginTop: 0},
-        config:{  duration: 6000, easing: easings.easeInOutSine},
-      })
+    const stylesTitle = useSpring(TitleAnimation)
+      const stylesSub = useSpring(SubTitleAnimation)
     return (
 
      
@@ -48,9 +40,8 @@ const HeroTitle:FC=()=>{
             <Translator trad="hero" />
           </Typography>
           <Stack
-            sx={{ pt: 4 }}
+            sx={{  }}
             direction="row"
-            spacing={2}
             justifyContent="center"
           >
             <Button variant="contained" href={"/register"}>

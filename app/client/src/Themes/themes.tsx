@@ -16,7 +16,8 @@ export const themeOptions: ThemeOptions = {
       secondary:"#090910"
     }
   },
-  components:{MuiButton:{
+  components:
+  {MuiButton:{
     styleOverrides:
     {    },
     defaultProps:{
@@ -24,7 +25,18 @@ export const themeOptions: ThemeOptions = {
         margin:2
       }
     }
-  }},
+  },
+  MuiTextField:{
+    defaultProps:{
+      sx:{
+        "&:hover":{
+          transform:"scale(1.05)",
+          transition: "all 1s ease"
+        }
+       }
+    }
+  }
+},
   shape: {
     borderRadius: 5,
   }, 
@@ -47,7 +59,19 @@ export const themeOptionsDark: ThemeOptions = {
       secondary:"#f7f1e3"
     }
   },
-  components:{MuiButton:{
+  components:{MuiTextField:{
+    defaultProps:{
+
+      sx:{
+        background: "transparent",
+        "&:hover":{
+          transform:"scale(1.2)",
+          transition: "all 1s ease"
+        }
+       }
+    }
+  },
+  MuiButton:{
     styleOverrides:
     { outlined:{
       color:"primary"

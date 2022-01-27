@@ -1,7 +1,6 @@
-import  { useState } from 'react';
+import  { useContext, useState } from 'react';
 import {
   Container,
-
   Box,
   Typography,
   TextField,
@@ -10,7 +9,6 @@ import {
   Grid,
   FormControl,
   Select,
-  MenuItem,
   InputLabel
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
@@ -21,6 +19,7 @@ import {gql,useMutation} from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { RegisterAnimation } from '../../Assets/Animation/animation';
 import {CountryMenuItem} from '../../Components/FormComponents/ContryMenuItem'
+import { navigatioContext } from '../../Context/NavContext';
 const CREATE_USER_MUTATION=gql`
 mutation($lastname:String!,$firstname:String!,$email:String!,$location:String!,$password:String!){
   createUser(lastname:$lastname,firstname:$firstname,email:$email,location:$location,password:$password){
@@ -33,7 +32,7 @@ user{_id}
 
 
 export default function SignUp() {
-
+const navigation =useContext(navigatioContext)
   const fadeRight=useSpring(RegisterAnimation)
 
  const history = useNavigate()
@@ -298,7 +297,7 @@ export default function SignUp() {
             </Button>
             <Grid container>
             <Grid item xs>
-              <Button href="/login" variant="text">
+              <Button onClick={()=>{navigation.setLink("login")}} variant="text">
              
              <Translator trad= "alredyRegister" />
               </Button>
