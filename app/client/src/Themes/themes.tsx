@@ -73,9 +73,25 @@ export const themeOptions: ThemeOptions = {
       }
     }
   },
+  MuiSelect:{
+    defaultProps:{
+      sx:{
+        borderRadius:"10px",
+        background: "#f7f1e3",
+        opacity:0.9,
+        "&:hover":{
+          transform:"scale(1.05)",
+          transition: "all 1s ease"
+        }
+       }
+    }
+  },
   MuiTextField:{
     defaultProps:{
       sx:{
+        borderRadius:"10px",
+        background: "#f7f1e3",
+        opacity:0.9,
         "&:hover":{
           transform:"scale(1.05)",
           transition: "all 1s ease"
@@ -131,13 +147,29 @@ export const themeOptionsDark: ThemeOptions = {
        
       }
     }
-  },MuiTextField:{
+  },MuiSelect:{
     defaultProps:{
 
       sx:{
-        background: "transparent",
+        borderRadius:"10px",
+        background: "#090910",
+        opacity:0.9,
         "&:hover":{
-          transform:"scale(1.2)",
+          transform:"scale(1.05)",
+          transition: "all 1s ease"
+        }
+       }
+    }
+  },
+  MuiTextField:{
+    defaultProps:{
+
+      sx:{
+        borderRadius:"10px",
+        background: "#090910",
+        opacity:0.9,
+        "&:hover":{
+          transform:"scale(1.05)",
           transition: "all 1s ease"
         }
        }

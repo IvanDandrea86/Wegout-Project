@@ -6,6 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid'
+import DrawerFilter from "../../Filter/DrawerFilter";
 
 
 
@@ -19,7 +20,8 @@ const Navbar:FC=()=>{
               
           <Button variant="text" >Today</Button>
           <Button variant="text" >Suggested for you</Button>
-          <Button variant="text" >Filter</Button>
+          <DrawerFilter/>
+          
             </Grid>
           </Toolbar>
         </AppBar>

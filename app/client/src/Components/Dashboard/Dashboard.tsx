@@ -1,11 +1,12 @@
 import { useContext,useState } from "react";
-import { Grid,  Typography,Box, Container,  } from "@mui/material";
+import { Grid,  Typography,Box  } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import FindMe from '../../Utils/geoLocation'
 import EventCard from "../Card/eventCard";
 import { useEffect } from "react";
 import {getEvents_new} from "../../Utils/getEvents_new"
 import EventCardSkeleton from "../Skeleton/EventCardSkeleton";
+
 
 
 export const Dashboard = () => {
@@ -35,6 +36,7 @@ export const Dashboard = () => {
          Hey {user.firstname} where you want to go...
          
         </Typography>
+     
         <Typography variant="h5" color="primary">
          Here the next events in <FindMe/>
         </Typography>

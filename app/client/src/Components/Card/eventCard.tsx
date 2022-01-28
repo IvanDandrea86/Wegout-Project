@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { Divider, Skeleton, Stack } from '@mui/material';
+import { Divider, Skeleton, Stack, Grid } from '@mui/material';
 
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 
@@ -21,13 +21,9 @@ interface IProps{
 
 
 const  EventCard:FC<IProps>=({details})=> {
-  
- console.log(details)
-    
+ console.log(details)   
  return(
-
-  
-    <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%"}} >
+    <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%", m:5}} >
       {details.images[0].url?
       <CardMedia
         component="img"
@@ -57,17 +53,21 @@ const  EventCard:FC<IProps>=({details})=> {
         <Skeleton />
         )}
          </Typography>
-         <Stack direction="row" spacing={2}>
+         <Grid container spacing={2} sx={{display:"flex",justifyContent:"start",flexDirection:"row", alignItems:"center"}}>
+          <Grid item> 
         <LocationCityIcon/>
+        </Grid>
+        <Grid item> 
         <Typography variant="body2" >
         {details._embedded.venues? details._embedded.venues[0].name
        :(
-       
          <Skeleton />
          )
         }
         </Typography>
-        </Stack>
+        </Grid>
+        </Grid>
+      
       </CardContent>
       <CardActions >
         <Button variant="text" size="small">I Go</Button>

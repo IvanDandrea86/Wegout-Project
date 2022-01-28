@@ -1,8 +1,7 @@
-import {  useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
-
   Box,
   Typography,
   TextField,
@@ -14,11 +13,15 @@ import {
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { gql, useMutation } from "@apollo/client";
-import {useSpring,animated} from 'react-spring'
-import Translator from '../../Utils/Translator';
+import { useSpring, animated } from "react-spring";
+import Translator from "../../Utils/Translator";
 import ForgotModal from "../../Components/Modal/ForgotModal";
-import { isEmptyString, isValidEmail, isValidPassword } from "../../Components/Utility/validation";
-import {LoginAnimation} from "../../Assets/Animation/animation"
+import {
+  isEmptyString,
+  isValidEmail,
+  isValidPassword,
+} from "../../Components/Utility/validation";
+import { LoginAnimation } from "../../Assets/Animation/animation";
 import { navigatioContext } from "../../Context/NavContext";
 
 const LOGIN_MUT = gql`
@@ -36,15 +39,13 @@ const LOGIN_MUT = gql`
 `;
 
 export default function Login() {
-
-  const navigation=useContext(navigatioContext)
-  const fadeLeft=useSpring(LoginAnimation)
-
+  const navigation = useContext(navigatioContext);
+  const fadeLeft = useSpring(LoginAnimation);
   const history = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [helperPassword,setHelperPassword]=useState<string>("")
-  const [helperEmail,setHelperEmail]=useState<string>("")
+  const [helperPassword, setHelperPassword] = useState<string>("");
+  const [helperEmail, setHelperEmail] = useState<string>("");
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [emailColor, setEmailColor] = useState<
@@ -72,130 +73,134 @@ export default function Login() {
     if (data.login.user == null) {
       if (data.login.errors.field === "Password") {
         setHelperPassword(data.login.errors.message);
-        setPasswordError(true)
+        setPasswordError(true);
       } else if (data.login.errors.field === "Email") {
         setHelperEmail(data.login.errors.message);
-        setEmailError(true)
+        setEmailError(true);
       }
     } else {
       //LOGIN SUCCESS
       history("/");
-      window.location.reload()
+      window.location.reload();
     }
   };
- 
 
-  const handleChange=(e:HTMLTextAreaElement | HTMLInputElement)=>{
-    
-    if(e.name==="email"){
-      setEmail(e.value)
-      if (!isValidEmail(e.value) || !isEmptyString(e.value)){
-        setHelperEmail("Insert a valid email format [*@.*]")
-        setEmailError(true)
-      }
-      else{
+  const handleChange = (e: HTMLTextAreaElement | HTMLInputElement) => {
+    if (e.name === "email") {
+      setEmail(e.value);
+      if (!isValidEmail(e.value) || !isEmptyString(e.value)) {
+        setHelperEmail("Insert a valid email format [*@.*]");
+        setEmailError(true);
+      } else {
         setEmailError(false);
-        setHelperEmail("")
+        setHelperEmail("");
         setEmailColor("success");
       }
     }
-    if(e.name==="password"){
-      setPassword(e.value)
-      if (!isValidPassword(e.value) || !isEmptyString(e.value)){
-        setHelperPassword("Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character")
-        setPasswordError(true)
-      }
-      else{
+    if (e.name === "password") {
+      setPassword(e.value);
+      if (!isValidPassword(e.value) || !isEmptyString(e.value)) {
+        setHelperPassword(
+          "Password must be at least 8,contain at leat one digit, one uppercase and one lowercase character"
+        );
+        setPasswordError(true);
+      } else {
         setPasswordError(false);
-        setHelperPassword("")
+        setHelperPassword("");
         setPasswordColor("success");
       }
     }
-  }
+  };
   return (
-    
     <animated.div style={fadeLeft}>
-    <Container component="main" maxWidth="xs" sx={ {zIndex:0}}>
-  
-      <Box
-        sx={{
-          marginTop: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-       
-
-        <Link href={"/"}>
-          <img src={logo} alt="logo" />
-        </Link>
-        <Typography
-          component="h2"
-          variant="h5"
-          sx={{ mt: 1, fontWeight: "bold" }}
+      <Container component="main" maxWidth="xs" sx={{ zIndex: 0 }}>
+        <Box
+          sx={{
+            marginTop: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          Sign in
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            onChange={(e) => {
-              handleChange(e.target);
-            }}
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            value={email}
-            autoFocus
-            error={emailError}
-            color={emailColor}
-            helperText={helperEmail}
-          />
-          <TextField
-            onChange={(e) => handleChange(e.target)}
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            value={password}
-            label="Password"
-            type="password"
-            id="password"
-            color={passwordColor}
-            autoComplete="current-password"
-            error={passwordError}
-            helperText={helperPassword}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+          <Link href={"/"}>
+            <img src={logo} alt="logo" />
+          </Link>
+          <Typography
+            component="h2"
+            variant="h5"
+            sx={{ mt: 1, fontWeight: "bold" }}
           >
-            Sign In
-          </Button>
-
-          <Grid container>
-            <Grid item xs>  
-              <ForgotModal/>
-            </Grid>
-            <Grid item xs>
-              <Button onClick={()=>{navigation.setLink("register")}} variant="text">
-              <Translator trad= "notRegister" />
+            Sign in
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              onChange={(e) => {
+                handleChange(e.target);
+              }}
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              value={email}
+              autoFocus
+              error={emailError}
+              color={emailColor}
+              helperText={helperEmail}
+            />
+            <TextField
+              onChange={(e) => handleChange(e.target)}
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              value={password}
+              label="Password"
+              type="password"
+              id="password"
+              color={passwordColor}
+              autoComplete="current-password"
+              error={passwordError}
+              helperText={helperPassword}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
             </Button>
+
+            <Grid container>
+              <Grid item xs>
+                <ForgotModal />
+              </Grid>
+              <Grid item xs>
+                <Button
+                  onClick={() => {
+                    navigation.setLink("register");
+                  }}
+                  variant="text"
+                >
+                  <Translator trad="notRegister" />
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
     </animated.div>
   );
 }
