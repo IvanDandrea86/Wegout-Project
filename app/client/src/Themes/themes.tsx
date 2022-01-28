@@ -21,15 +21,14 @@ export const themeOptions: ThemeOptions = {
     defaultProps:{
       sx:{
         color:"#f7f1e3",
-        backgroundColor:"#090910",
-      
-       
+        backgroundColor:"#090910", 
       }
     }
   },
   MuiCard:{
     defaultProps:{
       sx:{
+        boxShadow:0,
           }
     }
   },
@@ -127,14 +126,13 @@ export const themeOptionsDark: ThemeOptions = {
       sx:{
         color:"#090910",
         backgroundColor:"#f7f1e3",
-      
-       
       }
     }
   },
   MuiCard:{
     defaultProps:{
       sx:{
+        boxShadow:0,
           }
     }
   },

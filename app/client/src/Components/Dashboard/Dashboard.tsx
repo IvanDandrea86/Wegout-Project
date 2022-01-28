@@ -22,24 +22,25 @@ export const Dashboard = () => {
   return (
       <Grid
         container
-       
         sx={{
-          mb: 1,
+      
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-
+        
+        <Grid item sx={{
+          m: 25 ,textAlign:"center"}}>
         <Typography variant="h5" color="primary">
          Hey {user.firstname} where you want to go...
-         
         </Typography>
-     
         <Typography variant="h5" color="primary">
          Here the next events in <FindMe/>
         </Typography>
+        </Grid>
+        {/* </Grid> */}
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}  sx={{
           
           display: "flex",

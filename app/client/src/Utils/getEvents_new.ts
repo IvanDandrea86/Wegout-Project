@@ -10,7 +10,8 @@ export const getEvents_new = async (sort:string,page:number,radius:number,size:n
         url: `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${ticketmasterKey}&latlong=${latlon}&radius=${radius}&page=${page}&size=${size}&sort=${sort}`,
         header:{
             "Access-Control-Allow-Origin": "*"
-        }
+        },
+     
         };
       axios
         .request(options)

@@ -173,7 +173,7 @@ export default function Header() {
         
           
          <Grid item>
-          <Button variant="text" color="inherit" onClick={logoutEvent}  >
+          <Button variant="text" color="inherit" href="/profile"  >
            Profile
           </Button>
           <Button variant="text" color="inherit" onClick={logoutEvent}>

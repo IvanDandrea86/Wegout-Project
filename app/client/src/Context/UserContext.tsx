@@ -8,6 +8,7 @@ interface IUser{
 firstname :string|null;
 lastname: string |null;
 email : string| null;
+isVerified:boolean| null;
 
 }
 
@@ -17,9 +18,12 @@ const FIND_USER =gql `
 query($_id:String! ){
 findUserById(user_id : $_id)
 {
-    firstname
-    lastname
-    email
+
+email
+firstname
+lastname
+isVerified
+
 }
 }
 `;
@@ -40,6 +44,7 @@ if (error) return <ErrorMess/>
       value={{firstname :data.findUserById.firstname,
         lastname:data.findUserById.lastname,
         email : data.findUserById.email,
+        isVerified: data.findUserById.isVerified
           }}
     >
       {props.children}

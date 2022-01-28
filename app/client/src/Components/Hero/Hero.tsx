@@ -6,9 +6,9 @@ import styled from "@emotion/styled";
 import {BackDropTop,BackDropBottom} from "../BackDrop/BackDrop";
 
 import HeroTitle from "./HeroTtitle"
-import { video_container,videoStyle,centerBox } from "./HeroStyles";
+import { video_container,videoStyle} from "./HeroStyles";
 import Login from "../../Pages/Login/Login";
-import { Box } from "@mui/material";
+import { Box } from "./HeroStyles";
 import Register from "../../Pages/Register/Register";
 import { navigatioContext } from "../../Context/NavContext";
 
@@ -29,18 +29,18 @@ export const Hero: FC = () => {
   
   return (
     <VideoContainer style={video_container}>
-      {video ? (
+       {video ? (
         <video loop muted autoPlay style={videoStyle}>
           <source src={video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       ) : (
         <Loading />
-        )}
-        
+        )} 
       <BackDropTop  />
       <BackDropBottom />
-      <Box sx={centerBox}>
+      
+      <Box > 
       {navigation.link ==="hero" ?
         <HeroTitle /> :
         navigation.link ==="login" ?

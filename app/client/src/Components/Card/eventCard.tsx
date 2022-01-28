@@ -5,10 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
-import { Divider, Skeleton, Stack, Grid } from '@mui/material';
-
+import { Divider, Skeleton, Grid } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+
+
 
 
 interface IProps{
@@ -23,7 +23,7 @@ interface IProps{
 const  EventCard:FC<IProps>=({details})=> {
  console.log(details)   
  return(
-    <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%", m:5}} >
+    <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%"}} >
       {details.images[0].url?
       <CardMedia
         component="img"
@@ -73,7 +73,9 @@ const  EventCard:FC<IProps>=({details})=> {
         <Button variant="text" size="small">I Go</Button>
         <Button variant="text" size="small">Who Goes ?</Button>
       </CardActions>
+     
     </Card>
+
   
   
   

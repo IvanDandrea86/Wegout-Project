@@ -5,7 +5,6 @@ export const getPhotos =async(clientId:string,collection:string,setData:Function
         method: 'GET',
         url: 'https://api.unsplash.com/search/photos/',
         params: {client_id: clientId, query: collection},
-        
       };
      const response= await axios.request(options)
      let randomIndex=Math.floor(Math.random()*9)

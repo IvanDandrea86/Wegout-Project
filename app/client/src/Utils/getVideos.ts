@@ -8,6 +8,7 @@ export const getVideos = async (query:string,page:number,setVideo:Function) => {
             Accept:'application/json',
             Authorization:pexelsAPI,
         },
+        
         url: 'https://api.pexels.com/videos/search?',
         params: {query: query, per_page: page},
       };
