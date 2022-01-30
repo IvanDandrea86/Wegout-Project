@@ -7,11 +7,10 @@
     "node": "10.x"
   },
   "scripts": {
-    
-    "build-server":" cd server && npm install && npm run build",
-    "build-client":"cd client/ && npm install && npm run build",
+    "build-server": " cd server && npm install && npm run build",
+    "build-client": "cd client/ && npm install && npm run build",
     "build": "npm run build-server && npm run build-client",
-    "start": "node ./server/dist/index.js" 
+    "start": "node ./server/dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/IvanDandrea86/npProject/issues"
   },
-  "homepage": "https://github.com/IvanDandrea86/npProject#readme"
+  "homepage": "https://github.com/IvanDandrea86/npProject#readme",
+  "dependencies": {
+    "typescript": "^4.5.5"
+  }
 }

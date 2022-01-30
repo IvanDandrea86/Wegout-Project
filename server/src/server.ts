@@ -4,7 +4,7 @@ import { runConnection } from "./loaders/dbLoader";
 import { apolloLoader } from "./loaders/apolloLoader";
 import express from "express";
 import cors from "cors";
-import path from "path/posix";
+import path from "path";
 import { ALLOW_ORIGIN, __prod__, PORT } from "./constants/const";
 import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
@@ -36,13 +36,11 @@ export const main = async () => {
   });
 
   app.use(express.static(path.resolve(__dirname, '../../client/build')));
-
-  
-
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
   });
+
   app.listen(PORT, () => {
     console.log(startTime, `\n🚀 Server running at: http://localhost:${PORT}`);
   });
