@@ -2,15 +2,15 @@
   "name": "wegout",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./server/dis/index.js",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
-    "install-client": "cd app && cd client && npm install",
-    "install-server": "cd app & cd serer && npm install",
-    "build-server":"cd app && cd server && npm run build",
-    "build-client":"cd app && cd client && npm run build",
+    "build-server": " cd server && npm install && npm run build",
+    "build-client": "cd client/ && npm install && npm run build",
     "build": "npm run build-server && npm run build-client",
-    "install": "npm run install-server && npm run install-client",
-    "start": "node ./dist/index.js" 
+    "start": "node ./server/dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/IvanDandrea86/npProject/issues"
   },
-  "homepage": "https://github.com/IvanDandrea86/npProject#readme"
+  "homepage": "https://github.com/IvanDandrea86/npProject#readme",
+  "dependencies": {
+    "typescript": "^4.5.5"
+  }
 }
