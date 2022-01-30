@@ -1,78 +1,92 @@
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-import MuiAccordionSummary, {
-  AccordionSummaryProps,
-} from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import Typography from "@mui/material/Typography";
+import React, { useContext, useState } from "react";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "./AccordionFilters.styles";
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import { filterContext } from "../Context/FilterContext";
 
-const Accordion = styled((props: AccordionProps) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
-  '&:not(:last-child)': {
-    borderBottom: 0,
-  },
-  '&:before': {
-    display: 'none',
-  },
-}));
 
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
-  <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === 'dark'
-      ? 'rgba(255, 255, 255, .05)'
-      : 'rgba(0, 0, 0, .03)',
-  flexDirection: 'row-reverse',
-  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-    transform: 'rotate(90deg)',
-  },
-  '& .MuiAccordionSummary-content': {
-    marginLeft: theme.spacing(1),
-  },
-}));
 
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: '1px solid rgba(0, 0, 0, .125)',
-}));
+interface ICategories{
+  name:string,
+  state:boolean,
+}
+
+
+const Categories:Array<ICategories>=[
+{name:"Music",state:false},
+{name:"Sport",state:false},
+{name:"Arts",state:true},
+{name:"Miscellaneous",state:true},
+{name:"Film",state:true}]
+
 
 export default function AccordionFilters() {
-  const [expanded, setExpanded] = React.useState<string | false>('panel1');
-
+  const [expanded, setExpanded] = useState<string | false>("");
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
     };
 
+  const filter=useContext(filterContext)
+  
+  const handleOnChange = (e:React.ChangeEvent<HTMLInputElement>,position:number) => {
+    const updatedCheckedState = filter.catCheck.map((item, index) =>
+      index === position ? !item : item
+    );
+    if(e.target.checked){
+      let array=filter.cat+","+e.target.name
+      filter.setCat(array)
+    }
+    else{
+      let array=filter.cat.replace(e.target.name,"")
+      console.log(array)
+      filter.setCat(array)
+    }
+    filter.setCatCheck(updatedCheckedState)
+  }
+    
   return (
     <div>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{width:"300px"}}>
+      <Accordion
+        expanded={expanded === "panel1"}
+        onChange={handleChange("panel1")}
+        sx={{ width: "300px" }}
+      >
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography>Categories</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {/* Insert MapCategories */}
+        <FormGroup>
+          {Categories?.map((elem: ICategories,index:number) =>
+             (
+              <FormControlLabel key={elem.name} control={ <Checkbox
+                key={index}
+                value={filter.catCheck[index]}
+                onChange={(e) => handleOnChange(e,index)}
+                checked={filter.catCheck[index]}
+                name={elem.name}
+                />}value={elem.name} label={elem.name} />
+            ) 
+          )}
+              </FormGroup>
+
         </AccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+      <Accordion
+        expanded={expanded === "panel2"}
+        onChange={handleChange("panel2")}
+      >
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
           <Typography>Genres</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-          {/* Insert MapGenres */}
-          </Typography>
+          <Typography>{/* Insert MapGenres */}</Typography>
         </AccordionDetails>
       </Accordion>
-
     </div>
   );
 }

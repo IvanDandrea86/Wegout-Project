@@ -21,7 +21,7 @@ interface IProps{
 
 
 const  EventCard:FC<IProps>=({details})=> {
- console.log(details)   
+ 
  return(
     <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%"}} >
       {details.images[0].url?
@@ -31,7 +31,7 @@ const  EventCard:FC<IProps>=({details})=> {
         sx={ {maxHeight:"190px"}}
         width="100%"
         height="auto"
-        image={details.images[0].url}
+        image={details.images[8].url}
       />
       :
       <Skeleton variant="rectangular" animation="wave"   height={140} />

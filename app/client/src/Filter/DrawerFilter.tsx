@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -7,7 +7,6 @@ import Grid from "@mui/material/Grid";
 import SliderRadius from "./SliderRadius";
 import AccordionFilters from "./AccordionFilters";
 import { CustomSearch } from "../Components/Search/CustomSearch";
-
 
 export default function DrawerFilter() {
   const [state, setState] = useState<boolean>();

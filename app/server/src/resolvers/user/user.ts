@@ -280,4 +280,59 @@ async forgotPassword(
     }
     return  {}
   }
+
+
+  @Mutation(()=>Boolean,{ name: "requestVerifyEmail" })
+async requestVerifyEmail(
+  @Arg("email") email:string,
+  @Ctx() {redis}:MyContext)
+  :Promise<Boolean>
+  {
+    const user =await UserModel.findOne({email:email})
+    if (!user) {return true}
+    else{
+    const token=v4()
+    redis.set("verifyPass"+token,
+    user._id,
+    "ex",
+    60*60)//1hour
+    const HtmlLink=`<a href="http://localhost:3000/verify/${token}">Click to verify your account</a> `
+    // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
+    try{
+      await sendMailTest(user.email,HtmlLink,"WeGOut Verify")
+    }
+    catch(err){
+      console.error(err)
+    }
+      return true
+  }
+  }
+  
+  @Mutation(()=>UserResponse|| Boolean,{ name: "verifiy" })
+  async verify(
+    @Arg("token") token:string,
+    @Ctx() {req,redis}:MyContext)
+  : Promise<UserResponse|Boolean> {
+    try{
+    const userId= await redis.get("verifyPass"+token)
+    if(!userId){
+      return {
+        errors:{
+          field:'token',
+          message:"Your token expired"
+        }
+      }
+    }
+    else{
+     await UserModel.findOneAndUpdate({_id:userId},{isVerified:true}).exec() 
+     req.session.userID = userId
+     redis.del("verifyPass"+token)
+    return true;
+    }
+    }
+    catch(err){
+      console.error(err)
+    }
+    return  {}
+  }
 }

@@ -5,6 +5,7 @@ import { BrowserRouter,Route,Routes } from "react-router-dom";
 import ErrorUnauth from "./Pages/Errors/ErrorUnauth";
 import Footer from "./Components/Footer/Footer";
 import { UserProfile } from "./Pages/Profile/UserProfile";
+import { Verify } from "./Pages/Verify/Verify";
 const AuthenticatedApp: FC = () => {
   return (
       <UserProvider>
@@ -12,6 +13,7 @@ const AuthenticatedApp: FC = () => {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/profile" element={<UserProfile/>} />
+        <Route path="/verify/:token" element={<Verify/>} />
         
         <Route path ="*" element={<ErrorUnauth/>} />
 
