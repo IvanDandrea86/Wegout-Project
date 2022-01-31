@@ -1,4 +1,4 @@
-import faker,{fake} from "faker";
+import faker from "faker";
 import { UserModel } from "../entities/user.entity";
 import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
