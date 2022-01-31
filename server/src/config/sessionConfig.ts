@@ -23,11 +23,12 @@ export const sessionConfig:SessionOptions | undefined={
         saveUninitialized: false,
         resave: false,
         cookie: { 
-          domain:'wegout.herokuapp.com',
+          secure: __prod__, // cookie only works in https
+          domain: __prod__ ? ".herokuapp.com" : undefined,
           maxAge: OneDay,
           httpOnly:true,
           sameSite:"lax",
-          secure:true,
+         
         },
         name: COOKIENAME,    
 }
