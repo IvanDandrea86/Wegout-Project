@@ -23,6 +23,7 @@ export const sessionConfig:SessionOptions | undefined={
         saveUninitialized: false,
         resave: false,
         cookie: { 
+          domain:'wegout.herokuapp.com',
           maxAge: OneDay,
           httpOnly:true,
           sameSite:"lax",
