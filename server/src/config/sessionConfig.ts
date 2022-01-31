@@ -7,13 +7,13 @@ import {
     OneDay,
     __prod__,
     COOKIENAME,
-    REDIS_URL,
+    REDIS_TLS_URL,
   } from "../constants/const";
 
   
   const RedisStore = connectRedis(session);
   //Client ioRedis
-export const redis= new Redis(REDIS_URL)
+export const redis= new Redis(REDIS_TLS_URL)
 export const sessionConfig:SessionOptions | undefined={
         store: new RedisStore({ 
           client: redis,
