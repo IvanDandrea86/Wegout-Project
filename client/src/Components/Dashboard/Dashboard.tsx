@@ -21,7 +21,7 @@ export const Dashboard = () => {
       filter.size,
       setEvents
     );
-   
+    
   }, [filter]);
 
   return (
