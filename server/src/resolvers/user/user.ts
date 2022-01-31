@@ -302,7 +302,7 @@ async requestVerifyEmail(
     user._id,
     "ex",
     60*60)//1hour
-    const HtmlLink=`<a href="http://wegout.herokuapp/verify/${token}">Click to verify your account</a> `
+    const HtmlLink=`<a href="https://wegout.herokuapp/verify/${token}">Click to verify your account</a> `
     // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     try{
       await sendMail(user.email,HtmlLink,"WeGOut Verify")
