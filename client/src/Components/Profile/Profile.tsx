@@ -4,7 +4,6 @@ import { Avatar, Badge, Button, Typography } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import EventCardSkeleton from "../Skeleton/EventCardSkeleton";
 import {gql,useMutation} from "@apollo/client"
 
 
@@ -49,7 +48,7 @@ export const Profile: FC = () => {
     if (user.isVerified===true){
       setVerifiedColor("success")
     }
-  },[])
+  },[user.isVerified])
 
  
   return (  

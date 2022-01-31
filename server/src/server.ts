@@ -22,6 +22,7 @@ export const main = async () => {
   //Seed with FakeData
   //  startSeed(60)
   //CORS middelware
+  app.set('trust proxy', 1)
   app.use(
     cors({
       origin: ALLOW_ORIGIN,

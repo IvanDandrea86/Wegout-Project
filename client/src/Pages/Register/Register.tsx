@@ -10,6 +10,7 @@ import {
   FormControl,
   Select,
   InputLabel,
+  MenuItem,
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { VAILDEMAIL, VALID_PASSWORD_8_A_1 } from "../../Utils/constants";
@@ -18,7 +19,6 @@ import Translator from "../../Utils/Translator";
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { RegisterAnimation } from "../../Assets/Animation/animation";
-import { CountryMenuItem } from "../../Components/FormComponents/ContryMenuItem";
 import { navigatioContext } from "../../Context/NavContext";
 const CREATE_USER_MUTATION = gql`
   mutation (
@@ -251,7 +251,55 @@ export default function SignUp() {
                     label="Location"
                     onChange={(e) => handleSelect(e.target.value)}
                   >
-                    <CountryMenuItem />
+                   <MenuItem value="GB">United Kingdom</MenuItem>
+    <MenuItem value="AL">Albania</MenuItem>
+    <MenuItem value="AD">Andorra</MenuItem>
+    <MenuItem value="AT">Austria</MenuItem>
+    <MenuItem value="BY">Belarus</MenuItem>
+    <MenuItem value="BE">Belgium</MenuItem>
+    <MenuItem value="BA">Bosnia and Herzegovina</MenuItem>
+    <MenuItem value="BG">Bulgaria</MenuItem>
+    <MenuItem value="HR">Croatia (Hrvatska)</MenuItem>
+    <MenuItem value="CY">Cyprus</MenuItem>
+    <MenuItem value="CZ">Czech Republic</MenuItem>
+    <MenuItem value="FR">France</MenuItem>
+    <MenuItem value="GI">Gibraltar</MenuItem>
+    <MenuItem value="DE">Germany</MenuItem>
+    <MenuItem value="GR">Greece</MenuItem>
+    <MenuItem value="VA">Holy See (Vatican City State)</MenuItem>
+    <MenuItem value="HU">Hungary</MenuItem>
+    <MenuItem value="IT">Italy</MenuItem>
+    <MenuItem value="LI">Liechtenstein</MenuItem>
+    <MenuItem value="LU">Luxembourg</MenuItem>
+    <MenuItem value="MK">Macedonia</MenuItem>
+    <MenuItem value="MT">Malta</MenuItem>
+    <MenuItem value="MD">Moldova</MenuItem>
+    <MenuItem value="MC">Monaco</MenuItem>
+    <MenuItem value="ME">Montenegro</MenuItem>
+    <MenuItem value="NL">Netherlands</MenuItem>
+    <MenuItem value="PL">Poland</MenuItem>
+    <MenuItem value="PT">Portugal</MenuItem>
+    <MenuItem value="RO">Romania</MenuItem>
+    <MenuItem value="SM">San Marino</MenuItem>
+    <MenuItem value="RS">Serbia</MenuItem>
+    <MenuItem value="SK">Slovakia</MenuItem>
+    <MenuItem value="SI">Slovenia</MenuItem>
+    <MenuItem value="ES">Spain</MenuItem>
+    <MenuItem value="UA">Ukraine</MenuItem>
+    <MenuItem value="DK">Denmark</MenuItem>
+    <MenuItem value="EE">Estonia</MenuItem>
+    <MenuItem value="FO">Faroe Islands</MenuItem>
+    <MenuItem value="FI">Finland</MenuItem>
+    <MenuItem value="GL">Greenland</MenuItem>
+    <MenuItem value="IS">Iceland</MenuItem>
+    <MenuItem value="IE">Ireland</MenuItem>
+    <MenuItem value="LV">Latvia</MenuItem>
+    <MenuItem value="LT">Lithuania</MenuItem>
+    <MenuItem value="NO">Norway</MenuItem>
+    <MenuItem value="SJ">Svalbard and Jan Mayen Islands</MenuItem>
+    <MenuItem value="SE">Sweden</MenuItem>
+    <MenuItem value="CH">Switzerland</MenuItem>
+    <MenuItem value="TR">Turkey</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
