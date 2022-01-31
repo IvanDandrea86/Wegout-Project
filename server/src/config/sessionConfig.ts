@@ -24,9 +24,9 @@ export const sessionConfig:SessionOptions | undefined={
         resave: false,
         cookie: { 
           maxAge: OneDay,
-          httpOnly:false,
+          httpOnly:true,
           sameSite:"lax",
-          secure:__prod__,
+          secure:true,
         },
         name: COOKIENAME,    
 }
