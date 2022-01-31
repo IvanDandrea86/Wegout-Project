@@ -9,7 +9,7 @@ import {
 import { navigatioContext } from "../../Context/NavContext";
 
 const HeroTitle: FC = () => {
-  const navigation=useContext(navigatioContext)
+  const navigate= useContext(navigatioContext)
   const stylesTitle = useSpring(TitleAnimation);
   const stylesSub = useSpring(SubTitleAnimation);
   return (
@@ -44,7 +44,7 @@ const HeroTitle: FC = () => {
             spacing={2}
             justifyContent="center"
           >
-            <Button variant="contained" onClick={()=>{navigation.setLink("register")}}>
+            <Button variant="contained" onClick={()=>{navigate.setLink("register")}}>
               Join us
             </Button>
             <Button variant="outlined">About Us</Button>

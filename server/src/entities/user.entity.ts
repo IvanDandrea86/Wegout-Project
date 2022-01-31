@@ -1,5 +1,6 @@
 import { ObjectType, Field } from "type-graphql";
 import { prop, getModelForClass } from "@typegoose/typegoose";
+import { UserInfo } from "../types/types";
 
 @ObjectType()
 export class User {
@@ -38,6 +39,11 @@ export class User {
   @Field()
   @prop()
   location!: string;
+
+  @Field()
+  @prop()
+  info!: UserInfo;
+
 
   @Field(() => [String])
   @prop({ type: String })
