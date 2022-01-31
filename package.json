@@ -7,6 +7,9 @@
     "node": "14.x"
   },
   "scripts": {
+    "dev-server":"cd server && npm run watch",
+    "dev":"cd server && npm run dev",
+    "dev-client":"cd client && npm run start",
     "build-server": " cd server && npm install && npm run build",
     "build-client": "cd client/ && npm install && npm run build",
     "build": "npm run build-server && npm run build-client",

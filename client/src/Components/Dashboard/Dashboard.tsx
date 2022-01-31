@@ -22,7 +22,7 @@ export const Dashboard = () => {
       setEvents
     );
     console.log(events)
-  }, [filter]);
+  }, [filter,events]);
 
   return (
     <Grid

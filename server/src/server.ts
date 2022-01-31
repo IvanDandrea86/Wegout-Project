@@ -35,6 +35,7 @@ export const main = async () => {
     console.error(err);
   });
 
+  
  
   //Deploy Setup
   // app.use(express.static(path.resolve(__dirname, '../../client/build')));
