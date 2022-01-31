@@ -19,7 +19,6 @@ import Translator from "../../Utils/Translator";
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { RegisterAnimation } from "../../Assets/Animation/animation";
-import { CountryMenuItem } from "../../Components/FormComponents/ContryMenuItem";
 import { navigatioContext } from "../../Context/NavContext";
 const CREATE_USER_MUTATION = gql`
   mutation (
