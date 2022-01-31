@@ -4,9 +4,10 @@ import { User, UserModel } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 import { UserResponse, FieldError, MyContext } from "../../types/types";
-import { COOKIENAME } from "../../constants/const";
+import { COOKIENAME, __prod__ } from "../../constants/const";
 import {v4} from 'uuid';
-import sendMailTest from "../../mailer/sendMailTest";
+
+import { sendMail } from "../../mailer/sendMail";
 
 
 declare module 'express-session' {
@@ -239,10 +240,15 @@ async forgotPassword(
     user._id,
     "ex",
     60*60)//1hour
-    const HtmlLink=`<a href="http://localhost:3000/forgot/${token}">Here the link to reset yourt password</a> `
+
+ 
+      const HtmlLink=`<a href="https://wegout.herokuapp.com//forgot/${token}">Here the link to reset yourt password</a> `
+    
+   
+   
     // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     try{
-      await sendMailTest(user.email,HtmlLink,"WeGOut Password Reset Request")
+      await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     }
     catch(err){
       console.error(err)
@@ -296,10 +302,11 @@ async requestVerifyEmail(
     user._id,
     "ex",
     60*60)//1hour
-    const HtmlLink=`<a href="http://localhost:3000/verify/${token}">Click to verify your account</a> `
+    const HtmlLink=`<a href="https://wegout.herokuapp/verify/${token}">Click to verify your account</a> `
     // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     try{
-      await sendMailTest(user.email,HtmlLink,"WeGOut Verify")
+      await sendMail(user.email,HtmlLink,"WeGOut Verify")
+    
     }
     catch(err){
       console.error(err)
