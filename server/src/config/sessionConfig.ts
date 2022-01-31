@@ -24,7 +24,7 @@ export const sessionConfig:SessionOptions | undefined={
         resave: false,
         cookie: { 
           secure: __prod__, // cookie only works in https
-          domain: __prod__ ? ".herokuapp.com" : undefined,
+          // domain: __prod__ ? ".herokuapp.com" : undefined,
           maxAge: OneDay,
           httpOnly:true,
           sameSite:"lax",
