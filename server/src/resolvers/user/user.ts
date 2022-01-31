@@ -6,7 +6,8 @@ import { ObjectId } from "mongodb";
 import { UserResponse, FieldError, MyContext } from "../../types/types";
 import { COOKIENAME } from "../../constants/const";
 import {v4} from 'uuid';
-import sendMailTest from "../../mailer/sendMailTest";
+
+import { sendMail } from "../../mailer/sendMail";
 
 
 declare module 'express-session' {
@@ -242,7 +243,7 @@ async forgotPassword(
     const HtmlLink=`<a href="http://localhost:3000/forgot/${token}">Here the link to reset yourt password</a> `
     // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     try{
-      await sendMailTest(user.email,HtmlLink,"WeGOut Password Reset Request")
+      await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     }
     catch(err){
       console.error(err)
@@ -299,7 +300,7 @@ async requestVerifyEmail(
     const HtmlLink=`<a href="http://localhost:3000/verify/${token}">Click to verify your account</a> `
     // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     try{
-      await sendMailTest(user.email,HtmlLink,"WeGOut Verify")
+      await sendMail(user.email,HtmlLink,"WeGOut Verify")
     }
     catch(err){
       console.error(err)
