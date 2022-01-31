@@ -40,7 +40,7 @@ async function ver() {
     }
 }
 ver()
-},[])
+},[history,token,verify])
 
   return <div></div>;
 };

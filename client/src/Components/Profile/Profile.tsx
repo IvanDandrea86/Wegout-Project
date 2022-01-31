@@ -49,7 +49,7 @@ export const Profile: FC = () => {
     if (user.isVerified===true){
       setVerifiedColor("success")
     }
-  },[])
+  },[user.isVerified])
 
  
   return (  

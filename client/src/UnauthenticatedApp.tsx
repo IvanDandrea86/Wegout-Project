@@ -1,6 +1,5 @@
 import React,{FC}from "react";
-import Login from "./Pages/Login/Login";
-import Register from "./Pages/Register/Register"
+
 import UnauthHome from "./Pages/Home/UnauthHome"
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import ErrorUnauth from "./Pages/Errors/ErrorUnauth"
