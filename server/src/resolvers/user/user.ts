@@ -306,6 +306,7 @@ async requestVerifyEmail(
     // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     try{
       await sendMail(user.email,HtmlLink,"WeGOut Verify")
+    
     }
     catch(err){
       console.error(err)
