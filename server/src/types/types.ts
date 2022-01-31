@@ -12,6 +12,30 @@ export type MyContext={
 }
 
 @ObjectType()
+export class UserInfo {
+
+    @Field({ defaultValue: 0 })
+    @prop({ default: 0 })
+    age :number;
+    
+
+
+    @Field(()=>[String])
+    @prop({type:[String]})
+    interest :string[];
+
+    @Field()
+    @prop(String)
+    job :string;
+    @Field()
+    @prop(String)
+    bio :string;
+
+    }
+
+
+
+@ObjectType()
 export class LikeState {
 
     @Field({ defaultValue: 0 })

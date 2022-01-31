@@ -4,11 +4,11 @@ import { runConnection } from "./loaders/dbLoader";
 import { apolloLoader } from "./loaders/apolloLoader";
 import express from "express";
 import cors from "cors";
-import path from "path";
+// import path from "path";
 import { ALLOW_ORIGIN, __prod__, PORT } from "./constants/const";
 import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
-//import { startSeed } from "./seeder";
+// import { startSeed } from "./seeder";
 dotenv.config();
 export const app = express();
 export const main = async () => {
@@ -20,7 +20,7 @@ export const main = async () => {
     console.error(err);
   });
   //Seed with FakeData
-  //  startSeed(60)
+    // startSeed(60)
   //CORS middelware
   app.use(
     cors({

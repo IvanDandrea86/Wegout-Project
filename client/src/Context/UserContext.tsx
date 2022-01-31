@@ -9,6 +9,13 @@ firstname :string|null;
 lastname: string |null;
 email : string| null;
 isVerified:boolean| null;
+location:string|null;
+info:{
+  bio:string |null;
+  age:number |null;
+  job:string | null;
+  interest:Array<string>;
+}
 
 }
 
@@ -23,6 +30,13 @@ email
 firstname
 lastname
 isVerified
+location
+info{
+  bio
+  age
+  job
+  interest
+}
 
 }
 }
@@ -44,8 +58,15 @@ if (error) return <ErrorMess/>
       value={{firstname :data.findUserById.firstname,
         lastname:data.findUserById.lastname,
         email : data.findUserById.email,
-        isVerified: data.findUserById.isVerified
-          }}
+        isVerified: data.findUserById.isVerified,
+        location:data.findUserById.location,
+        info:{
+          bio:data.findUserById.info.bio,
+          age:data.findUserById.info.age,
+          job:data.findUserById.info.job,
+          interest:data.findUserById.info.interest
+        }
+      }}
     >
       {props.children}
     </UserContext.Provider>

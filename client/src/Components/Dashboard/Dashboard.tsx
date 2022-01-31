@@ -21,8 +21,8 @@ export const Dashboard = () => {
       filter.size,
       setEvents
     );
-    console.log(events)
-  }, [filter,events]);
+    
+  }, [filter]);
 
   return (
     <Grid

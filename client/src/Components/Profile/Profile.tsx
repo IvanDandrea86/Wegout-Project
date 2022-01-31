@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Avatar, Badge, Button, Typography } from "@mui/material";
+import { Avatar, Badge, Button, Typography,Divider } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -16,8 +16,8 @@ const REQUEST_VERIFY=gql`
 `
 
 export const Profile: FC = () => {
-  const profileParam = ["Age: ","Location: ","Hobby: ","", 5, 6, 7, 8];
-  const profileEvent = [1, 2, 3, 4, 5, 6, 7, 8];
+  const user = useContext(UserContext);
+  const profileParam:{ [key: string]: number|string|Array<string>|null}= {"Age " :user.info.age,"Interest ":user.info.interest,"Job ":user.info.job,"Bio ":user.info.bio};
   const [verifiedColor, setVerifiedColor] = useState<
     | "disabled"
     | "inherit"
@@ -30,7 +30,6 @@ export const Profile: FC = () => {
     | "warning"
     | undefined
   >("disabled");
-  const user = useContext(UserContext);
   const [verify]=useMutation(REQUEST_VERIFY)
   const FullName = user.firstname + " " + user.lastname;
   const generator = new AvatarGenerator();
@@ -52,34 +51,38 @@ export const Profile: FC = () => {
 
  
   return (  
-    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ display: "flex", justifyContent: "center", flexDirection:"row", alignItems: "center" }}>
       <Grid
         item
-        xs={8}
-        sx={{ display: "flex", justifyContent: "end", alignItems: "center" }}
+        xs={12}
+        sx={{ display: "flex", justifyContent: "center", flexDirection:"column", alignItems: "center" }}
       >
         <Grid item xs={2}>
           <Avatar src={avatar} sx={{ width: "5rem", height: "5rem" }} />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
           <Badge>
-            <Typography variant="h4" color="inherit">
+            <Typography  variant="h4" color="inherit">
               {FullName}
             </Typography>
             <CheckCircleIcon color={verifiedColor} />
           </Badge>
         </Grid>
+        <Grid item xs={6}>
+         <Typography variant="subtitle1" sx={{textAlign:"center"}}> {user.email}</Typography>
+        </Grid>
+        <Grid item xs={6}>
+        <Typography variant="subtitle2" sx={{textAlign:"center"}}> {user.location}</Typography>
+        </Grid>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "start",
-        }}
-      >
-        <Grid item xs={4}>
+      {!user.isVerified ? <Button variant="contained"  color="error" onClick={handleVerify}>
+        Veryfy
+      </Button>
+      : null}
+      <Divider variant="middle" />
+      
+
+        <Grid item xs={12}>
           <Grid
             container
             spacing={2}
@@ -90,37 +93,19 @@ export const Profile: FC = () => {
               alignItems: "center",
             }}
             >
-            {!user.isVerified ? <Button variant="contained" onClick={handleVerify}>
-              Veryfy
-            </Button>
-            : null}
 
-            {profileParam.map((event, key) => (
-              <Grid item xs={3} key={key}>
-                {event}
+            {Object.keys(profileParam).map((item:string, key) => (
+              <Grid item xs={8} key={key} sx={{display:"flex",justifyContent:"start",flexDirection:"column",alignItems:"center"}}>
+                <Typography variant="h6" >{item}</Typography>
+                <Typography variant="subtitle1" >{profileParam[item]}</Typography>
               </Grid>
             ))}
+                <Button variant="contained" >
+                  Update
+                </Button>
           </Grid>
-        </Grid>
-        <Grid item xs={8}>
-          <Grid
-            container
-            spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            {profileEvent.map((event, key) => (
-              <Grid item key={key}>
-                 {event}
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
     </Grid>
+    </Grid>
+
   );
 };
