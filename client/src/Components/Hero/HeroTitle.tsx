@@ -1,7 +1,7 @@
 import { Container, Typography, Stack, Button } from "@mui/material";
 import { animated, useSpring} from "react-spring";
 import Translator from "../../Utils/Translator";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import {
   TitleAnimation,
   SubTitleAnimation,
