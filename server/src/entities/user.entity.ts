@@ -40,7 +40,7 @@ export class User {
   @prop()
   location!: string;
 
-  @Field()
+  @Field({nullable: true})
   @prop()
   info!: UserInfo;
 
