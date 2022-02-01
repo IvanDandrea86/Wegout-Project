@@ -51,7 +51,7 @@ export const Profile: FC = () => {
 
  
   return (  
-    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ display: "flex", justifyContent: "center", flexDirection:"row", alignItems: "center" }}>
+    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ heigth:"83vh", display: "flex", justifyContent: "center", flexDirection:"row", alignItems: "center" }}>
       <Grid
         item
         xs={12}
