@@ -61,10 +61,10 @@ if (error) return <ErrorMess/>
         isVerified: data.findUserById.isVerified,
         location:data.findUserById.location,
         info:{
-          bio:data.findUserById.info.bio,
-          age:data.findUserById.info.age,
-          job:data.findUserById.info.job,
-          interest:data.findUserById.info.interest
+          bio:data.findUserById.info ?  data.findUserById.info.bio : "",
+          age:data.findUserById.info ?  data.findUserById.info.age :"",
+          job:data.findUserById.info ?  data.findUserById.info.job :"" ,
+          interest:data.findUserById.info ? data.findUserById.info.interest : ""
         }
       }}
     >
