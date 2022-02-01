@@ -18,7 +18,7 @@ export const getEvents_new = async (cat:string,
         .request(options)
         .then(function (response) {
           if(response.data._embedded.events  === undefined){
-            console.log("hi")
+          return;
           }
           else 
           setData(response.data._embedded.events);

@@ -14,7 +14,7 @@ export default function SliderRadius() {
     event.preventDefault()
     setValue(newValue as number);
     filter.setRadius(newValue);
-    console.log(filter.radius)
+ 
   };
 
 
@@ -56,7 +56,7 @@ const filter=useContext(filterContext)
         value={value} 
         onChange={handleChange}
         onChangeCommitted={()=>{filter.setRadius(value);
-          console.log(filter.radius)}}
+         }}
       />
     </Box>
   );

@@ -36,8 +36,8 @@ export const AddFriendCard=(props:any)=> {
   return (
       <div>
       <CssBaseline/>
-    <Card sx={{ minWidth:"350px",width: "100%"}}>
-    <Grid container spacing={2}  sx={{ display:"flex",justifyContent:"center" }}>
+    <Card sx={{ maxHeight:"140px",minHeight:"140px",minWidth:"450px",maxWidth:"450px",width: "100%"}}>
+    <Grid container spacing={2}  sx={{ display:"flex",justifyContent:"start", flexWrap:"nowrap"}}>
   
       <CardMedia
         component="img"
