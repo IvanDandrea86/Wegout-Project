@@ -42,7 +42,7 @@ export class User {
 
   @Field({nullable: true})
   @prop()
-  info!: UserInfo;
+  info: UserInfo;
 
 
   @Field(() => [String])
