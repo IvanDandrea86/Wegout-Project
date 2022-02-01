@@ -8,6 +8,7 @@ import { COOKIENAME, __prod__ } from "../../constants/const";
 import {v4} from 'uuid';
 
 import { sendMail } from "../../mailer/sendMail";
+import sendMailTest from "../../mailer/sendMailTest";
 
 
 declare module 'express-session' {
@@ -242,12 +243,14 @@ async forgotPassword(
     60*60)//1hour
 
  
-      const HtmlLink=`<a href="https://wegout.herokuapp.com//forgot/${token}">Here the link to reset yourt password</a> `
+      const HtmlLink=`<a href="https://wegout.herokuapp.com/forgot/${token}">Here the link to reset yourt password</a> `
+      const HtmlLinkTest=`<a href="http://localhost:3000/forgot/${token}">Here the link to reset yourt password</a> `
     
    
    
-    // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
-    try{
+   
+      try{
+       await sendMailTest(user.email,HtmlLinkTest,"WeGOut Password Reset Request")
       await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
     }
     catch(err){
@@ -303,8 +306,10 @@ async requestVerifyEmail(
     "ex",
     60*60)//1hour
     const HtmlLink=`<a href="https://wegout.herokuapp/verify/${token}">Click to verify your account</a> `
-    // await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
+    const HtmlLinkTest=`<a href="http://localhost:3000/verify/${token}">Click to verify your account</a> `
+   
     try{
+      await sendMailTest(user.email,HtmlLinkTest,"WeGOut Password Reset Request")
       await sendMail(user.email,HtmlLink,"WeGOut Verify")
     
     }

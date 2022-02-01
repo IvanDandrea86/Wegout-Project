@@ -13,21 +13,13 @@ export default function DrawerFilter() {
 
   const toggleDrawer =
     () => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
+    
       setState(!state);
     };
 
   const list = () => (
     <Box
       role="filters"
-      //   onClick={toggleDrawer()}
-      onKeyDown={toggleDrawer()}
       sx={{
         width: "350px",
       }}

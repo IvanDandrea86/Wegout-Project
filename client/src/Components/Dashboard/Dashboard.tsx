@@ -19,6 +19,7 @@ export const Dashboard = () => {
       filter.page,
       filter.radius,
       filter.size,
+      filter.keyword,
       setEvents
     );
     
