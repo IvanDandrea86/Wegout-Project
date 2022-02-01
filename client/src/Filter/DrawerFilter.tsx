@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -8,26 +8,19 @@ import SliderRadius from "./SliderRadius";
 import AccordionFilters from "./AccordionFilters";
 import { CustomSearch } from "../Components/Search/CustomSearch";
 
+
 export default function DrawerFilter() {
   const [state, setState] = useState<boolean>();
 
   const toggleDrawer =
     () => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
+    
       setState(!state);
     };
 
   const list = () => (
     <Box
       role="filters"
-      //   onClick={toggleDrawer()}
-      onKeyDown={toggleDrawer()}
       sx={{
         width: "350px",
       }}
@@ -53,7 +46,7 @@ export default function DrawerFilter() {
   );
 
   return (
-    <div>
+    <span style={{border: 0,boxSizing:"border-box",margin:0,padding:0, display:"flex", justifyContent:"center",alignItems:"center"}}>
       <Button variant="text" onClick={toggleDrawer()}>
         Filter
       </Button>
@@ -66,6 +59,6 @@ export default function DrawerFilter() {
       >
         {list()}
       </Drawer>
-    </div>
+  </span>
   );
 }

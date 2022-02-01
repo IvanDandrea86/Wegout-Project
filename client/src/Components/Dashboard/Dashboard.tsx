@@ -7,11 +7,15 @@ import { useEffect } from "react";
 import { getEvents_new } from "../../Utils/getEvents_new";
 import EventCardSkeleton from "../Skeleton/EventCardSkeleton";
 import { filterContext } from "../../Context/FilterContext";
+import Search from "@mui/icons-material/Search";
+import { FriendsContext } from "../../Context/FriendsProvider";
 
 export const Dashboard = () => {
   const user = useContext(UserContext);
   const filter = useContext(filterContext);
+  const search=useContext(FriendsContext)
   const [events, setEvents] = useState<Array<any>>([] as any);
+  const isEvent=search.friends===false
   useEffect(() => {
     getEvents_new(
       filter.cat,
@@ -19,10 +23,12 @@ export const Dashboard = () => {
       filter.page,
       filter.radius,
       filter.size,
+      filter.keyword,
       setEvents
     );
     
   }, [filter]);
+
 
   return (
     <Grid
@@ -45,7 +51,8 @@ export const Dashboard = () => {
           Hey {user.firstname} where you want to go...
         </Typography>
         <Typography variant="h5" color="primary">
-          Here the next events in <FindMe />
+          Here the next events in
+           {/* <FindMe /> */}
         </Typography>
       </Grid>
       {/* </Grid> */}

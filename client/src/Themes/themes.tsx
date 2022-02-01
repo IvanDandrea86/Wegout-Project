@@ -25,9 +25,21 @@ export const themeOptions: ThemeOptions = {
       }
     }
   },
+  MuiPaper:{
+    defaultProps:{
+      sx:{
+          color:"#f7f1e3",
+          backgroundColor:"#090910", 
+          boxShadow:0,
+          }
+    }
+  },
   MuiCard:{
     defaultProps:{
       sx:{
+        m:5,
+          color:"#f7f1e3",
+          backgroundColor:"#090910", 
         boxShadow:0,
           }
     }
@@ -41,6 +53,23 @@ export const themeOptions: ThemeOptions = {
        
       }
     }
+  },
+  MuiSlider:{
+    
+    styleOverrides:{
+      markLabel:{
+      color:"#f7f1e3"
+      },
+      rail:{
+        color:"#f7f1e3"
+      },
+      track:{color:"red"},
+      thumbColorPrimary:{
+        color:"#f7f1e3"
+      }
+      
+    }
+  
   },
     MuiButton:{
     styleOverrides:
@@ -78,10 +107,7 @@ export const themeOptions: ThemeOptions = {
         borderRadius:"10px",
         background: "#f7f1e3",
         opacity:0.9,
-        "&:hover":{
-          transform:"scale(1.05)",
-          transition: "all 1s ease"
-        }
+      
        }
     }
   },
@@ -91,10 +117,7 @@ export const themeOptions: ThemeOptions = {
         borderRadius:"10px",
         background: "#f7f1e3",
         opacity:0.9,
-        "&:hover":{
-          transform:"scale(1.05)",
-          transition: "all 1s ease"
-        }
+     
        }
     }
   }
@@ -132,7 +155,19 @@ export const themeOptionsDark: ThemeOptions = {
   MuiCard:{
     defaultProps:{
       sx:{
+        m:5,
         boxShadow:0,
+        color:"#090910",
+        backgroundColor:"#f7f1e3",
+          }
+    }
+  },
+  MuiPaper:{
+    defaultProps:{
+      sx:{
+          backgroundColor:"#f7f1e3",
+          color:"#090910", 
+          boxShadow:0,
           }
     }
   },
@@ -152,10 +187,7 @@ export const themeOptionsDark: ThemeOptions = {
         borderRadius:"10px",
         background: "#090910",
         opacity:0.9,
-        "&:hover":{
-          transform:"scale(1.05)",
-          transition: "all 1s ease"
-        }
+     
        }
     }
   },
@@ -166,11 +198,22 @@ export const themeOptionsDark: ThemeOptions = {
         borderRadius:"10px",
         background: "#090910",
         opacity:0.9,
-        "&:hover":{
-          transform:"scale(1.05)",
-          transition: "all 1s ease"
-        }
+       
        }
+    }
+  },MuiSlider:{
+    styleOverrides:{
+      markLabel:{
+      color:"#090910"
+      },
+      rail:{
+        color:"#090910"
+      },
+      track:{color:"red"},
+      thumbColorPrimary:{
+        color:"#090910"
+      }
+      
     }
   },
   MuiButton:{
