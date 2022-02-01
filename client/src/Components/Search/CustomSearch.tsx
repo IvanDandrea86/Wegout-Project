@@ -11,11 +11,12 @@ import { Search,SearchIconWrapper,StyledInputBase } from './CustomSearch.style';
        filter.setKeyword(e)
       }
      return (
-        <Search>
-        <SearchIconWrapper>
+      <Search sx={{ display:"flex", justifyContent:"start",alignItems:"center"}}>
+      <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
+        sx={{ml:3}}
           onChange={(e)=>handleSearch(e.target.value)}
           placeholder="Search…"
           value={filter.keyword}

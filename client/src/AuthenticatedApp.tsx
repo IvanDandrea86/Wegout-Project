@@ -7,9 +7,11 @@ import Footer from "./Components/Footer/Footer";
 import { UserProfile } from "./Pages/Profile/UserProfile";
 import { Verify } from "./Pages/Verify/Verify";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
+import FriendsProvider from "./Context/FriendsProvider";
 const AuthenticatedApp: FC = () => {
   return (
       <UserProvider>
+              <FriendsProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>} />
@@ -21,6 +23,7 @@ const AuthenticatedApp: FC = () => {
       </Routes>
       <Footer />
     </BrowserRouter>
+    </FriendsProvider>
     </UserProvider>
   );
 };
