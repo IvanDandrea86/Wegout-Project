@@ -57,10 +57,10 @@ export const AddFriendCard=(props:any)=> {
       <CardActions sx={{display:"flex", justifyContent: "center", flexDirection:"row", width:"100%"}}>
         {/* {props.bouton}
         {props.button} */}
-        <Button variant="text" >
+        <Button variant="contained" >
           Events
         </Button>
-        <Button variant="text" >
+        <Button variant="contained" >
           Chat
         </Button>
       </CardActions>
