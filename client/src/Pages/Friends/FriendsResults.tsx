@@ -29,11 +29,11 @@ export const FriendsResults:FC=()=>{
     // console.log( Object.keys(data.findAllUser).map(elem=>{return data.findAllUser[elem]}))
     
     return (
-        <Grid container spacing={0.5}>
+        <Grid container spacing={0.5} sx={{height: "83wh",display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 
         {data.findAllUser.filter((val:any) => {
           return val.lastname.toLowerCase().includes((friend.userName).toLowerCase())}).map((myname:any )=> (
-            <Grid item key={myname._id} xs={12} sm={4} md={3} sx={{mb: 1,  display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <Grid item key={myname._id} xs={12} sm={3} md={3} sx={{height: "83wh",m: 5,  display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 
             <AddFriendCard props={myname} key={myname.firstname} />
             </Grid>

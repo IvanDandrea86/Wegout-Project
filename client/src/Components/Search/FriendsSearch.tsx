@@ -10,7 +10,7 @@ import { Search,SearchIconWrapper,StyledInputBase } from './CustomSearch.style';
    const search=useContext(FriendsContext)
     const handleSearch =(e:string)=>{
         search.setUserName(e)
-        if (e.length > 2){
+        if (e.length >= 2){
         search.setFriends(true)
         }
         

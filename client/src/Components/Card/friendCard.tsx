@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { AvatarGenerator } from "random-avatar-generator";
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
-import { Badge } from '@mui/material';
+import { Badge, CssBaseline } from '@mui/material';
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 
@@ -34,8 +34,10 @@ export const AddFriendCard=(props:any)=> {
         }
       },[props.props.isVerified])
   return (
-    <Card sx={{ width: "100%" }}>
-<Grid container spacing={2} sx={{ display:"flex",justifyContent:"center", }}> 
+      <div>
+      <CssBaseline/>
+    <Card sx={{ minWidth:"350px",width: "100%"}}>
+    <Grid container spacing={2}  sx={{ display:"flex",justifyContent:"center" }}>
   
       <CardMedia
         component="img"
@@ -51,7 +53,7 @@ export const AddFriendCard=(props:any)=> {
             <CheckCircleIcon color={verifiedColor} />
           </Badge>
       </CardContent>
-        </Grid>
+      </Grid>
       <CardActions sx={{display:"flex", justifyContent: "center", flexDirection:"row", width:"100%"}}>
         {/* {props.bouton}
         {props.button} */}
@@ -63,5 +65,6 @@ export const AddFriendCard=(props:any)=> {
         </Button>
       </CardActions>
     </Card>
+    </div>
   );
 }

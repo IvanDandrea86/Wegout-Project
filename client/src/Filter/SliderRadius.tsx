@@ -44,12 +44,13 @@ const filter=useContext(filterContext)
       }
   return (
     <Box sx={{ width: 300 }}>
-        <Typography variant="h6" color="inherit">Radius</Typography>
+        <Typography variant="h6" >Radius</Typography>
       <Slider
         aria-label="Custom marks"
         defaultValue={50}
         getAriaValueText={valuetext}
         step={5}
+       
         valueLabelDisplay="auto"
         marks={marks}
         value={value} 
