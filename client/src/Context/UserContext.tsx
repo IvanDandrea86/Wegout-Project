@@ -51,7 +51,7 @@ const { data,loading,error } = useQuery(FIND_USER,{variables:{
 if (loading) return <Loading/>
 if (error) return <ErrorMess/>
 
-
+let temp=new Array()
 
   return (
     <UserContext.Provider
@@ -64,7 +64,7 @@ if (error) return <ErrorMess/>
           bio:data.findUserById.info ?  data.findUserById.info.bio : "",
           age:data.findUserById.info ?  data.findUserById.info.age :"",
           job:data.findUserById.info ?  data.findUserById.info.job :"" ,
-          interest:data.findUserById.info ? data.findUserById.info.interest : ""
+          interest:data.findUserById.info ? data.findUserById.info.interest : temp
         }
       }}
     >
