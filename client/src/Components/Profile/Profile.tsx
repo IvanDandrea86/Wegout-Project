@@ -98,7 +98,7 @@ export const Profile: FC = () => {
             {Object.keys(profileParam).map((item:string, key) => (
               <Grid item xs={8} key={key} sx={{display:"flex",justifyContent:"start",flexDirection:"column",alignItems:"center"}}>
                 <Typography variant="h6" >{item}</Typography>
-                {(item ==="Interest ") ? user.info.interest.map(elem=>(
+                {(item ==="Interest" ) ? user.info.interest.map(elem=>(
                   <Typography variant="subtitle1" >{elem}</Typography>
                 )):
                 <Typography variant="subtitle1" >{profileParam[item]}</Typography>
