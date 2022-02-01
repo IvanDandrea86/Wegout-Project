@@ -27,14 +27,14 @@ const UnauthHeader: FC = (props) => {
               style={{
                 flex: 1,
                 alignSelf: "stretch",
-                width: 110,
-                height: 60,
-                marginTop: 10,
-              }}
+                width: 85,
+                height: 45,
+                marginTop: 5,
+                }}
             />
           </IconButton>
           <Grid container spacing={2}></Grid>
-          <Grid item>
+          <Grid item sx={{alignSelf:"center"}}>
             <Button variant="text"  onClick={()=>{navigation.setLink("login")}}>
               <Translator trad="login" />
             </Button>

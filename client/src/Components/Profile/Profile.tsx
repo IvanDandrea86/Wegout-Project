@@ -41,6 +41,7 @@ export const Profile: FC = () => {
       email:user.email
     }})
     if (data){console.log("email sent")}
+    // add modal
 
   }
   useEffect(()=>{

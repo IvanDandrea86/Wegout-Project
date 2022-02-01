@@ -154,6 +154,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+           
       <IconButton aria-label="" href="/">
              <img
              src={logo}
@@ -161,18 +162,17 @@ export default function Header() {
              style={{
                flex: 1,
                alignSelf: "stretch",
-               width: 110,
-               height: 60,
-               marginTop: 10,
+               width: 85,
+               height: 45,
+               marginTop: 5,
                }}
             />
       </IconButton>
-           
         <Grid container spacing={0} sx={{display:"flex", justifyContent:"space-between",flexWrap:"nowrap"}}>
           
         
           
-         <Grid item>
+         <Grid item sx={{alignSelf:"center"}}>
           <Button variant="text" color="inherit" href="/profile"  >
            Profile
           </Button>

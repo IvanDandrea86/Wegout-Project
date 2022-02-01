@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, Button } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import FindMe from "../../Utils/geoLocation";
 import EventCard from "../Card/eventCard";
@@ -7,15 +7,14 @@ import { useEffect } from "react";
 import { getEvents_new } from "../../Utils/getEvents_new";
 import EventCardSkeleton from "../Skeleton/EventCardSkeleton";
 import { filterContext } from "../../Context/FilterContext";
-import Search from "@mui/icons-material/Search";
-import { FriendsContext } from "../../Context/FriendsProvider";
+import { flexColumCenter, flexRowCenter,title } from "./Dashboard.style";
 
 export const Dashboard = () => {
   const user = useContext(UserContext);
   const filter = useContext(filterContext);
-  const search=useContext(FriendsContext)
+
   const [events, setEvents] = useState<Array<any>>([] as any);
-  const isEvent=search.friends===false
+
   useEffect(() => {
     getEvents_new(
       filter.cat,
@@ -26,63 +25,31 @@ export const Dashboard = () => {
       filter.keyword,
       setEvents
     );
-    
   }, [filter]);
 
-
   return (
-    <Grid
-      container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Grid container sx={flexColumCenter}>
       <Grid
         item
-        sx={{
-          m: 25,
-          textAlign: "center",
-        }}
+        sx={title}
       >
         <Typography variant="h5" color="primary">
           Hey {user.firstname} where you want to go...
         </Typography>
         <Typography variant="h5" color="primary">
           Here the next events in
-           {/* <FindMe /> */}
+          <FindMe />
         </Typography>
       </Grid>
-      {/* </Grid> */}
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        sx={flexRowCenter}
       >
         {events
           ? events.map((event: any) => (
-              <Grid
-                item
-                xs={12}
-                md={3}
-                key={event.id}
-                sx={{
-                  m: 1,
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+              <Grid item xs={12} sm={4} md={4} key={event.id} sx={flexRowCenter}>
                 <Box sx={{ boxShadow: 5 }}>
                   <EventCard details={event} />
                 </Box>
@@ -94,6 +61,9 @@ export const Dashboard = () => {
               </Grid>
             ))}
       </Grid>
+      <Button variant="contained" >
+        Load More...
+      </Button>
     </Grid>
   );
 };

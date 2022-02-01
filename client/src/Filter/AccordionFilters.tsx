@@ -43,7 +43,6 @@ export default function AccordionFilters() {
     }
     else{
       let array=filter.cat.replace(e.target.name,"")
-      console.log(array)
       filter.setCat(array)
     }
     filter.setCatCheck(updatedCheckedState)

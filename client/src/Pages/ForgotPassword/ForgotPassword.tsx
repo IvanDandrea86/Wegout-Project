@@ -42,8 +42,8 @@ const ForgotPassword:FC=()=>{
          }}) 
         
         if(data.changePassword.errors){
-        console.log(data.changePassword.errors.field)
-        console.log(data.changePassword.errors.message)
+        // console.log(data.changePassword.errors.field)
+        // console.log(data.changePassword.errors.message)
       }
       else{
         history("/");
