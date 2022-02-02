@@ -1,4 +1,4 @@
-import React,{FC} from "react"
+import {FC} from "react"
 import Header from "../../Components/Header/Header"
 import {Profile} from "../../Components/Profile/Profile"
 
@@ -8,8 +8,6 @@ export const UserProfile:FC=()=>{
         <div>
 <Header/>
 <Profile />
-
-
         </div>
     )
 }

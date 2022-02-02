@@ -21,6 +21,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { RegisterAnimation } from "../../Assets/Animation/animation";
 import { navigatioContext } from "../../Context/NavContext";
+import { marginFormInput } from "../../Assets/Style/style";
 const CREATE_USER_MUTATION = gql`
   mutation (
     $lastname: String!
@@ -166,7 +167,7 @@ export default function SignUp() {
   };
   return (
     <animated.div style={fadeRight}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{width:"80%"}}>
         <Box
           sx={{
             marginTop: 2,
@@ -193,7 +194,7 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6} sx={marginFormInput}>
                 <TextField
                   onChange={(e) => {
                     setFirstName(e.target.value);
@@ -211,7 +212,7 @@ export default function SignUp() {
                   error={firstnameError}
                 />
               </Grid>
-              <Grid item xs={12} sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6} sx={marginFormInput}>
                 <TextField
                   onChange={(e) => {
                     setLastName(e.target.value);
@@ -227,8 +228,9 @@ export default function SignUp() {
                   error={lastnameError}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={marginFormInput}>
                 <TextField
+                
                   onChange={(e) => handleChange(e.target.value, "email")}
                   required
                   fullWidth
@@ -242,14 +244,13 @@ export default function SignUp() {
                   helperText={helperEmail}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth>
+              <Grid item xs={12} sx={marginFormInput}>
+                <FormControl fullWidth >
                   <InputLabel id="Location">Location</InputLabel>
                   <Select
                     labelId="Location"
                     id="LocationSelect"
                     value={location}
-
                     label="Location"
                     onChange={(e) => handleSelect(e.target.value)}
                   >
@@ -305,7 +306,7 @@ export default function SignUp() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={marginFormInput}>
                 <TextField
                   onChange={(e) => handleChange(e.target.value, "password")}
                   required
@@ -321,7 +322,7 @@ export default function SignUp() {
                   helperText={helperPass}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={marginFormInput}>
                 <TextField
                   required
                   fullWidth

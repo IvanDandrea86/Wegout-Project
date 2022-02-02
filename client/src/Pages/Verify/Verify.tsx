@@ -20,18 +20,13 @@ export const Verify: FC = () => {
   const { token } = useParams();
   const history = useNavigate();
   const  [verify  ]= useMutation(VERIFY_MUT );
-
 useEffect(()=>{
-
-
 async function ver() {
-    
     const { data } = await verify({
       variables: {
         token: token,
       },
     })
-  
     if (data.verifiy.errors) {
       console.error(data.verifiy.errors.field);
       console.error(data.verifiy.errors.message);

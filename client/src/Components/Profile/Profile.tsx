@@ -1,23 +1,27 @@
 import { FC, useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Avatar, Badge, Button, Typography,Divider } from "@mui/material";
+import { Avatar, Badge, Button, Typography, Divider, TextField } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {gql,useMutation} from "@apollo/client"
+import { gql, useMutation } from "@apollo/client";
+import { flexColumCenter, flexStartCenter } from "../../Assets/Style/style";
 
-
-
-
-const REQUEST_VERIFY=gql`
-  mutation($email:String!){
-    requestVerifyEmail(email:$email)}
-
-`
-
+const REQUEST_VERIFY = gql`
+  mutation ($email: String!) {
+    requestVerifyEmail(email: $email)
+  }
+`;
 export const Profile: FC = () => {
   const user = useContext(UserContext);
-  const profileParam:{ [key: string]: number|string|Array<string>|null}= {"Age " :user.info.age,"Interest ":user.info.interest,"Job ":user.info.job,"Bio ":user.info.bio};
+  const profileParam: {
+    [key: string]: number | string | Array<string> | null;
+  } = {
+    "Age ": user.info.age,
+    "Interest ": user.info.interest,
+    "Job ": user.info.job,
+    "Bio ": user.info.bio,
+  };
   const [verifiedColor, setVerifiedColor] = useState<
     | "disabled"
     | "inherit"
@@ -30,87 +34,138 @@ export const Profile: FC = () => {
     | "warning"
     | undefined
   >("disabled");
-  const [verify]=useMutation(REQUEST_VERIFY)
+  const [verify] = useMutation(REQUEST_VERIFY);
+  const [modify, setModify] = useState<boolean>(false);
   const FullName = user.firstname + " " + user.lastname;
   const generator = new AvatarGenerator();
-  const avatar =  generator.generateRandomAvatar(user.email as string );
+  const avatar = generator.generateRandomAvatar(user.email as string);
   // Simply get a random avatar
 
-  const handleVerify=async()=>{
-    const {data}=await verify({variables:{
-      email:user.email
-    }})
-    if (data){console.log("email sent")}
-    // add modal
-
-  }
-  useEffect(()=>{
-    if (user.isVerified===true){
-      setVerifiedColor("success")
+  const handleVerify = async () => {
+    const { data } = await verify({
+      variables: {
+        email: user.email,
+      },
+    });
+    if (data) {
+      console.log("email sent");
     }
-  },[user.isVerified])
+    // add modal
+  };
+  useEffect(() => {
+    if (user.isVerified === true) {
+      setVerifiedColor("success");
+    }
+  }, [user.isVerified]);
 
- 
-  return (  
-    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ heigth:"83vh", display: "flex", justifyContent: "center", flexDirection:"row", alignItems: "center" }}>
+  return (
+    <Grid
+      container
+      rowSpacing={1}
+      columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      sx={{
+        heigth: "83vh",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
       <Grid
         item
         xs={12}
-        sx={{ display: "flex", justifyContent: "center", flexDirection:"column", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
         <Grid item xs={2}>
           <Avatar src={avatar} sx={{ width: "5rem", height: "5rem" }} />
         </Grid>
         <Grid item xs={12}>
           <Badge>
-            <Typography  variant="h4" color="inherit">
+            <Typography variant="h4" color="inherit">
               {FullName}
             </Typography>
             <CheckCircleIcon color={verifiedColor} />
           </Badge>
         </Grid>
         <Grid item xs={6}>
-         <Typography variant="subtitle1" sx={{textAlign:"center"}}> {user.email}</Typography>
+          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+            {user.email}
+          </Typography>
         </Grid>
         <Grid item xs={6}>
-        <Typography variant="subtitle2" sx={{textAlign:"center"}}> {user.location}</Typography>
+          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>    
+            {user.location}
+          </Typography>
         </Grid>
       </Grid>
-      {!user.isVerified ? <Button variant="contained"  color="error" onClick={handleVerify}>
-        Veryfy
-      </Button>
-      : null}
+      {!user.isVerified ? (
+        <Button variant="contained" color="warning" onClick={handleVerify}>
+          Veryfy
+        </Button>
+      ) : null}
       <Divider variant="middle" />
-      
 
-        <Grid item xs={12}>
+      <Grid item xs={12}>
+        {!modify ? (
           <Grid
             container
             spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-            >
-
-            {Object.keys(profileParam).map((item:string, key) => (
-              <Grid item xs={8} key={key} sx={{display:"flex",justifyContent:"start",flexDirection:"column",alignItems:"center"}}>
-                <Typography variant="h6" >{item}</Typography>
-                {(item ==="Interest" ) ? user.info.interest.map(elem=>(
-                  <Typography variant="subtitle1" >{elem}</Typography>
-                )):
-                <Typography variant="subtitle1" >{profileParam[item]}</Typography>
-              }
+            sx={flexColumCenter}
+          >
+            {Object.keys(profileParam).map((item: string, key) => (
+              <Grid
+                item
+                xs={8}
+                key={key}
+                sx={flexStartCenter}
+              >
+                <Typography variant="h6">{item}</Typography>
+                {item === "Interest " ? (
+                  user.info.interest.map((elem) => (
+                    <Typography variant="subtitle1">{elem}</Typography>
+                  ))
+                ) : (
+                  <Typography variant="subtitle1">
+                    {profileParam[item]}
+                  </Typography>
+                )}
               </Grid>
             ))}
-                <Button variant="contained" >
-                  Update
-                </Button>
+            <Button variant="contained" onClick={()=>{setModify(!modify)}}>Modify</Button>
           </Grid>
-    </Grid>
-    </Grid>
+        ) : (
+          <Grid
+            container
+            spacing={2}
+            sx={flexColumCenter}
+          >
+            {Object.keys(profileParam).map((item: string, key) => (
+              <Grid
+                item
+                xs={8}
+                key={key}
+                sx={flexStartCenter}
+              >
+                {item === "Interest " ? (
+                  user.info.interest.map((elem) => (
+                    <TextField id="interest" label={item} value={elem} variant="standard" />
 
+                  ))
+                )      
+                : (
+                  <TextField  id="standard-basic" label={item} value={profileParam[item]} variant="standard" />
+                  )}
+              </Grid>
+            ))}
+            <Button variant="contained" onClick={()=>{setModify(!modify)}}>Update</Button>
+          </Grid>
+        )}
+      </Grid>
+    </Grid>
   );
 };

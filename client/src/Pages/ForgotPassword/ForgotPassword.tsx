@@ -15,11 +15,8 @@ mutation($token:String!,$newPassword:String!){changePassword(token:$token,passwo
 `
 
 const ForgotPassword:FC=()=>{
-
     const {token} =useParams()
     const history = useNavigate();
-
-    
     const [newPassword,setNewPassword]=useState<string>("")
     const [confirmPassword,setConfirmPassword]=useState<string>("")
     const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
@@ -90,11 +87,8 @@ const ForgotPassword:FC=()=>{
       };
     }
 
-    
-
-
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" sx={{m:2}}>
         <Box
           sx={{
             marginTop: 2,
@@ -152,10 +146,6 @@ const ForgotPassword:FC=()=>{
           </Box>
         </Box>
       </Container>
-
-        
-        
-      
     )
   }
           
