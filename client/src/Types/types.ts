@@ -42,4 +42,15 @@ export interface Video {
       full:string}
   }
 
+  export interface IImage{
+    ratio:string;
+    url:string;
+    width:number;
+    }
+    
+    export interface IDetails {
+      images: Array<IImage>;
+      name: string;
+    }
+
  

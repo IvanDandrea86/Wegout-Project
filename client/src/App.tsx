@@ -13,16 +13,12 @@ function App() {
   const { theme } = useContext(CustomThemeContext)
   const context =useContext(AuthContext)
   const {setLanguage}=React.useContext(languageContext)
-
   useEffect(() => {
     if(window.localStorage.getItem("lang")){
       setLanguage(window.localStorage.getItem("lang"))
     }
   });
-
-
   return (
-    
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         {context.auth ? <AuthenticatedApp /> : <UnauthenticatedApp />}

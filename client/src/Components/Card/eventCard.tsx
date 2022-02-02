@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, useContext} from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,7 +7,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Divider, Skeleton, Grid } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
-
+import { useNavigate } from 'react-router-dom';
+import { qualityImgage } from "../../Utils/qualityImages";
 
 
 
@@ -21,6 +22,9 @@ interface IProps{
 
 
 const  EventCard:FC<IProps>=({details})=> {
+  const navigate=useNavigate()
+
+const link=qualityImgage(details)
  
  return(
     <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%"}} >
@@ -31,7 +35,7 @@ const  EventCard:FC<IProps>=({details})=> {
         sx={ {maxHeight:"190px"}}
         width="100%"
         height="auto"
-        image={details.images[8].url}
+        image={link}
       />
       :
       <Skeleton variant="rectangular" animation="wave"   height={140} />
@@ -70,15 +74,11 @@ const  EventCard:FC<IProps>=({details})=> {
       
       </CardContent>
       <CardActions >
-        <Button variant="text" size="small">I Go</Button>
-        <Button variant="text" size="small">Who Goes ?</Button>
+        <Button variant="text" size="small" >I Go</Button>
+        <Button variant="text" size="small" onClick={()=>{navigate(`event/${details.id}`)}}>Who Goes ?</Button>
       </CardActions>
      
     </Card>
-
-  
-  
-  
   );
 }
 export default EventCard
