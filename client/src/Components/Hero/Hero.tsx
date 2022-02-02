@@ -6,7 +6,7 @@ import Loading from "../Utility/Loading";
 import styled from "@emotion/styled";
 import {BackDropTop,BackDropBottom} from "../BackDrop/BackDrop";
 
-import HeroTitle from "./HeroTtitle"
+import HeroTitle from "./HeroTitle"
 import { video_container,videoStyle} from "./HeroStyles";
 import Login from "../../Pages/Login/Login";
 import { Box } from "./HeroStyles";

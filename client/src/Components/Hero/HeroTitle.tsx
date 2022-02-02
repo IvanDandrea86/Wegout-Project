@@ -51,6 +51,7 @@ const HeroTitle: FC = () => {
           </Stack>
         </animated.div>
       </animated.div>
+      
     </Container>
   );
 };

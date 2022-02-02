@@ -12,7 +12,7 @@ export const getVideos = async (query:string,page:number,setVideo:Function) => {
         url: 'https://api.pexels.com/videos/search?',
         params: {query: query, per_page: page},
       };
-      let index=Math.floor(Math.random()*9)
+      let index=Math.floor(Math.random()*6)
      const response= await axios.request(options)
       setVideo(response.data.videos[index].video_files[0].link)
 };
