@@ -1,10 +1,10 @@
 import { Fragment, useContext, useState } from "react"
 import Container from '@mui/material/Container'
-import { Box, Divider, FormControl, Grid, IconButton, List, ListItem, ListItemText, Paper, TextField, Typography } from "@mui/material"
+import { Avatar, Box, Divider, FormControl, Grid, IconButton, List, ListItem, ListItemText, Paper, TextField, Typography } from "@mui/material"
 import {chatMessageStyle,chatWindowStyle} from "./Chat.style"
 import SendIcon from '@mui/icons-material/Send';
 import { UserContext } from "../../Context/UserContext";
-
+import { AvatarGenerator } from "random-avatar-generator";
 
 
 class IChatMess{
@@ -22,6 +22,8 @@ class IChatMess{
 
 export const Chat=()=>{
     const user=useContext(UserContext)
+    const generator = new AvatarGenerator();
+  const avatar = generator.generateRandomAvatar(user.email as string);
     const [chatMessages,setMessages]=useState([new IChatMess("Ivan","Ciao my first message")])
     const[message,setMessage]=useState("")
    
@@ -35,7 +37,7 @@ export const Chat=()=>{
     <Container maxWidth="xs" >
         <Paper elevation={5}>
             <Box p={3}>
-            <Typography variant="h4" gutterBottom>happy chatting</Typography>
+            <Typography variant="h4" gutterBottom>Who is going out?</Typography>
             <Divider/>
             <Grid container spacing={4} alignItems={"center"}>
 <Grid item   id="chat-window" xs={12} sx={chatWindowStyle}>
@@ -45,7 +47,7 @@ export const Chat=()=>{
 </Grid>
 <Grid item xs={2}>
     <FormControl fullWidth>
-      <TextField value={user.firstname}  variant="outlined"/>
+    <Avatar src={avatar} sx={{ width: "4rem", height: "4rem" }} />
     </FormControl>
 </Grid>
 <Grid item xs={9}>
