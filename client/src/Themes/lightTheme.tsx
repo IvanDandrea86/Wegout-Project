@@ -17,7 +17,9 @@ export const themeOptions: ThemeOptions = {
       }
     },
     components:
-    {MuiCardContent:{
+
+    {
+      MuiCardContent:{
       defaultProps:{
         sx:{
           color:"#f7f1e3",

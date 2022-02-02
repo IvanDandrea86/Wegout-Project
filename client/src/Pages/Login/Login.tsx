@@ -23,6 +23,7 @@ import {
 } from "../../Components/Utility/validation";
 import { LoginAnimation } from "../../Assets/Animation/animation";
 import { navigatioContext } from "../../Context/NavContext";
+import { marginFormInput } from "../../Assets/Style/style";
 
 const LOGIN_MUT = gql`
   mutation ($email: String!, $password: String!) {
@@ -138,11 +139,13 @@ export default function Login() {
             noValidate
             sx={{ mt: 1 }}
           >
+            {/* <Grid container spacing={2}> */}
+              <Grid item xs={12} sm={12} md={12} sx={marginFormInput}>
             <TextField
               onChange={(e) => {
                 handleChange(e.target);
               }}
-              margin="normal"
+             
               required
               fullWidth
               id="email"
@@ -155,9 +158,11 @@ export default function Login() {
               color={emailColor}
               helperText={helperEmail}
             />
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} sx={marginFormInput}>
             <TextField
               onChange={(e) => handleChange(e.target)}
-              margin="normal"
+              
               required
               fullWidth
               name="password"
@@ -170,10 +175,12 @@ export default function Login() {
               error={passwordError}
               helperText={helperPassword}
             />
+              </Grid>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+              {/* </Grid> */}
             <Button
               type="submit"
               fullWidth

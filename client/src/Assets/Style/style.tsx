@@ -33,4 +33,7 @@ export const iconNav={
         height: 45,
         marginTop: 5,
       }
+export const marginFormInput={
+    m:"5px 0px"
+}
 
