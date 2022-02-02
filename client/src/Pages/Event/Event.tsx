@@ -4,9 +4,11 @@ import Header from "../../Components/Header/Header";
 import Typography from "@mui/material/Typography";
 import { getEventsDetails } from "../../Utils/getEventDetails";
 import { Box, Grid, Paper } from "@mui/material";
-import { flexColumCenter } from "../../Assets/Style/style";
+import { flexColumCenter ,flexRowCenter} from "../../Assets/Style/style";
 import {IDetails} from "../../Types/types"
 import { qualityImgage } from "../../Utils/qualityImages";
+import { Bar } from "../../Components/ChatWall/Bar";
+import { Chat } from "../../Components/ChatWall/Chat";
 
 
 
@@ -23,6 +25,7 @@ export const Event: FC = () => {
   return (
     <div>
       <Header />
+      <div style={{height:"100%"}}>
       {link && details ? (
         <Box
           sx={{
@@ -37,43 +40,31 @@ export const Event: FC = () => {
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             backgroundImage: `url(${link})`,
-          }}
+        }}
         >
-          <Grid sx={flexColumCenter}>
+  </Box>
+    ) : null}
+    <Grid container spacing={2} sx={{...flexColumCenter}}>
+        <Grid item xs={12}>
+          <Typography variant="h4" margin={30} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.name} </Typography>
+          <Typography variant="subtitle1" margin={30} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.name} </Typography>
+        </Grid>
+        <Grid container spacing={2} sx={{...flexRowCenter, flexWrap:"wrap",padding:10}}>
+        <Grid item xs={4}>
+           <Paper>
+People Interested
+               </Paper>
+        </Grid>
+        <Grid item xs={8}>
+        
        
-        <Typography
-        variant="h4"
-        sx={{ textAlign: "center",top:"0px"}}
-        >
-        {" "}
-        {details.name}
-      </Typography>
+        <Chat/>
+        
           </Grid>
-      </Box>
-      ) : null}
-   
-      <Box
-        sx={{
-          position: "absolute",
-          backgroundColor: "grey.800",
-          height: "500px",
-          right: 0,
-          width: "250px",
-          mb: 4,
-          opacity: 0.8,
-        }}
-      ></Box>
-      <Box
-        sx={{
-          height: "500px",
-          width: "250px",
-          left: 0,
-          position: "absolute",
-          backgroundColor: "grey.800",
-          mb: 4,
-          opacity: 0.8,
-        }}
-      ></Box>
+           </Grid>
+      
+    </Grid>
+</div>
     </div>
   );
 };
