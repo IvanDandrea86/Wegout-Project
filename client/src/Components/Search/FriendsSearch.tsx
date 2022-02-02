@@ -19,7 +19,7 @@ import { Search,SearchIconWrapper,StyledInputBase } from './CustomSearch.style';
         }
       }
      return (
-        <Search sx={{ display:"flex", justifyContent:"start",alignItems:"center"}}>
+        <Search sx={{ display:"flex", justifyContent:"start",alignItems:"center" }}>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>

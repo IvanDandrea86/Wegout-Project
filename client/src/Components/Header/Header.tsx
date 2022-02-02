@@ -3,20 +3,16 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import logo from "../../Assets/Images/logo.svg";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
 import { useMutation, gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
-
 import { Button, Grid } from "@mui/material";
 
 const LOGOUT_MUT = gql`
@@ -39,47 +35,19 @@ export default function Header() {
     navigate("/");
     window.location.reload();
   };
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-   useState<null | HTMLElement>(null);
 
-  const isMenuOpen = Boolean(anchorEl);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
+    useState<null | HTMLElement>(null);
+
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-    </Menu>
-  );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -118,9 +86,11 @@ export default function Header() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem sx={{display:"flex", alignItems:"center",justifyContent:"center"}}>
-    <ThemeSwitch/>
-    </MenuItem>  
+      <MenuItem
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <ThemeSwitch />
+      </MenuItem>
     </Menu>
   );
 
@@ -178,7 +148,7 @@ export default function Header() {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-              
+
                 <ThemeSwitch />
               </Grid>
             </Box>
@@ -192,16 +162,13 @@ export default function Header() {
                 onClick={handleMobileMenuOpen}
                 color="inherit"
               >
-               <Button variant="text" >
-               <MenuIcon/>
-               </Button> 
+                <MenuIcon />
               </IconButton>
             </Box>
           </Grid>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 }
