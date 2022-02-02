@@ -7,7 +7,6 @@ import {
   SubTitleAnimation,
 } from "../../Assets/Animation/animation";
 import { navigatioContext } from "../../Context/NavContext";
-
 const HeroTitle: FC = () => {
   const navigate= useContext(navigatioContext)
   const stylesTitle = useSpring(TitleAnimation);
@@ -50,10 +49,8 @@ const HeroTitle: FC = () => {
             <Button variant="outlined">About Us</Button>
           </Stack>
         </animated.div>
-      </animated.div>
-      
+      </animated.div>  
     </Container>
   );
 };
-
 export default HeroTitle;

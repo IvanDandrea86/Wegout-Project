@@ -7,7 +7,8 @@ import { useEffect } from "react";
 import { getEvents_new } from "../../Utils/getEvents_new";
 import EventCardSkeleton from "../Skeleton/EventCardSkeleton";
 import { filterContext } from "../../Context/FilterContext";
-import { flexColumCenter, flexRowCenter,title } from "./Dashboard.style";
+import { title } from "./Dashboard.style";
+import { flexColumCenter, flexRowCenter} from "../../Assets/Style/style"
 
 export const Dashboard = () => {
   const user = useContext(UserContext);

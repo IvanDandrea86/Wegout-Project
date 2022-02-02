@@ -9,6 +9,7 @@ import Translator from "../../Utils/Translator";
 import ThemeSwitch from "../../Components/ThemeSwitch/ThemeSwitch";
 import Grid from "@mui/material/Grid";
 import { navigatioContext } from "../../Context/NavContext";
+import { iconNav } from "../../Assets/Style/style";
 
 
 
@@ -24,13 +25,7 @@ const UnauthHeader: FC = (props) => {
             <img
               src={logo}
               alt="logo"
-              style={{
-                flex: 1,
-                alignSelf: "stretch",
-                width: 85,
-                height: 45,
-                marginTop: 5,
-                }}
+              style={iconNav}
             />
           </IconButton>
           <Grid container spacing={2}></Grid>

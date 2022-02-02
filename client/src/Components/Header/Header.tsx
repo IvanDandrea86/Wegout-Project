@@ -14,6 +14,8 @@ import { useMutation, gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import { Button, Grid } from "@mui/material";
+import { iconNav } from "../../Assets/Style/style";
+import { headerContainer } from "./Header.style";
 
 const LOGOUT_MUT = gql`
   mutation {
@@ -102,23 +104,13 @@ export default function Header() {
             <img
               src={logo}
               alt="logo"
-              style={{
-                flex: 1,
-                alignSelf: "stretch",
-                width: 85,
-                height: 45,
-                marginTop: 5,
-              }}
+              style={iconNav}
             />
           </IconButton>
           <Grid
             container
             spacing={0}
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexWrap: "nowrap",
-            }}
+            sx={headerContainer}
           >
             <Grid item sx={{ alignSelf: "center" }}>
               <Button variant="text" color="inherit" href="/profile">

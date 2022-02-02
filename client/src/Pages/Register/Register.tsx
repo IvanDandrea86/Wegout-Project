@@ -166,7 +166,7 @@ export default function SignUp() {
   };
   return (
     <animated.div style={fadeRight}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{width:"80%"}}>
         <Box
           sx={{
             marginTop: 2,

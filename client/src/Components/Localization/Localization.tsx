@@ -1,16 +1,16 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { languageContext } from "../../Context/LocalesProvider";
-import LanguageIcon from '@mui/icons-material/Language';
+import LanguageIcon from "@mui/icons-material/Language";
 
 export default function ControlledOpenSelect() {
   const [language, setLanguages] = React.useState<string>("en");
   const [open, setOpen] = React.useState(false);
   const { setLanguage } = React.useContext(languageContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (window.localStorage.getItem("lang") != null) {
       const value = localStorage.getItem("lang");
       if (typeof value === "string") {

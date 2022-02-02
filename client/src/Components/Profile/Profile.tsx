@@ -5,6 +5,7 @@ import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { gql, useMutation } from "@apollo/client";
+import { flexColumCenter, flexStartCenter } from "../../Assets/Style/style";
 
 const REQUEST_VERIFY = gql`
   mutation ($email: String!) {
@@ -93,13 +94,11 @@ export const Profile: FC = () => {
         </Grid>
         <Grid item xs={6}>
           <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
-            {" "}
             {user.email}
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
-            {" "}
+          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>    
             {user.location}
           </Typography>
         </Grid>
@@ -116,24 +115,14 @@ export const Profile: FC = () => {
           <Grid
             container
             spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            sx={flexColumCenter}
           >
             {Object.keys(profileParam).map((item: string, key) => (
               <Grid
                 item
                 xs={8}
                 key={key}
-                sx={{
-                  display: "flex",
-                  justifyContent: "start",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
+                sx={flexStartCenter}
               >
                 <Typography variant="h6">{item}</Typography>
                 {item === "Interest " ? (
@@ -153,24 +142,14 @@ export const Profile: FC = () => {
           <Grid
             container
             spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            sx={flexColumCenter}
           >
             {Object.keys(profileParam).map((item: string, key) => (
               <Grid
                 item
                 xs={8}
                 key={key}
-                sx={{
-                  display: "flex",
-                  justifyContent: "start",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
+                sx={flexStartCenter}
               >
                 {item === "Interest " ? (
                   user.info.interest.map((elem) => (

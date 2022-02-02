@@ -113,7 +113,7 @@ export default function Login() {
   };
   return (
     <animated.div style={fadeLeft}>
-      <Container component="main" maxWidth="xs" sx={{ zIndex: 0 }}>
+      <Container component="main" maxWidth="xs" sx={{ zIndex: 0,width:"80%" }}>
         <Box
           sx={{
             marginTop: 2,
