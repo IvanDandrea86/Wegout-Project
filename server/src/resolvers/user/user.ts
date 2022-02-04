@@ -120,13 +120,13 @@ export default class UserResolver {
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
   async updateUser(
-    @Arg("_id") id: string,
+    @Arg("email") email: string,
     @Arg("info") info: UserInfoInput
   ): Promise<User | null> {
     const newInfo = new UserInfoInput(info.age,info.interest,info.job,info.bio)
-
-    await UserModel.findOneAndUpdate({ _id: id} ,{info:newInfo}).exec();
-    const user = await UserModel.findOne({ _id: id }).exec();
+    
+    await UserModel.findOneAndUpdate({ email: email} ,{info:newInfo}).exec();
+    const user = await UserModel.findOne({ email: email }).exec();
     return user;
   }
 

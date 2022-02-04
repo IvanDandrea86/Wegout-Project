@@ -12,33 +12,32 @@ import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { gql, useMutation } from "@apollo/client";
-import { flexColumCenter, flexStartCenter } from "../../Assets/Style/style";
+import {
+  flexColumCenter,
+  flexRowCenter,
+  flexStartCenter,
+} from "../../Assets/Style/style";
+import { Box } from "@mui/system";
 
 const REQUEST_VERIFY = gql`
   mutation ($email: String!) {
     requestVerifyEmail(email: $email)
   }
 `;
+const UPDATEMUTATION=gql`
+mutation($email:String!,$info:UserInfoInput!)
+{updateUser(info:$info,email:$email){
+  _id
+}}`
 export const Profile: FC = () => {
   const user = useContext(UserContext);
-  // const [newAge, SetNewAge] = useState(user.info.age);
-  // const [newInterest, SetNewInterest] = useState(user.info.interest);
-  // const [newJob, SetNewJob] = useState(user.info.job);
-  // const [newBio, SetNewBio] = useState(user.info.bio);
-  const [state,setState]=useState({
-    newAge:user.info.age,
-    newInterest:user.info.interest,
-    newJob:user.info.job,
-    newBio:user.info.bio
-  })
-  const profileParam: {
-    [key: string]: number | string | Array<string> | null;
-  } = {
-    "Age ": state.newAge,
-    "Interest ": state.newInterest,
-    "Job ": state.newJob,
-    "Bio ": state.newBio,
-  };
+  const [state, setState] = useState({
+    Age: user.info.age,
+    Interest: user.info.interest,
+    Job: user.info.job,
+    Bio: user.info.bio,
+  });
+
   const [verifiedColor, setVerifiedColor] = useState<
     | "disabled"
     | "inherit"
@@ -52,6 +51,7 @@ export const Profile: FC = () => {
     | undefined
   >("disabled");
   const [verify] = useMutation(REQUEST_VERIFY);
+  const[update]=useMutation(UPDATEMUTATION)
   const [modify, setModify] = useState<boolean>(false);
   const FullName = user.firstname + " " + user.lastname;
   const generator = new AvatarGenerator();
@@ -69,14 +69,41 @@ export const Profile: FC = () => {
     }
     // add modal
   };
-  const hanleChange=(event:React.ChangeEvent<HTMLTextAreaElement>)=>{
-    const value =event.target.value
-    setState({
-      ...state,
-      [event.target.name]:value
-    })
-
+  const hanleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (event.target.name) {
+      let array = event.target.value.split(",");
+      setState({
+        ...state,
+        [event.target.name]: array,
+      });
+    } else {
+      const value = event.target.value;
+      setState({
+        ...state,
+        [event.target.name]: value,
+      });
+    }
+  };
+  const handleSubmit=async (event: React.FormEvent)=>{
+    event.preventDefault();
+    let newInfo={
+      age:Number(state.Age),
+      interest:state.Interest,
+      job:state.Job?.toString(),
+      bio:state.Bio?.toString()
+    }
+    try{
+   await update({variables:{
+     email:user.email,
+     info:newInfo
+   }})
+   setModify(!modify);
+   
   }
+  catch(err)
+  {console.error(err)}
+  }
+
   useEffect(() => {
     if (user.isVerified === true) {
       setVerifiedColor("success");
@@ -137,16 +164,18 @@ export const Profile: FC = () => {
       <Grid item xs={12}>
         {!modify ? (
           <Grid container spacing={2} sx={flexColumCenter}>
-            {Object.keys(profileParam).map((item: string, key) => (
-              <Grid item xs={8} key={key} sx={flexStartCenter}>
+            {Object.keys(state).map((item, key) => (
+              <Grid item xs={8} key={`${item}_` + key} sx={flexStartCenter}>
                 <Typography variant="h6">{item}</Typography>
-                {item === "Interest " ? (
-                  user.info.interest.map((elem) => (
-                    <Typography variant="subtitle1">{elem}</Typography>
+                {item === "Interest" ? (
+                  state[item].map((elem, key) => (
+                    <Typography key={`${item}_` + key} variant="subtitle1">
+                      {elem}
+                    </Typography>
                   ))
                 ) : (
                   <Typography variant="subtitle1">
-                    {profileParam[item]}
+                    {state[item as keyof typeof state]}
                   </Typography>
                 )}
               </Grid>
@@ -161,39 +190,44 @@ export const Profile: FC = () => {
             </Button>
           </Grid>
         ) : (
-          <Grid container spacing={2} sx={flexColumCenter}>
-            {Object.keys(profileParam).map((item: string, key) => (
-              <Grid item xs={8} key={key} sx={flexStartCenter}>
-                <Typography variant="h6">{item}</Typography>
+          <Grid container component="form" onSubmit={handleSubmit} spacing={2} sx={flexColumCenter}>
+            {Object.keys(state).map((item, key) => (
+              <Grid item xs={8} key={`${item}_` + key} sx={flexStartCenter}>
                 {item === "Interest" ? (
-                  user.info.interest.map((elem) => (
-                    <TextareaAutosize
-                      id={item}
-                      name={item}
-                      aria-label={item}
-                      value={elem}
-                      onChange={hanleChange}
-                    />
-                  ))
+                  <Box sx={flexRowCenter}>
+                    <Typography variant="h6" textAlign={"center"}>
+                      {item}{" "}
+                    </Typography>
+                    <Typography variant="subtitle1" textAlign={"center"}>
+                      (separete with comma){" "}
+                    </Typography>
+                  </Box>
                 ) : (
-                  <TextareaAutosize
-                    id={item}
-                    aria-label={item}
-                    name={item}
-                    value={profileParam[item] as string}
-                    onChange={hanleChange}
-                  />
+                  <Typography variant="h6" textAlign={"center"}>
+                    {item}{" "}
+                  </Typography>
                 )}
+                <TextareaAutosize
+                  id={item}
+                  aria-label={item}
+                  name={item}
+                  value={state[item as keyof typeof state] as string}
+                  onChange={hanleChange}
+                />
               </Grid>
             ))}
             <Button
+           
               variant="contained"
-              onClick={() => {
-                setModify(!modify);
-              }}
+              type="submit"
+              // onSubmit={handleSubmit}
+              // onClick={() => {
+              //   setModify(!modify);
+              // }}
             >
               Update
             </Button>
+         
           </Grid>
         )}
       </Grid>
