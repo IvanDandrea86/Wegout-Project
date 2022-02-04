@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Avatar, Badge, Button, Typography, Divider, TextField } from "@mui/material";
+import { Avatar, Badge, Button, Typography, Divider, TextField, TextareaAutosize } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -153,12 +153,12 @@ export const Profile: FC = () => {
               >
                 {item === "Interest " ? (
                   user.info.interest.map((elem) => (
-                    <TextField id="interest" label={item} value={elem} variant="standard" />
+                    <TextareaAutosize id="interest" aria-label={item} value={elem}  />
 
                   ))
                 )      
                 : (
-                  <TextField  id="standard-basic" label={item} value={profileParam[item]} variant="standard" />
+                  <TextareaAutosize  id="standard-basic" aria-label={item} value={profileParam[item] as string}  />
                   )}
               </Grid>
             ))}

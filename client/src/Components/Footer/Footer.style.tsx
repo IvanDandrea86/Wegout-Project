@@ -3,5 +3,7 @@ export const footerDiv={
         justifyContent: "space-around",
         flexDirection: "row",
         alignItems: "center",
-        position: "relative",     
+        position: "relative",  
+        bottom:0,
+        width:"100%"   
 }
