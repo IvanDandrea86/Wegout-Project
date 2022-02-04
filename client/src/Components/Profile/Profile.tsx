@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Avatar, Badge, Button, Typography, Divider, TextField, TextareaAutosize } from "@mui/material";
+import { Avatar, Badge, Button, Typography, Divider, TextField, TextareaAutosize, Paper } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -57,7 +57,7 @@ export const Profile: FC = () => {
       setVerifiedColor("success");
     }
   }, [user.isVerified]);
-
+  
   return (
     <Grid
       container
@@ -81,6 +81,7 @@ export const Profile: FC = () => {
           alignItems: "center",
         }}
       >
+     
         <Grid item xs={2}>
           <Avatar src={avatar} sx={{ width: "5rem", height: "5rem" }} />
         </Grid>
@@ -102,6 +103,7 @@ export const Profile: FC = () => {
             {user.location}
           </Typography>
         </Grid>
+      
       </Grid>
       {!user.isVerified ? (
         <Button variant="contained" color="warning" onClick={handleVerify}>
@@ -109,7 +111,6 @@ export const Profile: FC = () => {
         </Button>
       ) : null}
       <Divider variant="middle" />
-
       <Grid item xs={12}>
         {!modify ? (
           <Grid
@@ -150,15 +151,16 @@ export const Profile: FC = () => {
                 xs={8}
                 key={key}
                 sx={flexStartCenter}
-              >
-                {item === "Interest " ? (
+                >
+                <Typography variant="h6">{item}</Typography>
+                {item === "Interest" ? (
                   user.info.interest.map((elem) => (
-                    <TextareaAutosize id="interest" aria-label={item} value={elem}  />
-
+                    <TextareaAutosize id={item}  aria-label={item} value={elem}  />
                   ))
                 )      
                 : (
-                  <TextareaAutosize  id="standard-basic" aria-label={item} value={profileParam[item] as string}  />
+               
+                  <TextareaAutosize  id={item}  aria-label={item} value={profileParam[item] as string}  />
                   )}
               </Grid>
             ))}
@@ -167,5 +169,6 @@ export const Profile: FC = () => {
         )}
       </Grid>
     </Grid>
+    
   );
 };
