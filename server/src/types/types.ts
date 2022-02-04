@@ -1,5 +1,5 @@
 import { prop } from "@typegoose/typegoose";
-import { Field, ObjectType,} from "type-graphql";
+import { Field, InputType, ObjectType,} from "type-graphql";
 import {User} from '../entities/user.entity'
 import { Request,Response } from "express";
 import { Redis } from "ioredis";
@@ -11,26 +11,57 @@ export type MyContext={
   redis:Redis 
 }
 
-@ObjectType()
+
+@InputType()
+export class UserInfoInput {
+
+  @Field(()=>Number,{ defaultValue: 0 })
+  @prop( { default: 0 })
+  age :number;
+
+  @Field(()=>[String])
+  @prop({type:[String]})
+  interest :string[];
+
+  @Field(() => String)
+  @prop(String)
+  job :string;
+  @Field(() => String)
+  @prop(String)
+  bio :string;
+
+  constructor(age:number,interest:Array<string>,job:string,bio:string){
+    this.age=age;
+    this.interest=interest;
+    this.job=job;
+    this.bio=bio;
+  }
+  }
+
+@ObjectType() 
 export class UserInfo {
 
-    @Field({ defaultValue: 0 })
-    @prop({ default: 0 })
+    @Field(()=>Number,{ defaultValue: 0 })
+    @prop( { default: 0 })
     age :number;
-    
-
 
     @Field(()=>[String])
     @prop({type:[String]})
     interest :string[];
 
-    @Field()
+    @Field(() => String)
     @prop(String)
     job :string;
-    @Field()
+    @Field(() => String)
     @prop(String)
     bio :string;
 
+    // constructor(age:number,interest:Array<string>,job:string,bio:string){
+    //   this.age=age;
+    //   this.interest=interest;
+    //   this.job=job;
+    //   this.bio=bio;
+    // }
     }
 
 

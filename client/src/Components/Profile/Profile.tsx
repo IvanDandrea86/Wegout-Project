@@ -1,6 +1,13 @@
 import { FC, useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Avatar, Badge, Button, Typography, Divider, TextField, TextareaAutosize, Paper } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Typography,
+  Divider,
+  TextareaAutosize,
+} from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -14,13 +21,23 @@ const REQUEST_VERIFY = gql`
 `;
 export const Profile: FC = () => {
   const user = useContext(UserContext);
+  // const [newAge, SetNewAge] = useState(user.info.age);
+  // const [newInterest, SetNewInterest] = useState(user.info.interest);
+  // const [newJob, SetNewJob] = useState(user.info.job);
+  // const [newBio, SetNewBio] = useState(user.info.bio);
+  const [state,setState]=useState({
+    newAge:user.info.age,
+    newInterest:user.info.interest,
+    newJob:user.info.job,
+    newBio:user.info.bio
+  })
   const profileParam: {
     [key: string]: number | string | Array<string> | null;
   } = {
-    "Age ": user.info.age,
-    "Interest ": user.info.interest,
-    "Job ": user.info.job,
-    "Bio ": user.info.bio,
+    "Age ": state.newAge,
+    "Interest ": state.newInterest,
+    "Job ": state.newJob,
+    "Bio ": state.newBio,
   };
   const [verifiedColor, setVerifiedColor] = useState<
     | "disabled"
@@ -52,12 +69,20 @@ export const Profile: FC = () => {
     }
     // add modal
   };
+  const hanleChange=(event:React.ChangeEvent<HTMLTextAreaElement>)=>{
+    const value =event.target.value
+    setState({
+      ...state,
+      [event.target.name]:value
+    })
+
+  }
   useEffect(() => {
     if (user.isVerified === true) {
       setVerifiedColor("success");
     }
   }, [user.isVerified]);
-  
+
   return (
     <Grid
       container
@@ -81,7 +106,6 @@ export const Profile: FC = () => {
           alignItems: "center",
         }}
       >
-     
         <Grid item xs={2}>
           <Avatar src={avatar} sx={{ width: "5rem", height: "5rem" }} />
         </Grid>
@@ -99,11 +123,10 @@ export const Profile: FC = () => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>    
+          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
             {user.location}
           </Typography>
         </Grid>
-      
       </Grid>
       {!user.isVerified ? (
         <Button variant="contained" color="warning" onClick={handleVerify}>
@@ -113,18 +136,9 @@ export const Profile: FC = () => {
       <Divider variant="middle" />
       <Grid item xs={12}>
         {!modify ? (
-          <Grid
-            container
-            spacing={2}
-            sx={flexColumCenter}
-          >
+          <Grid container spacing={2} sx={flexColumCenter}>
             {Object.keys(profileParam).map((item: string, key) => (
-              <Grid
-                item
-                xs={8}
-                key={key}
-                sx={flexStartCenter}
-              >
+              <Grid item xs={8} key={key} sx={flexStartCenter}>
                 <Typography variant="h6">{item}</Typography>
                 {item === "Interest " ? (
                   user.info.interest.map((elem) => (
@@ -137,38 +151,52 @@ export const Profile: FC = () => {
                 )}
               </Grid>
             ))}
-            <Button variant="contained" onClick={()=>{setModify(!modify)}}>Modify</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setModify(!modify);
+              }}
+            >
+              Modify
+            </Button>
           </Grid>
         ) : (
-          <Grid
-            container
-            spacing={2}
-            sx={flexColumCenter}
-          >
+          <Grid container spacing={2} sx={flexColumCenter}>
             {Object.keys(profileParam).map((item: string, key) => (
-              <Grid
-                item
-                xs={8}
-                key={key}
-                sx={flexStartCenter}
-                >
+              <Grid item xs={8} key={key} sx={flexStartCenter}>
                 <Typography variant="h6">{item}</Typography>
                 {item === "Interest" ? (
                   user.info.interest.map((elem) => (
-                    <TextareaAutosize id={item}  aria-label={item} value={elem}  />
+                    <TextareaAutosize
+                      id={item}
+                      name={item}
+                      aria-label={item}
+                      value={elem}
+                      onChange={hanleChange}
+                    />
                   ))
-                )      
-                : (
-               
-                  <TextareaAutosize  id={item}  aria-label={item} value={profileParam[item] as string}  />
-                  )}
+                ) : (
+                  <TextareaAutosize
+                    id={item}
+                    aria-label={item}
+                    name={item}
+                    value={profileParam[item] as string}
+                    onChange={hanleChange}
+                  />
+                )}
               </Grid>
             ))}
-            <Button variant="contained" onClick={()=>{setModify(!modify)}}>Update</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setModify(!modify);
+              }}
+            >
+              Update
+            </Button>
           </Grid>
         )}
       </Grid>
     </Grid>
-    
   );
 };
