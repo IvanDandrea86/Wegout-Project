@@ -3,7 +3,7 @@ import { Service } from "typedi";
 import { User, UserModel } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
-import { UserResponse, FieldError, MyContext } from "../../types/types";
+import { UserResponse, FieldError, MyContext, UserInfoInput } from "../../types/types";
 import { COOKIENAME, __prod__ } from "../../constants/const";
 import {v4} from 'uuid';
 
@@ -71,11 +71,11 @@ export default class UserResolver {
 
   @Mutation(() => UserResponse, { name: "createUser" })
   async createUser(
-    @Arg("email") email: String,
+    @Arg("email") email: string,
     @Arg("password") password: string,
     @Arg("firstname") firstname: String,
-    @Arg("lastname") lastname: String,
-    @Arg("location") location:String,
+    @Arg("lastname") lastname: string,
+    @Arg("location") location:string,
     @Ctx() {req}:MyContext
      ): Promise<UserResponse> {
    if (
@@ -120,65 +120,24 @@ export default class UserResolver {
   }
   @Mutation(() => User, { name: "updateUser", nullable: true })
   async updateUser(
-    @Arg("email") email: String ,
-    @Arg("lastname") lastname: string,
-    @Arg("firstname") firstname: string,
-    @Arg("_id") id: string
+    @Arg("email") email: string,
+    @Arg("info") info: UserInfoInput
   ): Promise<User | null> {
-    await UserModel.findOneAndUpdate({ _id: id} ,{email: email,lastname:lastname,firstname:firstname }).exec();
-    const user = await UserModel.findOne({ _id: id }).exec();
+    const newInfo = new UserInfoInput(info.age,info.interest,info.job,info.bio)
+    
+    await UserModel.findOneAndUpdate({ email: email} ,{info:newInfo}).exec();
+    const user = await UserModel.findOne({ email: email }).exec();
     return user;
   }
 
-  @Mutation(() => Boolean, { name: "addFriend" })
-  async addFriend(
-    @Arg("user_id") user_id: string,
-    @Arg("reciver_id") reciver_id: string
-  ): Promise<boolean> {
-    const user = await UserModel.findOne({ _id: user_id });
-    const reciver = await UserModel.findOne({_id:reciver_id})
-    if (!user || ! reciver) {
-      return false;
-    } 
-      await UserModel.updateOne(
-        { _id: user_id },
-        { $push: { friendList: reciver_id } }
-      );
-      await UserModel.updateOne(
-        { _id: reciver_id },
-        { $push: { friendList: user_id } }
-      );
-      return true;
-    }
-  
-  @Mutation(() => Boolean, { name: "removeFriend" })
-  async removeFriend(
-    @Arg("user_id") user_id: string,
-    @Arg("reciver_id") reciver_id: string
-  ) {
-    const user = await UserModel.where({ _id: user_id });
-    if (!user) {
-      return false;
-    } else {
-      await UserModel.updateOne(
-        { _id: user_id },
-        { $pull: { friendList: reciver_id } }
-      );
-      await UserModel.updateOne(
-        { _id: reciver_id },
-        { $pull: { friendList: user_id } }
-      );
-      return true;
-    }
-  }
+
   @Mutation(() => UserResponse, { name: "login" })
   async login(
     @Arg("email") email: String,
     @Arg("password") password: string,
     @Ctx() {req}:MyContext
   ): Promise<UserResponse> {
-
-    const userEmail = await UserModel.findOne({ email: email });
+   const userEmail = await UserModel.findOne({ email: email });
 
     if (!userEmail && email != null) {
       return {

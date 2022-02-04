@@ -1,0 +1,4 @@
+mutation($id:String!,$info:{age:number!,interest:Array<String>!,bio:String!,job:String!})
+{updateUser(info:$info,_id:$info){
+  _id
+}}
