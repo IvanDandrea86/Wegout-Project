@@ -264,7 +264,7 @@ async requestVerifyEmail(
     user._id,
     "ex",
     60*60)//1hour
-    const HtmlLink=`<a href="https://wegout.herokuapp/verify/${token}">Click to verify your account</a> `
+    const HtmlLink=`<a href="https://wegout.herokuapp.com/verify/${token}">Click to verify your account</a> `
     const HtmlLinkTest=`<a href="http://localhost:3000/verify/${token}">Click to verify your account</a> `
    
     try{
