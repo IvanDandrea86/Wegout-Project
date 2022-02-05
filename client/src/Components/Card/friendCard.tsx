@@ -11,7 +11,7 @@ import { Badge, CssBaseline } from '@mui/material';
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 
-export const AddFriendCard=(props:any)=> {
+export const FriendCard=(props:any)=> {
     const [verifiedColor, setVerifiedColor] = useState<
     | "disabled"
     | "inherit"

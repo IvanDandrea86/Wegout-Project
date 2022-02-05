@@ -8,6 +8,7 @@ import { flexColumCenter ,flexRowCenter} from "../../Assets/Style/style";
 import {IDetails} from "../../Types/types"
 import { qualityImgage } from "../../Utils/qualityImages";
 import { Chat } from "../../Components/ChatWall/Chat";
+import { InterestedList } from "../../Components/InterestedList/InterestList";
 
 
 
@@ -59,8 +60,8 @@ export const Event: FC = () => {
         <Grid container spacing={2} sx={{...flexRowCenter, flexWrap:"wrap",padding:10,marginTop:"15rem"}}>
         <Grid item xs={10}>
            <Paper>
-People Interested
-               </Paper>
+           <InterestedList details={details}/>
+                          </Paper>
         </Grid>
            </Grid>
       

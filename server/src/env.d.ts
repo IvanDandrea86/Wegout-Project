@@ -9,6 +9,7 @@ declare namespace NodeJS{
         SMTP_USER:string;
         SMTP_PASS:string;
         SMTP_HOST:string;
+        TICKETMASTER_KEY:string;
     }
 }
 

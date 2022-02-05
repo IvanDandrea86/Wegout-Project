@@ -8,7 +8,7 @@ import cors from "cors";
 import { ALLOW_ORIGIN, __prod__, PORT } from "./constants/const";
 import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
-// import { startSeed } from "./seeder";
+import { startSeed } from "./seeder";
 dotenv.config();
 export const app = express();
 export const main = async () => {
@@ -20,7 +20,7 @@ export const main = async () => {
     console.error(err);
   });
   //Seed with FakeData
-    // startSeed(60)
+  //startSeed(60)
   //CORS middelware
   app.set('trust proxy', 1)
   app.use(

@@ -4,12 +4,22 @@ import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 import { EUCountrties } from "../utils/euCountries.enum";
 import { randomEnum } from "../utils/randomEnum";
+import { EventList } from "../utils/getRandomEvent";
+
+
+
 
 
 export const seedMongoWithUsers = async (howmuch: number) => {
+  const listEvent= await EventList()
   for (let i = 0; i < howmuch; i += 1) {
     const hashPassword = await bcrypt.hash("qwerty1Q", 8);
     const _id = new ObjectId();
+    const eventList= new Array<string>()
+    for (let index = 0; index < 10; index++) {
+      let randomIndex= Math.floor(Math.random() * 99);
+      eventList.push(listEvent[randomIndex])
+    }
     const firstname: string = faker.name.firstName();
     const lastname: string = faker.name.lastName();
     const location: string = randomEnum(EUCountrties);
@@ -26,6 +36,7 @@ export const seedMongoWithUsers = async (howmuch: number) => {
       email: faker.internet.email(firstname, lastname),
       password: hashPassword,
       location: location,
+      eventList:eventList,
       info: {
         bio: bio,
         job: job,
