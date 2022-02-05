@@ -1,5 +1,8 @@
 import { FC, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 import {
   Avatar,
   Badge,
@@ -7,6 +10,7 @@ import {
   Typography,
   Divider,
   TextareaAutosize,
+  Fab,
 } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
@@ -30,6 +34,8 @@ mutation($email:String!,$info:UserInfoInput!)
   _id
 }}`
 export const Profile: FC = () => {
+  const navigate=useNavigate()
+
   const user = useContext(UserContext);
   const [state, setState] = useState({
     Age: user.info.age,
@@ -231,6 +237,12 @@ export const Profile: FC = () => {
           </Grid>
         )}
       </Grid>
+     <Box sx={{ '& > :not(style)': { m: 1,position:"fixed",bottom:35,right:25 }}}>
+     <Fab variant="extended" size="large" onClick={()=>{navigate("/")}} >
+       <ArrowBackIcon sx={{ mr: 1 }} />
+       Back
+    </Fab>
+   </Box>
     </Grid>
   );
 };

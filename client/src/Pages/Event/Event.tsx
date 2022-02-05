@@ -1,18 +1,21 @@
 import { FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Typography from "@mui/material/Typography";
 import { getEventsDetails } from "../../Utils/getEventDetails";
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Fab, Grid, Paper } from "@mui/material";
 import { flexColumCenter ,flexRowCenter} from "../../Assets/Style/style";
 import {IDetails} from "../../Types/types"
 import { qualityImgage } from "../../Utils/qualityImages";
-import { Chat } from "../../Components/ChatWall/Chat";
+import EventIcon from '@mui/icons-material/Event';
 import { InterestedList } from "../../Components/InterestedList/InterestList";
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 
 export const Event: FC = () => {
+  const navigate=useNavigate()
   const { id } = useParams();
   const [details, getDetails] = useState<IDetails>();
 
@@ -44,18 +47,27 @@ export const Event: FC = () => {
         >
           </Box>
     ) : null}
-    <Grid container spacing={2} sx={{...flexColumCenter}}>
+    <Grid container spacing={5} sx={{...flexColumCenter}}>
         <Grid item xs={12}>
           <Paper  elevation ={5} sx={{
             position:"absolute",
-            top:"15rem",
+            top:"10rem",
             right:"9%",
             left:'9%',
-            marginBottom:"30px"
+            marginBottom:"0px",
+            paddingBottom:"10px"
           }}>
-          <Typography variant="h4" margin={15} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.name} </Typography>
-          <Typography variant="subtitle1" margin={15} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.name} </Typography>
+          <Typography variant="h4" margin={5} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.name} </Typography>
+        <Grid item sx={flexRowCenter}>
+           <EventIcon/>
+           <Typography variant="subtitle1" margin={2} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.dates.start.localDate} </Typography>
+        </Grid>
+        <Grid item sx={flexRowCenter}>
+        <LocationCityIcon/>
+          <Typography variant="subtitle2" margin={2} sx={{fontWeight: "bold",textAlign:"center"}}>{details?._embedded.venues[0].name} </Typography> 
+       </Grid>
           </Paper>
+         
         </Grid>
         <Grid container spacing={2} sx={{...flexRowCenter, flexWrap:"wrap",padding:10,marginTop:"15rem"}}>
         <Grid item xs={10}>
@@ -66,6 +78,12 @@ export const Event: FC = () => {
            </Grid>
       
     </Grid>
+    <Box sx={{ '& > :not(style)': { m: 1,position:"fixed",bottom:35,right:25 }}}>
+      <Fab variant="extended" size="large" onClick={()=>{navigate("/")}} >
+        <ArrowBackIcon sx={{ mr: 1 }} />
+        Back
+     </Fab>
+    </Box>
 </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, {useState, useEffect,FC} from 'react'
 import axios from 'axios';
 import {gelocAPI} from '../Utils/constants'
+import Typography from '@mui/material/Typography'
 
 interface IGeoLoc{
     lat:number|null;
@@ -12,7 +13,6 @@ const [Location,setLocation]=useState()
 
  useEffect(() => {
       navigator.geolocation.getCurrentPosition((pos) =>{
-     
           const newUserPos = { 
                 lat: pos.coords.latitude,
                 long: pos.coords.longitude,
@@ -43,7 +43,8 @@ const [Location,setLocation]=useState()
 return (
 
 <span>
-{Location}
+{Location!==undefined ? Location:
+<Typography variant="h5" >Activate geolocation or select your city</Typography>}
 </span>
  )
     

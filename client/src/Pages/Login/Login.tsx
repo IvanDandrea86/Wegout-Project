@@ -124,7 +124,7 @@ export default function Login() {
           }}
         >
           <Link href={"/"}>
-            <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" style={{width:"10rem"}}/>
           </Link>
           <Typography
             component="h2"
