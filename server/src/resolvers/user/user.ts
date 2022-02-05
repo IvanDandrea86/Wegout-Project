@@ -124,13 +124,11 @@ export default class UserResolver {
     @Arg("info") info: UserInfoInput
   ): Promise<User | null> {
     const newInfo = new UserInfoInput(info.age,info.interest,info.job,info.bio)
-    
+
     await UserModel.findOneAndUpdate({ email: email} ,{info:newInfo}).exec();
     const user = await UserModel.findOne({ email: email }).exec();
     return user;
   }
-
-
   @Mutation(() => UserResponse, { name: "login" })
   async login(
     @Arg("email") email: String,
@@ -145,8 +143,7 @@ export default class UserResolver {
           {
             field: "Email",
             message: "This email doesn't exist",
-          },
-        
+          },     
       };
     }
     if (userEmail != null) {
@@ -200,14 +197,8 @@ async forgotPassword(
     user._id,
     "ex",
     60*60)//1hour
-
- 
       const HtmlLink=`<a href="https://wegout.herokuapp.com/forgot/${token}">Here the link to reset yourt password</a> `
       const HtmlLinkTest=`<a href="http://localhost:3000/forgot/${token}">Here the link to reset yourt password</a> `
-    
-   
-   
-   
       try{
        await sendMailTest(user.email,HtmlLinkTest,"WeGOut Password Reset Request")
       await sendMail(user.email,HtmlLink,"WeGOut Password Reset Request")
@@ -217,8 +208,7 @@ async forgotPassword(
     }
       return true
   }
-  }
-
+}
   @Mutation(()=>UserResponse|| Boolean,{ name: "changePassword" })
   async changePass(
     @Arg("password") password: string,
@@ -306,4 +296,33 @@ async requestVerifyEmail(
     }
     return  {}
   }
+
+@Mutation(()=>Boolean,{name:"addEvent"})
+async addEvent(
+  @Arg("eventId") eventId:string,
+  @Arg("userEmail") userEmail:string):Promise<Boolean>{
+    try{
+      await UserModel.findOneAndUpdate({email:userEmail},{$push:{eventList:eventId}}).exec()
+    return true
+    }
+    catch (err){
+      console.error(err)
+    return false
+    }
+  }
+
+@Mutation(()=>Boolean,{name:"removeEvent"})
+async removeEvent(
+  @Arg("eventId") eventId:string,
+  @Arg("userEmail") userEmail:string):Promise<Boolean>{
+    try{
+      await UserModel.findOneAndUpdate({email:userEmail},{$pull:{eventList:eventId}}).exec()
+    return true
+    }
+    catch (err){
+      console.error(err)
+    return false
+    }
+  }
 }
+

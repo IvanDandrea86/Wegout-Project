@@ -10,6 +10,7 @@ interface IUser {
   email: string | null;
   isVerified: boolean | null;
   location: string | null;
+  eventList:Array<string> ;
   info: {
     bio: string | null;
     age: number | null;
@@ -28,6 +29,7 @@ const FIND_USER = gql`
       lastname
       isVerified
       location
+      eventList
       info {
         bio
         age
@@ -49,7 +51,7 @@ const UserProvider: FC = (props) => {
   if (loading) return <Loading />;
   if (error) return <ErrorMess />;
 
-  let temp = new Array();
+  let temp = new Array<string>();
 
   return (
     <UserContext.Provider
@@ -59,6 +61,7 @@ const UserProvider: FC = (props) => {
         email: data.findUserById.email,
         isVerified: data.findUserById.isVerified,
         location: data.findUserById.location,
+        eventList:data.findUserById.eventList,
         info: {
           bio: data.findUserById.info ? data.findUserById.info.bio : "",
           age: data.findUserById.info ? data.findUserById.info.age : "",

@@ -49,7 +49,7 @@ export class User {
   @prop({ type: String })
   friendList: Array<String>;
 
-  @Field(() => [String])
+  @Field(() => [String],{defaultValue: new Array<string>()})
   @prop({ type: String })
   eventList: Array<String>;
 

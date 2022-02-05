@@ -1,4 +1,4 @@
-import {FC, useContext} from 'react';
+import {FC, useContext, useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,23 +9,56 @@ import { Divider, Skeleton, Grid } from '@mui/material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { useNavigate } from 'react-router-dom';
 import { qualityImgage } from "../../Utils/qualityImages";
+import { gql, useMutation } from '@apollo/client';
+import { UserContext } from '../../Context/UserContext';
 
 
-
+const ADDEVENT=gql`
+mutation(
+$userEmail: String!
+$eventId: String!
+){
+  addEvent(eventId:$eventId,userEmail:$userEmail)  
+}
+`
+const REMOVEEVENT=gql`
+mutation(
+$userEmail: String!
+$eventId: String!
+){
+  removeEvent(eventId:$eventId,userEmail:$userEmail)  
+}
+`
 interface IProps{
-
   details:any,
-  
-  
 }
 
 
 
 const  EventCard:FC<IProps>=({details})=> {
+  const [go,setGo]=useState<boolean>()
+  const user =useContext(UserContext)
   const navigate=useNavigate()
-
+  const [addEvent]=useMutation(ADDEVENT)
+  const [removeEvent]=useMutation(REMOVEEVENT)
 const link=qualityImgage(details)
- 
+
+ const addEvents=async()=>{
+  const {data} = await addEvent({variables:{
+     eventId:details.id,
+     userEmail:user.email
+   }})
+   setGo(true)
+ }
+ const removeEvents=async()=>{
+  const {data} = await removeEvent({variables:{
+     eventId:details.id,
+     userEmail:user.email
+   }})
+   setGo(false)
+  }
+
+
  return(
     <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%"}} >
       {details.images[0].url?
@@ -70,11 +103,14 @@ const link=qualityImgage(details)
         }
         </Typography>
         </Grid>
-        </Grid>
-      
+        </Grid> 
       </CardContent>
       <CardActions >
-        <Button variant="text" size="small" >I Go</Button>
+        {go?
+            <Button variant="text" size="small" onClick={removeEvents} >Don't Go</Button>
+          : 
+        <Button variant="text" size="small" onClick={addEvents} >I Go</Button>
+}
         <Button variant="text" size="small" onClick={()=>{navigate(`event/${details.id}`)}}>Who Goes ?</Button>
       </CardActions>
      
