@@ -51,6 +51,7 @@ export interface Video {
     export interface IDetails {
       images: Array<IImage>;
       name: string;
+      id:string
     }
 
  

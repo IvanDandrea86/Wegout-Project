@@ -9,6 +9,7 @@ import { Verify } from "./Pages/Verify/Verify";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import FriendsProvider from "./Context/FriendsProvider";
 import { Event } from "./Pages/Event/Event";
+import { VisitProfile } from "./Pages/Profile/VisitProfile";
 const AuthenticatedApp: FC = () => {
   return (
       <UserProvider>
@@ -19,6 +20,7 @@ const AuthenticatedApp: FC = () => {
         <Route path="/profile" element={<UserProfile/>} />
         <Route path="/verify/:token" element={<Verify/>} />
         <Route path="/forgot/:token" element={<ForgotPassword />} />
+        <Route path="/visit/:id" element={<VisitProfile />} />
         <Route path="/event/:id" element={<Event />} />
         <Route path ="*" element={<ErrorUnauth/>} />
 

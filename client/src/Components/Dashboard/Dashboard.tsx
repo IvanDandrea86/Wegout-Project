@@ -38,7 +38,7 @@ export const Dashboard = () => {
           Hey {user.firstname} where you want to go...
         </Typography>
         <Typography variant="h5" color="primary">
-          Here the next events in
+          Here the next events in 
           <FindMe />
         </Typography>
       </Grid>

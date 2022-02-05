@@ -36,8 +36,8 @@ interface IProps{
 
 
 const  EventCard:FC<IProps>=({details})=> {
-  const [go,setGo]=useState<boolean>()
   const user =useContext(UserContext)
+  const [go,setGo]=useState<boolean>(user.eventList.includes(details.id))
   const navigate=useNavigate()
   const [addEvent]=useMutation(ADDEVENT)
   const [removeEvent]=useMutation(REMOVEEVENT)
