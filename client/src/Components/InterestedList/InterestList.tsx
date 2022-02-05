@@ -6,11 +6,12 @@ import { Grid } from "@mui/material";
 import { FriendsContext } from "../../Context/FriendsProvider";
 import { FriendCard } from "../../Components/Card/friendCard";
 import { UserContext } from "../../Context/UserContext";
-interface IProps{
-    details:any,
-  }
-const FindAllUser=gql`
+import { IDetails } from "../../Types/types";
 
+interface IProp{
+  details:IDetails|undefined
+}
+const FindAllUser=gql`
 {findAllUser{
   _id
   email
@@ -20,7 +21,7 @@ const FindAllUser=gql`
   eventList
 }}
 `
-export const InterestedList:FC<IProps>=({details})=>{
+export const InterestedList:FC<IProp>=({details})=>{
     const friend=useContext(FriendsContext)
     const user=useContext(UserContext)
     const {data,loading,error}=useQuery(FindAllUser)
@@ -33,7 +34,7 @@ export const InterestedList:FC<IProps>=({details})=>{
         display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 
         {data.findAllUser.filter((val:any) => {
-          return val.eventList.includes(details.id)}).map((myname:any )=> (
+          return val.eventList.includes(details?.id)}).map((myname:any )=> (
             <Grid item key={myname._id} xs={12} sm={6} md={6} sx={{m: 5,  display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 {myname.email ===user.email ? null:
             <FriendCard props={myname} key={myname.firstname} />

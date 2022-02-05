@@ -9,9 +9,11 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import { Badge, CssBaseline } from '@mui/material';
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useNavigate } from 'react-router-dom';
 
 
 export const FriendCard=(props:any)=> {
+  const navigate=useNavigate()
     const [verifiedColor, setVerifiedColor] = useState<
     | "disabled"
     | "inherit"
@@ -26,8 +28,8 @@ export const FriendCard=(props:any)=> {
   >("disabled");
     const FullName = props.props.firstname + " " + props.props.lastname;
     const generator = new AvatarGenerator();
-    const avatar =  generator.generateRandomAvatar(props.email as string );
-
+    const avatar =  generator.generateRandomAvatar(props.props.email as string );
+    
     useEffect(()=>{
         if (props.props.isVerified===true){
           setVerifiedColor("success")
@@ -55,8 +57,9 @@ export const FriendCard=(props:any)=> {
       </CardContent>
       </Grid>
       <CardActions sx={{display:"flex", justifyContent: "center", flexDirection:"row", width:"100%"}}>
-        {/* {props.bouton}
-        {props.button} */}
+      <Button variant="contained" onClick={()=>navigate(`../../visit/${props.props._id}`)}>
+          Visit
+        </Button>
         <Button variant="contained" >
           Events
         </Button>

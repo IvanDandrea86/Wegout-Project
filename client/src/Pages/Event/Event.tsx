@@ -21,7 +21,7 @@ export const Event: FC = () => {
   }, [id]);
 
  const link=qualityImgage(details as IDetails ) 
- console.log(link)
+
   return (
     <div>
       <Header />
