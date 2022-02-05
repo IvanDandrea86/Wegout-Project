@@ -14,7 +14,7 @@ export const Dashboard = () => {
   const user = useContext(UserContext);
   const filter = useContext(filterContext);
 
-  const [events, setEvents] = useState<Array<any>>([] as any);
+  const [events, setEvents] = useState<Array<any>>([]as any);
 
   useEffect(() => {
     getEvents_new(
@@ -29,7 +29,7 @@ export const Dashboard = () => {
   }, [filter]);
 
   return (
-    <Grid container sx={flexColumCenter}>
+    <Grid container  sx={flexColumCenter}>
       <Grid
         item
         sx={title}
@@ -45,13 +45,13 @@ export const Dashboard = () => {
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-        sx={flexRowCenter}
+        columns={{ xs: 1, sm: 8, md: 12 }}
+        sx={{...flexRowCenter}}
       >
         {events
           ? events.map((event: any) => (
-              <Grid item xs={12} sm={4} md={4} key={event.id} sx={flexRowCenter}>
-                <Box sx={{ boxShadow: 5 }}>
+              <Grid item xs={12} sm={4} md={4} key={event.id} sx={{...flexRowCenter,marginBottom:15}}>
+                <Box sx={{ boxShadow: 5}}>
                   <EventCard details={event} />
                 </Box>
               </Grid>

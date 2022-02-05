@@ -104,11 +104,11 @@ export default function SignUp() {
       },
     });
 
-    if (data.createUser.user == null) {
-      if (data.createUser.errors.field === "Password") {
+    if (data.createUser.user === null) {
+      if (data.createUser.errors.field === "password") {
         setHelperPassword(data.createUser.errors.message);
         setPasswordError(true);
-      } else if (data.createUser.errors.field === "Email") {
+      } else if (data.createUser.errors.field === "email") {
         setHelperEmail(data.createUser.errors.message);
         setEmailError(true);
       }
@@ -170,14 +170,14 @@ export default function SignUp() {
       <Container component="main" maxWidth="xs" sx={{width:"80%"}}>
         <Box
           sx={{
-            marginTop: 2,
+            marginTop: 10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Link href={"/"}>
-            <img src={logo} alt="logo" />
+         <Link href={"/"}>
+            <img src={logo} alt="logo" style={{width:"10rem"}}/>
           </Link>
           <Typography
             component="h2"

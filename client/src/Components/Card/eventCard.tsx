@@ -60,7 +60,7 @@ const link=qualityImgage(details)
 
 
  return(
-    <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%"}} >
+    <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%",marign:"15px"}} >
       {details.images[0].url?
       <CardMedia
         component="img"
@@ -73,7 +73,7 @@ const link=qualityImgage(details)
       :
       <Skeleton variant="rectangular" animation="wave"   height={140} />
       }
-      <CardContent >
+      <CardContent sx={{padding:"15px 25px"}}>
         <Typography gutterBottom variant="h5" component="div">
         {
         details.name ? details.name.slice(0,28) :<Skeleton />}
