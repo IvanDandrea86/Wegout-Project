@@ -35,10 +35,8 @@ export const Event: FC = () => {
             position: "relative",
             opacity: 0.8,
             zIndex: -1,
-            // top: "-225px",
             height: "25vh",
             width: "100%",
-            // borderRadius: "25%",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
@@ -47,17 +45,17 @@ export const Event: FC = () => {
         >
           </Box>
     ) : null}
-    <Grid container spacing={5} sx={{...flexColumCenter}}>
+    <Grid container spacing={1} sx={{...flexColumCenter}}>
         <Grid item xs={12}>
           <Paper  elevation ={5} sx={{
             position:"absolute",
-            top:"10rem",
+            top:"15rem",
             right:"9%",
             left:'9%',
-            marginBottom:"0px",
+            // marginBottom:"0px",
             paddingBottom:"10px"
           }}>
-          <Typography variant="h4" margin={5} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.name} </Typography>
+          <Typography variant="h4" margin={1} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.name} </Typography>
         <Grid item sx={flexRowCenter}>
            <EventIcon/>
            <Typography variant="subtitle1" margin={2} sx={{fontWeight: "bold",textAlign:"center"}}>{details?.dates.start.localDate} </Typography>
@@ -69,7 +67,7 @@ export const Event: FC = () => {
           </Paper>
          
         </Grid>
-        <Grid container spacing={2} sx={{...flexRowCenter, flexWrap:"wrap",padding:10,marginTop:"15rem"}}>
+        <Grid container spacing={2} sx={{...flexRowCenter, flexWrap:"wrap",padding:10,marginTop:"10rem"}}>
         <Grid item xs={10}>
            <Paper>
            <InterestedList details={details}/>

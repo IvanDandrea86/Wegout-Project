@@ -12,7 +12,7 @@ import { Event } from "./Pages/Event/Event";
 import { VisitProfile } from "./Pages/Profile/VisitProfile";
 const AuthenticatedApp: FC = () => {
   return (
-      <UserProvider>
+     <UserProvider>
               <FriendsProvider>
     <BrowserRouter>
       <Routes>

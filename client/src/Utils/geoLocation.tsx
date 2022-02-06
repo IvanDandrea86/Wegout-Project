@@ -1,50 +1,57 @@
-import React, {useState, useEffect,FC} from 'react'
+import React, {useState, useEffect,FC, useContext} from 'react'
 import axios from 'axios';
 import {gelocAPI} from '../Utils/constants'
 import Typography from '@mui/material/Typography'
+import { GeoContext } from '../Context/GeoProvider';
 
-interface IGeoLoc{
-    lat:number|null;
-    long :number |null;
-}
+import TextField from '@mui/material/TextField'
+
+
 const FindMe:FC=()=>{
-const [userPos, setUserPos] = useState({}as IGeoLoc)
-const [Location,setLocation]=useState()
+const geo=useContext(GeoContext)
+const [city,setCity]=useState<string>("Brussels")
+const [Location,setLocation]=useState<string>()
 
+const handleChange=(e:string)=>{
+  setCity(e)
+}
  useEffect(() => {
-      navigator.geolocation.getCurrentPosition((pos) =>{
-          const newUserPos = { 
-                lat: pos.coords.latitude,
-                long: pos.coords.longitude,
-           }
            var options:any|undefined = {
             method: 'GET',
-            url: 'https://geocodeapi.p.rapidapi.com/GetTimezone',
-            params: {latitude: newUserPos.lat, longitude: newUserPos.long},
+            url: `https://wft-geo-db.p.rapidapi.com/v1/geo/locations/${geo.lat}+${geo.long}/nearbyCities`,
+            params: {radius: '15'},
             headers: {
-              'x-rapidapi-host': 'geocodeapi.p.rapidapi.com',
+              'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com',
               'x-rapidapi-key': gelocAPI
             }
           };
+          
           axios.request(options).then(function (response) {
-            
-            setLocation(response.data.Country)
-            
+            console.log(response.data.data[0].city)
+            setLocation(response.data.data[0].city)          
         }).catch(function (error) {
             console.error(error);
         });
-          setUserPos(newUserPos) // store data in usestate
+       
      
-     }, (err) => {
-          console.log(err);
-     });
-    },[])
+     },[])
+
 
 return (
 
 <span>
-{Location!==undefined ? Location:
-<Typography variant="h5" >Activate geolocation or select your city</Typography>}
+{Location!==undefined ? Location.split(' ')[0]
+:
+<div> 
+<Typography variant="h6" >Activate geolocation or select your city</Typography>
+<TextField
+  id="City"
+  label="city"
+  value={city}
+  onChange={(e)=>handleChange(e.target.value)}
+/>
+</div>
+}
 </span>
  )
     

@@ -11,6 +11,7 @@ export const themeOptionsDark: ThemeOptions = {
     },
     background: {
       default: "#090910",
+      paper:"#090910"
     },
     text: {
       primary: "#f7f1e3",

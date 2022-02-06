@@ -238,7 +238,7 @@ export const Profile: FC = () => {
         )}
       </Grid>
      <Box sx={{ '& > :not(style)': { m: 1,position:"fixed",bottom:35,right:25 }}}>
-     <Fab variant="extended" size="large" onClick={()=>{navigate("/")}} >
+     <Fab sx={{bgcolor:"Background"}} variant="extended" size="large" onClick={()=>{navigate("/")}} >
        <ArrowBackIcon sx={{ mr: 1 }} />
        Back
     </Fab>
