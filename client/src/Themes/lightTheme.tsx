@@ -11,6 +11,7 @@ export const themeOptions: ThemeOptions = {
     },
     background: {
       default: "#f7f1e3",
+      paper:"#f7f1e3"
     },
     text: {
       primary: "#090910",
@@ -22,6 +23,7 @@ export const themeOptions: ThemeOptions = {
   },
 
   components: {
+   
     MuiPaper: {
       styleOverrides: {
         root: {

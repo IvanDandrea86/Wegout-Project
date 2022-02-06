@@ -9,14 +9,15 @@ import EventCardSkeleton from "../Skeleton/EventCardSkeleton";
 import { filterContext } from "../../Context/FilterContext";
 import { title } from "./Dashboard.style";
 import { flexColumCenter, flexRowCenter} from "../../Assets/Style/style"
+import { GeoContext } from "../../Context/GeoProvider";
 
 export const Dashboard = () => {
   const user = useContext(UserContext);
   const filter = useContext(filterContext);
-
+const geo=useContext(GeoContext)
   const [events, setEvents] = useState<Array<any>>([]as any);
-
-  useEffect(() => {
+  const latlon = geo.lat.toString()+ "," +geo.long.toString();
+    useEffect(() => {
     getEvents_new(
       filter.cat,
       filter.sort,
@@ -24,9 +25,10 @@ export const Dashboard = () => {
       filter.radius,
       filter.size,
       filter.keyword,
+      latlon,
       setEvents
     );
-  }, [filter]);
+  }, [filter,latlon]);
 
   return (
     <Grid container  sx={flexColumCenter}>
@@ -38,8 +40,7 @@ export const Dashboard = () => {
           Hey {user.firstname} where you want to go...
         </Typography>
         <Typography variant="h5" color="primary">
-          Here the next events in 
-          <FindMe />
+          Here the next events near <FindMe />
         </Typography>
       </Grid>
       <Grid
@@ -66,7 +67,7 @@ export const Dashboard = () => {
         Load More...
       </Button>
     </Grid>
-  );
+  )
 };
 
 export default Dashboard;

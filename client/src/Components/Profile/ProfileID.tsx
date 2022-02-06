@@ -9,6 +9,7 @@ import { flexColumCenter, flexStartCenter } from "../../Assets/Style/style";
 import ErrorMess from "../Utility/ErrorMess";
 import Loading from "../Utility/Loading";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { isNull } from "util";
 const GETUSERBYID = gql`
   query ($_id: String!) {
     findUserById(user_id: $_id) {
@@ -63,6 +64,16 @@ useEffect(() => {
   if (data.findUserById.isVerified === true) {
     setVerifiedColor("success");
   }
+  if (data.findUserById.info===null){
+    let array= new Array<string>()
+    setState({
+      Age: 0,
+      Interest: array,
+      Job: "",
+      Bio: "",
+    }) 
+  } 
+  else
   setState({
       Age: data.findUserById.info.age,
       Interest: data.findUserById.info.interest,
@@ -70,7 +81,9 @@ useEffect(() => {
       Bio: data.findUserById.info.bio
     })
 }
+
 }, [data]);
+
   if (loading) {
       return <Loading />;
   }

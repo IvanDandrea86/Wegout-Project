@@ -8,6 +8,7 @@ import ErrorMess from "../../Components/Utility/ErrorMess"
 import { useNavigate } from 'react-router-dom';
 import { PopUp } from './PopUp';
 import { sleep } from '../../Utils/utils';
+import { CustomThemeContext } from '../../Context/CustomThemeProvider';
 
 
 
@@ -22,13 +23,15 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+   bgcolor:"background.paper",
+  
     boxShadow: 24,
     p: 4,
   };
 
 export default function BasicModal() {
+  const theme=React.useContext(CustomThemeContext)
+  console.log(theme)
 
 const history=useNavigate()
     const [send]=useMutation(FORGOT_MUT)

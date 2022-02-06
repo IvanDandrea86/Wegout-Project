@@ -5,6 +5,7 @@ import Dashboard from "../../Components/Dashboard/Dashboard";
 import Navbar from "../../Components/Navbar/Navbar";
 import { FriendsContext } from "../../Context/FriendsProvider";
 import { FriendsResults } from "../Friends/FriendsResults";
+import GeoProvider from "../../Context/GeoProvider";
 
 export const Home: FC = () => {
   const search=useContext(FriendsContext)
@@ -15,7 +16,10 @@ export const Home: FC = () => {
         <Header />
         <Navbar />
         {search.friends  ? <FriendsResults/>: 
-        <Dashboard />
+       <GeoProvider>
+        
+       <Dashboard />
+         </GeoProvider>
 }
       </FilterProvider>
       
