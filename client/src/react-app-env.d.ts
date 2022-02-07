@@ -1,7 +1,7 @@
 /// <reference types="react-scripts" />
 declare namespace NodeJS {
     interface ProcessEnv {
-        NODE_ENV: 'development' | 'production' | 'test'
+        NODE_ENV: 'development' | 'production' | 'test' | 'staging'
         PUBLIC_URL: string
         REACT_APP_UNSPLASH_API:string,
         REACT_APP_PEXELS_API:string,
