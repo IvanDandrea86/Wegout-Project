@@ -5,9 +5,13 @@ import { apolloLoader } from "./loaders/apolloLoader";
 import express from "express";
 import cors from "cors";
  import path from "path";
-import { ALLOW_ORIGIN, __prod__, PORT } from "./constants/const";
+import { ALLOW_ORIGIN, __prod__, PORT, __staging__ } from "./constants/const";
 import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
+
+
+
+
 //import { startSeed } from "./seeder";
 dotenv.config();
 export const app = express();
@@ -39,7 +43,7 @@ export const main = async () => {
   
  
   //Deploy Setup
-  if(__prod__){
+  if(__prod__ || __staging__){
   app.use(express.static(path.resolve(__dirname, '../../client/build')));
   app.get('*', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
