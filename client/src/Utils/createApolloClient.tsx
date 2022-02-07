@@ -9,7 +9,7 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
   
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "/graphql",
   credentials: "include",
 });
 const wsLink = new WebSocketLink({
@@ -19,12 +19,10 @@ const wsLink = new WebSocketLink({
   },
 });
 
-if (process.env.NODE_ENV === "production"){
-  httpLink.options.uri="/graphql";
+if (process.env.NODE_ENV === "development"){
+  httpLink.options.uri="http://localhost:4000/graphql";
 }
-if ( process.env.NODE_ENV === "staging"){
-  httpLink.options.uri="/graphql";
-}
+
 console.log(process.env.PUBLIC_URL)
 
 
