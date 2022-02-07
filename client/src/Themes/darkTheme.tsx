@@ -19,7 +19,7 @@ export const themeOptionsDark: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: "Roboto",
+    fontFamily: "'Roboto', sans-serif;",
   },
 
   components: {

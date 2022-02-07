@@ -72,6 +72,11 @@ export class User {
   @Field(() => [String])
   @prop({ type: String })
   messagesSent: Array<String>;
+
+  @Field(() => [String])
+  @prop({ type: String })
+  chatList: Array<String>;
+  
 }
 export const UserModel = getModelForClass(User, {
   schemaOptions: { timestamps: true },

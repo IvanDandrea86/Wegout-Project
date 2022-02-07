@@ -3,7 +3,8 @@ import { Service } from "typedi";
 import { User, UserModel } from "../../entities/user.entity";
 import * as bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
-import { UserResponse, FieldError, MyContext, UserInfoInput } from "../../types/types";
+import { UserResponse, FieldError, MyContext, } from "../../types/types";
+import {UserInfoInput } from "../../types/input.types" 
 import { COOKIENAME, __prod__ } from "../../constants/const";
 import {v4} from 'uuid';
 

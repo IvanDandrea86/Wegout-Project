@@ -12,5 +12,6 @@ export const SMTP_USER=process.env.SMTP_USER
 export const SMTP_PASS=process.env.SMTP_PASS
 export const SMTP_HOST=process.env.SMTP_HOST
 export const TICKETMASTER_KEY=process.env.TICKETMASTER_KEY
-
+export const REDIS_DOMAIN_NAME= process.env.REDIS_DOMAIN_NAME
+export const REDIS_PORT=process.env.REDIS_PORT
 

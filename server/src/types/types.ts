@@ -1,6 +1,7 @@
-import { prop } from "@typegoose/typegoose";
-import { Field, InputType, ObjectType,} from "type-graphql";
+import {  prop } from "@typegoose/typegoose";
+import { Field, ObjectType} from "type-graphql";
 import {User} from '../entities/user.entity'
+import {Chat}from '../entities/chat.entity'
 import { Request,Response } from "express";
 import { Redis } from "ioredis";
 
@@ -10,34 +11,6 @@ export type MyContext={
   req:Request
   redis:Redis 
 }
-
-
-@InputType()
-export class UserInfoInput {
-
-  @Field(()=>Number,{ defaultValue: 0 })
-  @prop( { default: 0 })
-  age :number;
-
-  @Field(()=>[String])
-  @prop({type:[String]})
-  interest :string[];
-
-  @Field(() => String)
-  @prop(String)
-  job :string;
-  @Field(() => String)
-  @prop(String)
-  bio :string;
-
-  constructor(age:number,interest:Array<string>,job:string,bio:string){
-    this.age=age;
-    this.interest=interest;
-    this.job=job;
-    this.bio=bio;
-  }
-  }
-
 @ObjectType() 
 export class UserInfo {
 
@@ -55,33 +28,8 @@ export class UserInfo {
     @Field(() => String)
     @prop(String)
     bio :string;
-
-    // constructor(age:number,interest:Array<string>,job:string,bio:string){
-    //   this.age=age;
-    //   this.interest=interest;
-    //   this.job=job;
-    //   this.bio=bio;
-    // }
     }
 
-
-
-@ObjectType()
-export class LikeState {
-
-    @Field({ defaultValue: 0 })
-    @prop({ default: 0 })
-    count :number;
-    
-    @Field(()=>[String])
-    @prop({type:[String]})
-    likelist :string[]
-
-    constructor (){
-    this.count= 0;
-    this.likelist=new Array();
-    }
-}
 @ObjectType()
 export class FieldError {
   @Field(() => String)
@@ -100,12 +48,35 @@ export class UserResponse {
   @Field(() => User, { nullable: true })
   user?: User;
 }
+
 @ObjectType()
-export class FriendResponse {
-  @Field(() => [FieldError], { nullable: true })
-  errors?: FieldError[];
-  @Field(() => User, { nullable: true })
-  user?: User;
+export class ChatResponse {
+  @Field(() => FieldError, { nullable: true })
+  errors?: FieldError;
+  @Field(() => Chat, { nullable: true })
+  chat?: Chat;
 }
+
+@ObjectType()
+export class MessageChat{
+  @Field()
+  @prop()
+  id:string;
+  @Field()
+  @prop()
+  content:string;
+  @Field()
+  @prop()
+  sender:string; 
+  @Field()
+  @prop()
+  reciver:string; 
+  @Field()
+  @prop()
+  createdAt: Date;
+}
+
+
+
 
 

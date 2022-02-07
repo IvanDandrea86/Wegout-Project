@@ -10,6 +10,9 @@ declare namespace NodeJS{
         SMTP_PASS:string;
         SMTP_HOST:string;
         TICKETMASTER_KEY:string;
+        REDIS_DOMAIN_NAME:string;
+        REDIS_PORT:number;
+        
     }
 }
 
