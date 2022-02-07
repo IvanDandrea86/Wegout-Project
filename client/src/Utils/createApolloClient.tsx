@@ -19,7 +19,7 @@ const wsLink = new WebSocketLink({
   },
 });
 
-if (process.env.NODE_ENV === "production"){
+if (process.env.NODE_ENV === "production"||"staging"){
   httpLink.options.uri="/graphql";
 }
 
