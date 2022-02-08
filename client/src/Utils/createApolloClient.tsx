@@ -12,7 +12,7 @@ const httpLink = new HttpLink({
 });
 var linkUri=""
 if (process.env.NODE_ENV === "production") {
-  linkUri="ws://wegout.herokuapp.com//subscription"
+  linkUri="wss://wegout.herokuapp.com//subscription"
   httpLink.options.uri="/graphql";
 } 
 else{
