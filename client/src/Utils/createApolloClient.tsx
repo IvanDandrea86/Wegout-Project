@@ -7,16 +7,19 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql", 
+  uri: "/graphql", 
   credentials: "include",
 });
+
 var linkUri=""
 if (process.env.NODE_ENV === "production") {
-  linkUri="wss://wegout.herokuapp.com/subscription"
-  httpLink.options.uri="/graphql";
+  linkUri="/subscription"
+  
 } 
+
 else{
   linkUri="ws://localhost:4000/subscriptions"
+  httpLink.options.uri="http://localhost:4000/graphql";
 }
 const wsLink = new WebSocketLink({
   uri: `${linkUri}`,
