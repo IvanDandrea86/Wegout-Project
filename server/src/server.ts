@@ -60,19 +60,7 @@ export const main = async () => {
         console.log("👋 a client disconnected from subscriptions");
       },
     },
-    context: ({ req, res,connection }): MyContext => {
-        if (connection) {
-            return {
-              ...connection.context,
-              
-              res,
-              req,
-              redis
-            };
-          } else {
-            return { redis,res,req };
-          }
-        },
+    context: ({ req, res }): MyContext => { return { redis,res,req }},
 });
   apolloServer.applyMiddleware({
     app,
@@ -83,6 +71,9 @@ export const main = async () => {
   });
   let startnTime = new Date();
   apolloServer.installSubscriptionHandlers(httpServer);
+  // console.log(apolloServer)
+  // console.log(app)
+  console.log ("address")
     httpServer.listen(process.env.PORT, () => {
       console.log(
         startnTime,
