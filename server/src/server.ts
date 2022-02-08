@@ -95,16 +95,13 @@ export const main = async () => {
   });
 
   //Deploy Setup
-  if(__prod__ || __staging__){
+  if(__prod__ ){
   app.use(express.static(path.resolve(__dirname, '../../client/build')));
   app.get('*', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
   });
 }
 
-  // app.listen(PORT, () => {
-  //   console.log(startTime, `\n🚀 Server running at: http://localhost:${PORT}`);
-  // });
   let nEndTime = Date.now();
   console.log(
     `\tWeGOut v1.0.0\n\tServer up in: ${String(
