@@ -7,22 +7,12 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 
 const httpLink = new HttpLink({
-  uri: "/graphql", 
+  uri: "http://localhost:4000/graphql", 
   credentials: "include",
 });
 
-var linkUri=""
-if (process.env.NODE_ENV === "production") {
-  linkUri="/subscription"
-  
-} 
-
-else{
-  linkUri="ws://localhost:4000/subscriptions"
-  httpLink.options.uri="http://localhost:4000/graphql";
-}
 const wsLink = new WebSocketLink({
-  uri: `${linkUri}`,
+  uri: `ws://localhost:4000/subscriptions`,
   options: {
     reconnect: true,
   },
