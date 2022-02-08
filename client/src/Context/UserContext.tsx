@@ -5,6 +5,7 @@ import Loading from "../Components/Utility/Loading";
 import ErrorMess from "../Components/Utility/ErrorMess";
 
 interface IUser {
+  _id:string |null;
   firstname: string | null;
   lastname: string | null;
   email: string | null;
@@ -25,6 +26,7 @@ const FIND_USER = gql`
   query ($_id: String!) {
     findUserById(user_id: $_id) {
       email
+      _id
       firstname
       lastname
       isVerified
@@ -56,6 +58,7 @@ const UserProvider: FC = (props) => {
   return (
     <UserContext.Provider
       value={{
+        _id:data.findUserById._id,
         firstname: data.findUserById.firstname,
         lastname: data.findUserById.lastname,
         email: data.findUserById.email,

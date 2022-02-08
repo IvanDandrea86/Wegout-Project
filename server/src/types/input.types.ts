@@ -24,20 +24,5 @@ export class UserInfoInput {
     this.bio=bio;
   }
   }
-  @InputType()
-export class MessageChatInput{
-  @Field()
-  @prop()
-  id:string;
-  @Field()
-  @prop()
-  content:string;
-  @Field()
-  @prop()
-  sender:string; 
-  @Field()
-  @prop()
-  reciver:string; 
-}
 
   

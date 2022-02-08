@@ -1,8 +1,12 @@
 import { ObjectType, Field } from "type-graphql";
 import { prop, getModelForClass } from "@typegoose/typegoose";
 
+
+
+
+
 @ObjectType()
-export class Chat {
+export class Message {
   @Field()
   @prop()
   _id!: string;
@@ -13,17 +17,23 @@ export class Chat {
 
   @Field()
   @prop()
-  updatedAt: Date = new Date();
+  body: string;
 
-  @Field(()=>[String])
-  @prop({type:[String]})
-  users!: string[]
-  
   @Field(()=>String)
+  @prop()
+  sender: string;
+
+@Field(()=>String)
   @prop({type:String})
-  lastMessage: string;
+  chat: string;
+  
+
+
+
+
+
   
 }
-export const ChatModel = getModelForClass(Chat, {
+export const MessageModel = getModelForClass(Message, {
   schemaOptions: { timestamps: true },
 });

@@ -58,24 +58,7 @@ export class ChatResponse {
   chat?: Chat;
 }
 
-@ObjectType()
-export class MessageChat{
-  @Field()
-  @prop()
-  id:string;
-  @Field()
-  @prop()
-  content:string;
-  @Field()
-  @prop()
-  sender:string; 
-  @Field()
-  @prop()
-  reciver:string; 
-  @Field()
-  @prop()
-  createdAt: Date;
-}
+
 
 
 

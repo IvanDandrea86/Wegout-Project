@@ -1,6 +1,7 @@
 import { ObjectType, Field } from "type-graphql";
 import { prop, getModelForClass } from "@typegoose/typegoose";
 import { UserInfo } from "../types/types";
+import { Chat } from "./chat.entity";
 
 @ObjectType()
 export class User {
@@ -65,17 +66,10 @@ export class User {
   @prop({ default: false })
   isVerified: boolean;
 
-  @Field(() => [String])
-  @prop({ type: String })
-  messagesRecived: Array<String>;
 
-  @Field(() => [String])
-  @prop({ type: String })
-  messagesSent: Array<String>;
-
-  @Field(() => [String])
-  @prop({ type: String })
-  chatList: Array<String>;
+  @Field(() => [Chat])
+  @prop({ type: Chat, ref:()=>Chat })
+  chatList: Array<Chat>;
   
 }
 export const UserModel = getModelForClass(User, {

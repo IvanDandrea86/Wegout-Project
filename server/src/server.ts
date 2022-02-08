@@ -71,9 +71,6 @@ export const main = async () => {
   });
   let startnTime = new Date();
   apolloServer.installSubscriptionHandlers(httpServer);
-  // console.log(apolloServer)
-  // console.log(app)
-  console.log ("address")
     httpServer.listen(process.env.PORT, () => {
       console.log(
         startnTime,

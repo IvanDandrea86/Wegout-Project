@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid'
 import { Badge, CssBaseline } from '@mui/material';
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from 'react-router-dom';
+import { ChatButton } from '../Buttons/ChatButton';
 
 
 export const FriendCard=(props:any)=> {
@@ -57,15 +58,15 @@ export const FriendCard=(props:any)=> {
       </CardContent>
       </Grid>
       <CardActions sx={{display:"flex", justifyContent: "center", flexDirection:"row", width:"100%"}}>
-      <Button variant="contained" onClick={()=>navigate(`../../visit/${props.props._id}`)}>
+      <Button  onClick={()=>navigate(`../../visit/${props.props._id}`)}>
           Visit
         </Button>
-        <Button variant="contained" >
+        <Button  >
           Events
         </Button>
-        <Button variant="contained" >
-          Chat
-        </Button>
+
+       <ChatButton props={props.props._id as string}/>
+
       </CardActions>
     </Card>
     </div>

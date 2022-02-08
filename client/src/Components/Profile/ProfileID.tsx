@@ -1,15 +1,16 @@
 import { FC, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Avatar, Badge, Typography, Divider, Fab, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Avatar, Badge, Typography, Divider } from "@mui/material";
+
 import { AvatarGenerator } from "random-avatar-generator";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { gql, useQuery } from "@apollo/client";
 import { flexColumCenter, flexStartCenter } from "../../Assets/Style/style";
 import ErrorMess from "../Utility/ErrorMess";
 import Loading from "../Utility/Loading";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { isNull } from "util";
+
+
+import { BackFab } from "../Utility/BackFab";
 const GETUSERBYID = gql`
   query ($_id: String!) {
     findUserById(user_id: $_id) {
@@ -44,7 +45,7 @@ export const ProfileID: FC<IUserId> = ({ id }) => {
       _id: ID
     },
 });
-const navigate=useNavigate()
+
 const [state, setState] = useState({}as IInfo);
 const [verifiedColor, setVerifiedColor] = useState<
   | "disabled"
@@ -172,12 +173,7 @@ useEffect(() => {
           ))}
         </Grid>
       </Grid>
-      <Box sx={{ '& > :not(style)': { m: 1,position:"fixed",bottom:35,right:25 }}}>
-     <Fab variant="extended" size="large" onClick={()=>{navigate("/")}} >
-       <ArrowBackIcon sx={{ mr: 1 }} />
-       Back
-    </Fab>
-   </Box>
+      <BackFab/>
     </Grid>
   );
 };

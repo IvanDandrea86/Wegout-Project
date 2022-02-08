@@ -3,19 +3,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Typography from "@mui/material/Typography";
 import { getEventsDetails } from "../../Utils/getEventDetails";
-import { Box, Fab, Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper } from "@mui/material";
 import { flexColumCenter ,flexRowCenter} from "../../Assets/Style/style";
 import {IDetails} from "../../Types/types"
 import { qualityImgage } from "../../Utils/qualityImages";
 import EventIcon from '@mui/icons-material/Event';
 import { InterestedList } from "../../Components/InterestedList/InterestList";
 import LocationCityIcon from '@mui/icons-material/LocationCity';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+import { BackFab } from "../../Components/Utility/BackFab";
 
 
 
 export const Event: FC = () => {
-  const navigate=useNavigate()
   const { id } = useParams();
   const [details, getDetails] = useState<IDetails>();
 
@@ -76,12 +76,8 @@ export const Event: FC = () => {
            </Grid>
       
     </Grid>
-    <Box sx={{ '& > :not(style)': { m: 1,position:"fixed",bottom:35,right:25 }}}>
-      <Fab variant="extended" size="large" onClick={()=>{navigate("/")}} >
-        <ArrowBackIcon sx={{ mr: 1 }} />
-        Back
-     </Fab>
-    </Box>
+   
+    <BackFab/>
 </div>
     </div>
   );
