@@ -1,15 +1,21 @@
 import {
     ApolloClient,
-    ApolloLink,
     InMemoryCache,
-    RequestHandler,
   } from "@apollo/client";
   import { split, HttpLink } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
-  
+
+var linkUri=""
+if (process.env.NODE_ENV === "development") {
+  linkUri="/subscription"
+} 
+else{
+  linkUri="ws://localhost:4000/subscriptions"
+}
+
 const httpLink = new HttpLink({
-  uri: "/graphql",
+  uri: `${linkUri}`, 
   credentials: "include",
 });
 const wsLink = new WebSocketLink({
@@ -20,13 +26,8 @@ const wsLink = new WebSocketLink({
 });
 
 if (process.env.NODE_ENV === "development"){
-  httpLink.options.uri="http://localhost:4000/graphql";
+  httpLink.options.uri="/graphql";
 }
-
-console.log(process.env.PUBLIC_URL)
-
-
-
 
 const link = split(
   ({ query }) => {

@@ -1,9 +1,10 @@
 import { ObjectId } from "mongodb";
 import { UserModel } from "../../entities/user.entity";
-import { Resolver, Arg,  Query, Mutation, Subscription, Root } from "type-graphql";
+import { Resolver, Arg,  Query, Mutation, Subscription, Root, PubSub, Publisher } from "type-graphql";
 import { Service } from "typedi";
 import { Chat, ChatModel } from "../../entities/chat.entity";
-import { ChatResponse, FieldError, } from "../../types/types";
+import { ChatResponse, FieldError, MessageChat, } from "../../types/types";
+
 
 
 
@@ -64,11 +65,14 @@ export default class ChatResolver {
 
     @Mutation(() => ChatResponse, { name: "sendMessage" })
     async sendMessage(
+      @PubSub(channel) pubsub: Publisher<Chat>,
       @Arg("sender") sender: string,
       @Arg("reciver") reciver: string,
       @Arg("content") content: string,
       @Arg("chat") chatId: string
     ): Promise<ChatResponse> {
+      const include=chatId.split('/')
+      if (include.includes(sender && reciver)){
         try{
             const id=new ObjectId()
             const created=new Date()
@@ -79,8 +83,16 @@ export default class ChatResolver {
                 sender:sender,
                 createdAt:created
             }
-            await ChatModel.findOneAndUpdate({_id:chatId},{$push:{messages:message}}).exec()
-            const returnchat=await ChatModel.findOne({_id:chatId}).exec()
+           const chat =  await ChatModel.findOneAndUpdate({_id:chatId},{$push:{messages:message}}).exec()
+            const returnchat=await ChatModel.findById({_id:chatId})
+           
+           await pubsub({
+             _id:chat?.id,
+             messages:chat?.messages as MessageChat[],
+             createdAt:chat?.createdAt as Date,
+             updatedAt:chat?.updatedAt as Date
+           })
+           
             return {chat: returnchat?.toObject() as Chat};
         }
         catch(err){
@@ -93,16 +105,19 @@ export default class ChatResolver {
                 errors: error,
               };
         }
-        }
-
-
-    @Subscription({ topics: channel })
-    messageSent(@Root()  {_id, createdAt, updatedAt,messages} : Chat): Chat {
-        ChatModel
-    return {_id, createdAt, updatedAt, messages};
-  }
-
-
-   
-
+      }
+      else
+      {const error = new FieldError(
+        "chat",
+        "chat not exist"
+      );
+      return {
+        errors: error,
+      };
+    }
+    }
+    @Subscription({topics:channel})
+    messageSent(@Root() chat: Chat): Chat {
+      return  chat ;
+}
 }

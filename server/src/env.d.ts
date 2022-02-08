@@ -1,6 +1,6 @@
 
 declare namespace NodeJS{
-    export interface ProcessEnv{
+    export interface ProcessEnv{  
         ATLAS_CONNETCION:string;
         SECRET:string ;
         REDIS_TLS_URL:string| undefined;

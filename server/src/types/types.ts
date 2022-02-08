@@ -10,6 +10,7 @@ export type MyContext={
   res:Response
   req:Request
   redis:Redis 
+
 }
 @ObjectType() 
 export class UserInfo {

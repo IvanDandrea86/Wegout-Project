@@ -34,7 +34,7 @@ const handleChange=(e:string)=>{
         });
        
      
-     },[])
+     },[geo.lat,geo.long])
 
 
 return (
