@@ -13,7 +13,7 @@ export const SMTP_USER=process.env.SMTP_USER
 export const SMTP_PASS=process.env.SMTP_PASS
 export const SMTP_HOST=process.env.SMTP_HOST
 export const TICKETMASTER_KEY=process.env.TICKETMASTER_KEY
-export const REDIS_DOMAIN_NAME= process.env.REDIS_DOMAIN_NAME
-export const REDIS_PORT=process.env.REDIS_PORT
-export const REDIS_PASSWORD=process.env.REDIS_PASSWORD
+export const user = process.env.REDIS_PASSWORD ? `default:${process.env.REDIS_PASSWORD}` : 'default'
+export const host = process.env.REDIS_HOST || 'localhost'
+export const port = process.env.REDIS_PORT || 6379
 
