@@ -6,13 +6,16 @@ import {
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 
+
+const httpuri = process.env.REACT_APP_HTPP ? "/graphql" : "http://localhost:4000/graphql"
+const wssuri =process.env.REACT_APP_WSS ?"wss://wegout.herokuapp.com/subscriptions" :"ws://localhost:4000/subscription"
 const httpLink = new HttpLink({
-  uri: "/graphql", 
+  uri: `${httpuri}`, 
   credentials: "include",
 });
 
 const wsLink = new WebSocketLink({
-  uri: `wss://wegout.herokuapp.com/subscriptions`,
+  uri: `${wssuri}`,
   options: {
     reconnect: true,
   },
