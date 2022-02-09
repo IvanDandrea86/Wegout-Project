@@ -7,12 +7,12 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql", 
+  uri: "/graphql", 
   credentials: "include",
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/subscriptions`,
+  uri: `wss://wegout.herokuapp.com/subscriptions`,
   options: {
     reconnect: true,
   },
