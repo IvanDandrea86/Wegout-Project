@@ -1,12 +1,8 @@
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import  Redis from 'ioredis';
-import { user, host,port } from '../constants/const';
+import { REDIS_URL } from '../constants/const';
 
 const options:Redis.RedisOptions = { 
-  host: host,
-  port: port,
-   password:user,
-  maxRetriesPerRequest: 520,
   retryStrategy: times => {
     return Math.min(times * 50, 2000);
   }
@@ -14,6 +10,6 @@ const options:Redis.RedisOptions = {
 
 export default new RedisPubSub({
  
-  publisher:  new Redis(options),
+  publisher:  new Redis(REDIS_URL,options),
   subscriber: new Redis(options), 
 });
