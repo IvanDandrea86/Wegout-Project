@@ -11,5 +11,5 @@ const options:Redis.RedisOptions = {
 export default new RedisPubSub({
  
   publisher:  new Redis(REDIS_URL,options),
-  subscriber: new Redis(options), 
+  subscriber: new Redis(REDIS_URL,options), 
 });
