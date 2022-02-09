@@ -11,7 +11,7 @@ export class Message {
   @prop()
   _id!: string;
 
-  @Field()
+  @Field(()=>Date)
   @prop()
   createdAt: Date = new Date();
 

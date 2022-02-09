@@ -6,15 +6,21 @@ import { MyContext } from "../../types/types";
 import { ChatModel } from "../../entities/chat.entity";
 
 const channel="newChatChannel"
-
+interface MessagePayload{
+  _id:string;
+  body:string;
+  chat:string;
+  sender:string;
+  createdAt:string;
+}
 @Service() // Dependencies injection
 @Resolver(() => Message )
 export default class MessageResolver {
   @Query(()=>[Message],{name:"getMessages"} )
   async getMessages(
-    @Arg("chat") chat:string
+    @Arg("chatid") chatid:string
   ){ 
-return MessageModel.find({chat:chat}).exec() 
+return MessageModel.find({chat:chatid}).exec() 
   }
 
    @Mutation(() => Message, { name: "sendMessage" })
@@ -45,8 +51,20 @@ return MessageModel.find({chat:chat}).exec()
      return message;
      
    }
-   @Subscription({topics:channel})
-   messageSent(@Root() message: Message): Message {
-     return  message ;
+   @Subscription({topics:channel,
+    filter: ({ payload,args }) => 
+    payload.chat===args.chatid
+   })
+   messageSent(
+     @Root() message: MessagePayload,
+    @Arg("chatid") chatid:string): Message {
+     return  {
+      _id:message._id,
+      body:message.body,
+      sender: message.sender,
+      chat: message.chat,
+      createdAt: new Date(message.createdAt)
+
+     } ;
 }
 }

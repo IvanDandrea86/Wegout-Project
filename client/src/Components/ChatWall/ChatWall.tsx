@@ -10,56 +10,51 @@ import { ChatChannelContext } from "../../Context/ChatChannelProvider";
 import Loading from "../Utility/Loading";
 import ErrorMess from "../Utility/ErrorMess";
 import SendMessage from "./SendButton";
+import { MessageBubble } from "./MessageBox";
 
 
 const GETCHAT=gql`
-     query($chat:String!)
-        {getMessages(chat:$chat){sender body}}    
+     query($chatid:String!)
+        {getMessages(chatid:$chatid){sender body chat createdAt}}    
 `
 const CHAT_SUB=gql`
-subscription{messageSent{ sender body}}
+subscription($id:String!){messageSent(chatid:$id){ sender body chat createdAt}}
 `
 
 
 
 
 export const ChatWall=()=>{
-    var listChatMessages:any
+    
     const channel=useContext(ChatChannelContext)
     const user=useContext(UserContext)
     const generator = new AvatarGenerator();
   const avatar = generator.generateRandomAvatar(user.email as string);
-   
     const{data,loading,error,subscribeToMore}=useQuery(GETCHAT,{variables:{
-        chat:channel.chatChannel
+        chatid:channel.chatChannel
     }})
     useEffect(() => {
         subscribeToMore({
           document: CHAT_SUB,
+          variables:{
+            id:channel.chatChannel
+          },
           updateQuery: (prev, { subscriptionData }) => {
-              console.log(subscriptionData,"subdata")
-              console.log(prev,"prev")
+            
             if (!subscriptionData.data) return prev;
-            const newChat = subscriptionData.data.messageSent;
-            console.log(newChat,"newChat")
-            console.log(typeof newChat)
+            const newMessage = subscriptionData.data.messageSent;
+           
             return {
-                getMessages: [...prev.getMessages, newChat],
+                getMessages: [...prev.getMessages, newMessage],
             };
           },
         });
       },[]);
     if (loading){return <Loading/>}
     if(error){return <ErrorMess/>}
-    console.log(data.getMessages)
 
- if(data.getMessages){
-        listChatMessages=data.getMessages.map((chatMessageDto:any,index:number)=>(
-               <ListItem key={index}>
-                   <ListItemText primary={`${chatMessageDto.sender}:${chatMessageDto.body} `}></ListItemText>
-               </ListItem>
-       ))
-        }
+
+ 
   
     
    
@@ -74,7 +69,16 @@ export const ChatWall=()=>{
             <Grid container spacing={4} alignItems={"center"}>
 <Grid item   id="chat-window" xs={12} sx={chatWindowStyle}>
     <List id="chat-messages" sx={chatMessageStyle}>
-     {listChatMessages}   
+     {data.getMessages.map((chatMessageDto:any,index:number)=>(
+               <ListItem  key={index} >
+                   {(chatMessageDto.sender===user._id) ? 
+                   <MessageBubble align="right" name={chatMessageDto.sender}  body={chatMessageDto.body} date={chatMessageDto.createdAt}/>
+                   :
+                   <MessageBubble align="left" name={chatMessageDto.sender} body={chatMessageDto.body} date={chatMessageDto.createdAt}/>
+                
+        }
+               </ListItem>
+       ))}   
     </List>
 </Grid>
 <Grid item xs={2}>

@@ -31,7 +31,7 @@ const style = {
 
 export default function BasicModal() {
   const theme=React.useContext(CustomThemeContext)
-  console.log(theme)
+
 
 const history=useNavigate()
     const [send]=useMutation(FORGOT_MUT)

@@ -16,8 +16,7 @@ const [geoloc,setGeoloc]=useState<IGeo>({ lat:50.8133376,
        long: pos.coords.longitude,
   }
     setGeoloc(newUserPos)
-     console.log("geolog",geoloc)
-     console.log("newUserPos",newUserPos)
+
 })
     return (
       <GeoContext.Provider value={ geoloc as IGeo }>

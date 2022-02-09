@@ -27,7 +27,7 @@ const handleChange=(e:string)=>{
           };
           
           axios.request(options).then(function (response) {
-            console.log(response.data.data[0].city)
+         
             setLocation(response.data.data[0].city)          
         }).catch(function (error) {
             console.error(error);

@@ -72,13 +72,9 @@ export const main = async () => {
   let startnTime = new Date();
   apolloServer.installSubscriptionHandlers(httpServer);
     httpServer.listen(process.env.PORT, () => {
-      console.log(
-        startnTime,
-        `\n🚀 Subscriptions ready at ws://localhost:${process.env.PORT}${apolloServer.subscriptionsPath}`
+      console.log(startnTime,`\n🚀 Subscriptions ready at ws://localhost:${process.env.PORT}${apolloServer.subscriptionsPath}`
       );
-      console.log(
-      startnTime,
-      `\n🚀 Graphql running at:http://localhost:${process.env.PORT}/graphql`
+      console.log(startnTime, `\n🚀 Graphql running at:http://localhost:${process.env.PORT}/graphql`
     );
   });
 

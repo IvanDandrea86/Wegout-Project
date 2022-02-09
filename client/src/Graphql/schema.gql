@@ -1,0 +1,104 @@
+type Query {
+  me: User
+  findUserById(user_id: String!): User!
+  findUserByEmail(email: String!): User!
+  findAllUser: [User!]!
+  findChatById(_id: String!): Chat!
+  findAllChat: [Chat!]!
+  findChatbyUser: Chat!
+  getMessages(chat: String!): [Message!]!
+}
+
+type User {
+  _id: String!
+  user_id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  password: String!
+  email: String!
+  firstname: String!
+  lastname: String!
+  location: String!
+  info: UserInfo
+  friendList: [String!]!
+  eventList: [String!]
+  isAdmin: Boolean
+  isActive: Boolean
+  isVerified: Boolean
+  chatList: [Chat!]!
+}
+
+# The javascript `Date` as string. Type represents date and time as the ISO Date string.
+scalar DateTime
+
+type UserInfo {
+  age: Float
+  interest: [String!]!
+  job: String!
+  bio: String!
+}
+
+type Chat {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  users: [String!]!
+  lastMessage: String!
+}
+
+type Message {
+  _id: String!
+  createdAt: DateTime!
+  body: String!
+  sender: String!
+  chat: String!
+}
+
+type Mutation {
+  deleateAllUser: Boolean!
+  deleteUser(_id: String!): Boolean!
+  createUser(
+    location: String!
+    lastname: String!
+    firstname: String!
+    password: String!
+    email: String!
+  ): UserResponse!
+  updateUser(info: UserInfoInput!, email: String!): User
+  login(password: String!, email: String!): UserResponse!
+  logout: Boolean!
+  forgotPassword(email: String!): Boolean!
+  changePassword(token: String!, password: String!): UserResponse!
+  requestVerifyEmail(email: String!): Boolean!
+  verifiy(token: String!): UserResponse!
+  addEvent(userEmail: String!, eventId: String!): Boolean!
+  removeEvent(userEmail: String!, eventId: String!): Boolean!
+  createChat(user: [String!]!): ChatResponse!
+  sendMessage(chat: String!, body: String!): Message!
+}
+
+type UserResponse {
+  errors: FieldError
+  user: User
+}
+
+type FieldError {
+  field: String!
+  message: String!
+}
+
+input UserInfoInput {
+  age: Float = 0
+  interest: [String!]!
+  job: String!
+  bio: String!
+}
+
+type ChatResponse {
+  errors: FieldError
+  chat: Chat
+}
+
+type Subscription {
+  messageSent: Message!
+}

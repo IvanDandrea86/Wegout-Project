@@ -3,6 +3,7 @@ import { List, ListItem, Paper, Typography } from "@mui/material"
 import { FC, useContext } from "react";
 import { ChatChannelContext } from "../../Context/ChatChannelProvider";
 import { UserContext } from "../../Context/UserContext";
+import { UserCardList } from "../Card/UserCardList";
 import ErrorMess from "../Utility/ErrorMess";
 import Loading from "../Utility/Loading";
 
@@ -11,6 +12,7 @@ const FINDALLCHAT=gql`
 `
 interface IChat{
     _id:string;
+    users:string[]
 }
 
 
@@ -26,10 +28,11 @@ return (
     <List className="list">
       {data.findAllChat.filter((val:any) => {
           return val.users.includes(user._id)}).map((val: IChat,key:number) => (
-        <ListItem button key={key} onClick={()=>{channel.setChatChannel(val._id)}} >
-          <Typography variant="h6" color="initial">
-            {val._id}
-          </Typography>
+        <ListItem button key={key} onClick={()=>{
+          console.log(val._id)
+          channel.setChatChannel(val._id)}} >
+          <UserCardList id={val.users}/>
+          
         </ListItem>
       ))}
     </List>

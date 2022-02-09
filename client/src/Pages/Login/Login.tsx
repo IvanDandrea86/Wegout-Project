@@ -10,6 +10,7 @@ import {
   Checkbox,
   Link,
   Grid,
+  
 } from "@mui/material";
 import logo from "../../Assets/Images/logo.svg";
 import { gql, useMutation } from "@apollo/client";
@@ -115,6 +116,7 @@ export default function Login() {
   return (
     <animated.div style={fadeLeft}>
       <Container component="main" maxWidth="xs" sx={{ zIndex: 0,width:"80%" }}>
+        
         <Box
           sx={{
             marginTop: 2,
@@ -207,6 +209,7 @@ export default function Login() {
             </Grid>
           </Box>
         </Box>
+        
       </Container>
     </animated.div>
   );
