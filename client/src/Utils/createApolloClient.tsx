@@ -8,7 +8,7 @@ import { getMainDefinition } from "@apollo/client/utilities";
 
 
 const httpuri = process.env.REACT_APP_HTPP ? "/graphql" : "http://localhost:4000/graphql"
-const wssuri =process.env.REACT_APP_WSS ?"wss://wegout.herokuapp.com/subscriptions" :"ws://localhost:4000/subscription"
+const wssuri =process.env.REACT_APP_WSS ?"wss://wegout.herokuapp.com/subscriptions" :"ws://localhost:4000/subscriptions"
 const httpLink = new HttpLink({
   uri: `${httpuri}`, 
   credentials: "include",
