@@ -38,11 +38,11 @@ export const ChatButton = (props:any) => {
     if (errors){return <ErrorMess/>}
 
     if (data.createChat.errors ===null){
-        await  channel.setChatChannel(data.createChat.chat._id)
+         channel.setChatChannel(data.createChat.chat._id)
         navigate("../../chat")   
     }
     else{
-      await  channel.setChatChannel(data.createChat.chat._id)
+        channel.setChatChannel(data.createChat.chat._id)
          navigate("../../chat")
         // window.location.reload();
     }}
