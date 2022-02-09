@@ -21,7 +21,7 @@ export const SendMessage: FC<SendMessageProps> = ({ chatId }) => {
    {console.log(chatId)
       await sendMessage({ variables: { chat: chatId, body:message }
  })
- setMessage("")
+  setMessage("")
 }
 catch(err){
   console.log(err)

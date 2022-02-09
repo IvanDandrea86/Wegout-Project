@@ -12,6 +12,7 @@ declare namespace NodeJS{
         TICKETMASTER_KEY:string;
         REDIS_DOMAIN_NAME:string;
         REDIS_PORT:number;
+        REDIS_PASSWORD:string;
         
     }
 }
