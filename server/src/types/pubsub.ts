@@ -6,6 +6,7 @@ const options:Redis.RedisOptions = {
   host: host,
   port: port as number,
   password:user,
+  maxRetriesPerRequest: 20,
   retryStrategy: times => {
     return Math.min(times * 50, 2000);
   }
