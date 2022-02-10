@@ -22,6 +22,11 @@ export default class MessageResolver {
   ){ 
 return MessageModel.find({chat:chatid}).exec() 
   }
+  @Query(()=>[Message],{name:"getAllMessages"} )
+  async getAllMessages(
+  ){ 
+return MessageModel.find({}).exec() 
+  }
 
    @Mutation(() => Message, { name: "sendMessage" })
    async sendMessage(

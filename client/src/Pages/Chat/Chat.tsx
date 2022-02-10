@@ -1,11 +1,13 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 
 import Header from "../../Components/Header/Header";
 import { ChatWall } from "../../Components/ChatWall/ChatWall";
 import { Box, Grid} from "@mui/material";
 import { ChatList } from "../../Components/ChatWall/ChatList";
+import { ChatChannelContext } from "../../Context/ChatChannelProvider";
 
 export const Chat: FC = () => {
+const channel=useContext(ChatChannelContext)
   return (
     <div>
       <Header />
@@ -15,7 +17,7 @@ export const Chat: FC = () => {
         <ChatList/>
         </Grid>
         <Grid item xs={8}>
-          <ChatWall />
+          <ChatWall chatId={channel.chatChannel}/>
         </Grid>
       </Grid>
               </Box>

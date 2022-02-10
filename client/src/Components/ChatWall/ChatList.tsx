@@ -22,19 +22,22 @@ export const ChatList:FC=()=>{
     const channel=useContext(ChatChannelContext)
 if (loading) return <Loading/>
 if (error) return <ErrorMess/>
+
+
+
 return (
 
     <Paper>
     <List className="list">
       {data.findAllChat.filter((val:any) => {
-          return val.users.includes(user._id)}).map((val: IChat,key:number) => (
-        <ListItem button key={key} onClick={()=>{
-          console.log(val._id)
-          channel.setChatChannel(val._id)}} >
-          <UserCardList id={val.users}/>
-          
-        </ListItem>
-      ))}
+  return val.users.includes(user._id)}).map((val: IChat,key:number) => (
+<ListItem button key={key} onClick={()=>{
+  channel.setChatChannel(val._id)
+  }} >
+  <UserCardList id={val.users}/>
+  
+</ListItem>
+))}
     </List>
   </Paper>
 )

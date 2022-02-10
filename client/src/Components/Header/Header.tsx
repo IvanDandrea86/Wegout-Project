@@ -50,6 +50,11 @@ export default function Header() {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const handleClick=()=>{
+    
+      console.log("iclicke")
+      navigate("/chat")
+  }
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -68,9 +73,10 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="primary">
-          <Badge badgeContent={4} color="error">
+      <MenuItem  onClick={handleClick} >
+        <IconButton 
+        size="large" aria-label="show 4 new mails" color="primary">
+          <Badge badgeContent={3} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
