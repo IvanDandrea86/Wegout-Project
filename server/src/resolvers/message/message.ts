@@ -3,15 +3,17 @@ import { Resolver, Arg, Mutation, Subscription, Root, PubSub, Publisher, Ctx, Qu
 import { Service } from "typedi";
 import { Message, MessageModel } from "../../entities/message.entity";
 import { MessageResponse, MyContext } from "../../types/types";
-import { ChatModel } from "../../entities/chat.entity";
+import {  ChatModel } from "../../entities/chat.entity";
 
 const channel="newChatChannel"
+
 interface MessagePayload{
   _id:string;
   body:string;
   chat:string;
   sender:string;
   createdAt:string;
+
 }
 @Service() // Dependencies injection
 @Resolver(() => Message )
@@ -28,11 +30,13 @@ return MessageModel.find({chat:chatid}).exec()
 return MessageModel.find({}).exec() 
   }
 
+
    @Mutation(() => MessageResponse, { name: "sendMessage" })
    async sendMessage(
      @PubSub(channel) pubsub: Publisher<Message>,
      @Arg("body") body: string,
      @Arg("chat") chatId: string,
+    
      @Ctx() {req}:MyContext)
    : Promise<MessageResponse> {
      if (chatId==="")
@@ -51,6 +55,7 @@ return MessageModel.find({}).exec()
         _id:Id,
         body:body,
         sender: userId,
+  
         chat: chatId
       })
       if(chat){
@@ -69,20 +74,26 @@ return MessageModel.find({}).exec()
      return {message:message};
     }
    }
+
+   
+   
+   
    @Subscription({topics:channel,
     filter: ({ payload,args }) => 
     payload.chat===args.chatid
-   })
-   messageSent(
-     @Root() message: MessagePayload,
+  })
+  messageSent(
+    @Root() message: MessagePayload,
     @Arg("chatid") chatid:string): Message {
-     return  {
-      _id:message._id,
-      body:message.body,
-      sender: message.sender,
-      chat: message.chat,
+      return  {
+        _id:message._id,
+        body:message.body,
+        sender: message.sender,
+        chat: message.chat,
       createdAt: new Date(message.createdAt)
 
      } ;
-}
+    }
+
+
 }

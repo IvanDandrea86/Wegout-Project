@@ -91,4 +91,13 @@ export default class ChatResolver {
       updatedAt: new Date(chat.updatedAt),
     };
   }
+
+  @Query(() => [Chat], { name: "messageRecived" })
+  async messageRecived(
+    @Arg("userId") userId: string){
+    const chatList=await ChatModel.find({users:{$in:[userId]}})
+      return chatList
+    }
+
+
 }

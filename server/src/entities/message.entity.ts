@@ -23,6 +23,7 @@ export class Message {
   @prop()
   sender: string;
 
+
 @Field(()=>String)
   @prop({type:String})
   chat: string;
