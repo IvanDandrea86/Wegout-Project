@@ -24,7 +24,7 @@ export const SendMessage: FC<SendMessageProps> = ({ chatId }) => {
 
   const handleSend = async() => {
       try
-   {console.log(chatId)
+   {
       await sendMessage({ variables: { chat: chatId, body:message }
  })
   setMessage("")
