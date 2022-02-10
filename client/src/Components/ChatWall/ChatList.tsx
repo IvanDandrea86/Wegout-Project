@@ -1,11 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
-import { List, ListItem, Paper, Typography } from "@mui/material"
+import { List, ListItem, Paper } from "@mui/material"
 import { FC, Fragment, useContext, useEffect } from "react";
 import { ChatChannelContext } from "../../Context/ChatChannelProvider";
 import { UserContext } from "../../Context/UserContext";
 import { UserCardList } from "../Card/UserCardList";
 import ErrorMess from "../Utility/ErrorMess";
 import Loading from "../Utility/Loading";
+import { chatliste } from "./Chat.style";
 
 const FINDALLCHAT=gql`
  {findAllChat{users _id lastMessage}}
@@ -47,7 +48,7 @@ if (error) return <ErrorMess/>
 
 return (
 <Fragment>
-{ data.findAllChat.filter((val:any) => {
+{/* { data.findAllChat.filter((val:any) => {
   return val.users.includes(user._id)}).length <= 0 ? 
   <Paper>
      <List className="list">
@@ -57,9 +58,9 @@ return (
   </List>
   </Paper>
  
-  :
+  : */}
     <Paper>
-    <List className="list">
+    <List style={chatliste}>
       {data.findAllChat.filter((val:any) => {
   return val.users.includes(user._id)}).map((val: IChat,key:number) => (
 <ListItem button key={key} onClick={()=>{
@@ -71,7 +72,7 @@ return (
 ))}
     </List>
   </Paper>
-}
+{/* } */}
 </Fragment>
 )
 

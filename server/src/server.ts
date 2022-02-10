@@ -48,6 +48,7 @@ export const main = async () => {
       validate: false,
       pubSub
     }),
+    
     subscriptions: {
       path: "/subscriptions",
       onConnect: () => {

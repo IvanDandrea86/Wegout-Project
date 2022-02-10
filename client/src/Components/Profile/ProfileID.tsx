@@ -85,12 +85,12 @@ useEffect(() => {
 
 }, [data]);
 
-  if (loading) {
+  if (loading) 
       return <Loading />;
-  }
-  if (error) {
+  
+  if (error) 
       return   <ErrorMess />;
-  }
+  
   if (data === undefined) {
       return <p>Not found</p>;
     }

@@ -60,7 +60,7 @@ const channel=useContext(ChatChannelContext)
 {chatId==="" ? 
   <Paper elevation={5}>
 
-  <Box p={3}>
+  <Box p={5}>
   <Typography variant="h4" gutterBottom>WeGoChat 1.0v</Typography>
   <Divider/>
   <Typography variant="h4" >Select one friend and start chat...</Typography>

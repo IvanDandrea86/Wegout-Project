@@ -64,23 +64,11 @@ export default function Header() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
   const handleClick=()=>{
-    
-      console.log("iclicke")
       navigate("/chat")
   }
   
-  
-
-
-  if (loading){return <Loading/>}
-  if(error){return <ErrorMess/>}
- if(data){
-   console.log(data.messageRecived.length)
- }
-
-  
-
- 
+  if (loading)return <Loading/>
+  if(error)return <ErrorMess/>
  
 
   const mobileMenuId = "primary-search-account-menu-mobile";
