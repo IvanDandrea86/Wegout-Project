@@ -5,7 +5,7 @@ import { runConnection } from "./loaders/dbLoader";
 import express from "express";
 import cors from "cors";
  import path from "path";
-import { ALLOW_ORIGIN, __prod__, __staging__ } from "./constants/const";
+import { ALLOW_ORIGIN, __prod__, __staging__ ,PORT} from "./constants/const";
 import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
 
@@ -71,10 +71,10 @@ export const main = async () => {
   });
   let startnTime = new Date();
   apolloServer.installSubscriptionHandlers(httpServer);
-    httpServer.listen(process.env.PORT, () => {
-      console.log(startnTime,`\n🚀 Subscriptions ready at ws://localhost:${process.env.PORT}${apolloServer.subscriptionsPath}`
+    httpServer.listen(PORT, () => {
+      console.log(startnTime,`\n🚀 Subscriptions ready at ws://localhost:${PORT}${apolloServer.subscriptionsPath}`
       );
-      console.log(startnTime, `\n🚀 Graphql running at:http://localhost:${process.env.PORT}/graphql`
+      console.log(startnTime, `\n🚀 Graphql running at:http://localhost:${PORT}/graphql`
     );
   });
 
