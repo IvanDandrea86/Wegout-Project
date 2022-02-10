@@ -43,10 +43,14 @@ return MessageModel.find({chat:chatid}).exec()
       chat.lastMessage = message._id
       await chat.save()
       }
+      try{
           await pubsub(
-           message
-           
+     message       
           )
+      }
+      catch(err){
+        console.log(err)
+      }
           
      return message;
      

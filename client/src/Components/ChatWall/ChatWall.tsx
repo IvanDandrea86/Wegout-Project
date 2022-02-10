@@ -39,11 +39,10 @@ export const ChatWall=()=>{
           variables:{
             id:channel.chatChannel
           },
-          updateQuery: (prev, { subscriptionData }) => {
+          updateQuery: (prev, { subscriptionData }) => { 
             
             if (!subscriptionData.data) return prev;
-            const newMessage = subscriptionData.data.messageSent;
-           
+            const newMessage = subscriptionData.data.messageSent;  
             return {
                 getMessages: [...prev.getMessages, newMessage],
             };
@@ -52,12 +51,6 @@ export const ChatWall=()=>{
       },[]);
     if (loading){return <Loading/>}
     if(error){return <ErrorMess/>}
-
-
- 
-  
-    
-   
     return(
 <Fragment>
 

@@ -7,6 +7,9 @@
     "node": "14.x"
   },
   "scripts": {
+    "install-client":"cd client && npm install",
+    "install-server":"cd server && npm install",
+    "install-app":" npm run install-client && npm run install-server",
     "dev-server": "cd server && npm run watch",
     "dev": "cd server && npm run dev",
     "dev-client": "cd client && npm run start",
