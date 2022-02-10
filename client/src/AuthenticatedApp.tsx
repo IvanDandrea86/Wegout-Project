@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Home from "./Pages/Home/Home";
+import UserProvider from "./Context/UserContext";
 import { BrowserRouter,Route,Routes } from "react-router-dom";
 import ErrorUnauth from "./Pages/Errors/ErrorUnauth";
 import Footer from "./Components/Footer/Footer";
@@ -13,9 +14,9 @@ import { Chat } from "./Pages/Chat/Chat";
 import ChatChannelProvider from "./Context/ChatChannelProvider";
 
 
-
 const AuthenticatedApp: FC = () => {
   return (
+     <UserProvider>
               <FriendsProvider>
 <ChatChannelProvider>
 
@@ -36,6 +37,7 @@ const AuthenticatedApp: FC = () => {
     </BrowserRouter>
   </ChatChannelProvider>
     </FriendsProvider>
+    </UserProvider>
   );
 };
 

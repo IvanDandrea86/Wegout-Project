@@ -8,7 +8,7 @@ import { CssBaseline } from "@mui/material";
 import * as React from 'react';
 import {CustomThemeContext} from './Context/CustomThemeProvider'
 import { languageContext } from "./Context/LocalesProvider";
-import UserProvider from "./Context/UserContext";
+
 
 function App() {
   const { theme } = useContext(CustomThemeContext)
@@ -21,11 +21,11 @@ function App() {
   });
   return (
       <ThemeProvider theme={theme}>
-<UserProvider>
+
         
         <CssBaseline/>
         {context.auth ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-  </UserProvider>
+ 
      </ThemeProvider>
    
   );

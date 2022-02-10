@@ -28,15 +28,18 @@ const ChatChannelProvider: React.FC<{}> = ({ children }) => {
   const { data, loading, error } = useQuery(FINDALLCHAT);
 
   useEffect(() => {
+    if (data){
     if (data.findAllChat && chatChannel === "") {
       const firstChat = data.findAllChat.filter((val: any) => {
         return val.users.includes(user._id);
       });
       setChatChannel(firstChat[0]._id);
     }
-  }, [chatChannel, data.findAllChat, user._id]);
+  }
+  }, [chatChannel]);
   if (loading) return <Loading />;
   if (error) return <ErrorMess />;
+  
 
   return (
     <ChatChannelContext.Provider

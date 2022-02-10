@@ -6,7 +6,12 @@ import SendIcon from '@mui/icons-material/Send';
 
 
 const SEND_MESSAGE = gql`
-  mutation($chat:String!,$body:String!){sendMessage(chat:$chat,body:$body){sender _id chat}}
+  mutation($chat:String!,$body:String!){sendMessage(chat:$chat,body:$body){
+    errors{
+      field
+      message}
+      message{sender _id chat}}
+  }
 `;
 
 interface SendMessageProps {

@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { Resolver, Arg, Mutation, Subscription, Root, PubSub, Publisher, Ctx, Query } from "type-graphql";
 import { Service } from "typedi";
 import { Message, MessageModel } from "../../entities/message.entity";
-import { MyContext } from "../../types/types";
+import { MessageResponse, MyContext } from "../../types/types";
 import { ChatModel } from "../../entities/chat.entity";
 
 const channel="newChatChannel"
@@ -28,13 +28,22 @@ return MessageModel.find({chat:chatid}).exec()
 return MessageModel.find({}).exec() 
   }
 
-   @Mutation(() => Message, { name: "sendMessage" })
+   @Mutation(() => MessageResponse, { name: "sendMessage" })
    async sendMessage(
      @PubSub(channel) pubsub: Publisher<Message>,
      @Arg("body") body: string,
      @Arg("chat") chatId: string,
      @Ctx() {req}:MyContext)
-   : Promise<Message> {
+   : Promise<MessageResponse> {
+     if (chatId==="")
+     {
+
+       return{errors:{
+         field:"message",
+         message:"This chat not exist"
+       }}
+     }
+     else{
        const userId=req.session.userID
        const Id=new ObjectId()
     const chat = await ChatModel.findById(chatId).select('users')
@@ -57,8 +66,8 @@ return MessageModel.find({}).exec()
         console.log(err)
       }
           
-     return message;
-     
+     return {message:message};
+    }
    }
    @Subscription({topics:channel,
     filter: ({ payload,args }) => 
