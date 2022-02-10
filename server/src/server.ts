@@ -1,38 +1,35 @@
 import "reflect-metadata";
 import dotenv from "dotenv";
 import { runConnection } from "./loaders/dbLoader";
-
 import express from "express";
 import cors from "cors";
- import path from "path";
+import path from "path";
 import { ALLOW_ORIGIN, __prod__, __staging__ ,PORT} from "./constants/const";
 import session from "express-session";
 import { sessionConfig } from "./config/sessionConfig";
-
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { resolvers } from "./resolvers/index";
-
 import { MyContext } from "src/types/types";
 import { redis } from "./config/sessionConfig";
 import pubSub from "./types/pubsub"
 import http from "http";
 
 
+dotenv.config()
 
-//import { startSeed } from "./seeder";
-dotenv.config();
+
 export const app = express();
 export const main = async () => {
-  //Set Start Time
+
+ //Set Start Time
   // let startTime = new Date();
   let nStartTime = Date.now();
   //Connect DB
   runConnection().catch((err) => {
     console.error(err);
   });
-  //Seed with FakeData
-  //startSeed(60)
+
   //CORS middelware
   app.set('trust proxy', 1)
   app.use(
