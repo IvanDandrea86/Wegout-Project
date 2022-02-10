@@ -1,24 +1,30 @@
 
-import { useState, FC, Fragment, useContext } from "react";
+import { useState, FC, Fragment } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { FormControl, Grid, IconButton, TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 
+
 const SEND_MESSAGE = gql`
-  mutation($chat:String!,$body:String!){sendMessage(chat:$chat,body:$body){sender _id chat}}
+  mutation($chat:String!,$body:String!){sendMessage(chat:$chat,body:$body){
+    errors{
+      field
+      message}
+      message{sender _id chat}}
+  }
 `;
 
 interface SendMessageProps {
   chatId: string;
- 
 }
 
 export const SendMessage: FC<SendMessageProps> = ({ chatId }) => {
     const[message,setMessage]=useState("")
   const [sendMessage] = useMutation(SEND_MESSAGE);   
+
   const handleSend = async() => {
       try
-   {console.log(chatId)
+   {
       await sendMessage({ variables: { chat: chatId, body:message }
  })
   setMessage("")

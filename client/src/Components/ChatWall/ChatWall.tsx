@@ -1,5 +1,5 @@
-import { Fragment, useContext, useEffect } from "react"
-import { Avatar, Box, Divider, FormControl, Grid,  List, ListItem, ListItemText, Paper, Typography } from "@mui/material"
+import { FC, Fragment, useContext, useEffect } from "react"
+import { Avatar, Box, Divider, FormControl, Grid,  List, ListItem, Paper, Typography } from "@mui/material"
 import {chatMessageStyle,chatWindowStyle} from "./Chat.style"
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
@@ -21,19 +21,22 @@ const CHAT_SUB=gql`
 subscription($id:String!){messageSent(chatid:$id){ sender body chat createdAt}}
 `
 
+interface SendMessageProps {
+  chatId: string;
+}
 
 
-
-export const ChatWall=()=>{
-    
-    const channel=useContext(ChatChannelContext)
-    const user=useContext(UserContext)
+export const ChatWall:FC<SendMessageProps>=({chatId})=>{
+ 
+const channel=useContext(ChatChannelContext)
+   const user=useContext(UserContext)
     const generator = new AvatarGenerator();
   const avatar = generator.generateRandomAvatar(user.email as string);
     const{data,loading,error,subscribeToMore}=useQuery(GETCHAT,{variables:{
-        chatid:channel.chatChannel
+        chatid:chatId
     }})
     useEffect(() => {
+        
         subscribeToMore({
           document: CHAT_SUB,
           variables:{
@@ -48,12 +51,22 @@ export const ChatWall=()=>{
             };
           },
         });
-      },[]);
+      },[subscribeToMore,channel.chatChannel]);
     if (loading){return <Loading/>}
     if(error){return <ErrorMess/>}
+  
     return(
 <Fragment>
+{chatId==="" ? 
+  <Paper elevation={5}>
 
+  <Box p={5}>
+  <Typography variant="h4" gutterBottom>WeGoChat 1.0v</Typography>
+  <Divider/>
+  <Typography variant="h4" >Select one friend and start chat...</Typography>
+  </Box>
+  </Paper>
+:
         <Paper elevation={5}>
 
             <Box p={3}>
@@ -83,6 +96,7 @@ export const ChatWall=()=>{
             </Grid>
             </Box>
         </Paper>
+}
         <BackFab/>
     </Fragment>
     )

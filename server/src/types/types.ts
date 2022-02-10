@@ -4,6 +4,7 @@ import {User} from '../entities/user.entity'
 import {Chat}from '../entities/chat.entity'
 import { Request,Response } from "express";
 import { Redis } from "ioredis";
+import { Message } from "../entities/message.entity";
 
 
 export type MyContext={
@@ -48,6 +49,13 @@ export class UserResponse {
   errors?: FieldError;
   @Field(() => User, { nullable: true })
   user?: User;
+}
+@ObjectType()
+export class MessageResponse {
+  @Field(() => FieldError, { nullable: true })
+  errors?: FieldError;
+  @Field(() => Message, { nullable: true })
+  message?: Message;
 }
 
 @ObjectType()

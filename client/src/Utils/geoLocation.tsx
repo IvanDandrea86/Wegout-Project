@@ -1,10 +1,14 @@
-import React, {useState, useEffect,FC, useContext} from 'react'
+import React, {useState, useEffect,FC, useContext, Fragment} from 'react'
 import axios from 'axios';
 import {gelocAPI} from '../Utils/constants'
 import Typography from '@mui/material/Typography'
 import { GeoContext } from '../Context/GeoProvider';
 
 import TextField from '@mui/material/TextField'
+
+
+
+
 
 
 const FindMe:FC=()=>{
@@ -42,7 +46,7 @@ return (
 <span>
 {Location!==undefined ? Location.split(' ')[0]
 :
-<div> 
+<Fragment>
 <Typography variant="h6" >Activate geolocation or select your city</Typography>
 <TextField
   id="City"
@@ -50,7 +54,7 @@ return (
   value={city}
   onChange={(e)=>handleChange(e.target.value)}
 />
-</div>
+</Fragment>
 }
 </span>
  )

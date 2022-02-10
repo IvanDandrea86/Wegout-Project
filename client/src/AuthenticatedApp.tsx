@@ -17,8 +17,8 @@ import ChatChannelProvider from "./Context/ChatChannelProvider";
 const AuthenticatedApp: FC = () => {
   return (
      <UserProvider>
-<ChatChannelProvider>
               <FriendsProvider>
+<ChatChannelProvider>
 
     <BrowserRouter>
       <Routes>
@@ -35,8 +35,8 @@ const AuthenticatedApp: FC = () => {
       </Routes>
       <Footer />
     </BrowserRouter>
-    </FriendsProvider>
   </ChatChannelProvider>
+    </FriendsProvider>
     </UserProvider>
   );
 };
