@@ -37,7 +37,7 @@ export const InterestedList:FC<IProp>=({details})=>{
         display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
    <Grid item  xs={12} sm={6} md={6} sx={{m: 25,  display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
      <Typography variant="h4" >
-     There are {lenght} people coming    
+     There are {lenght-1} people coming    
      </Typography>
      {youCome ?
       <Typography variant="h4" >
