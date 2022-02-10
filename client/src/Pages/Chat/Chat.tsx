@@ -17,10 +17,10 @@ const channel=useContext(ChatChannelContext)
         <Grid item xs={4} className={"borderRight500"}>
         <ChatList/>
         </Grid>
-        <Grid item xs={8} sx={{alignSelf:"flex-end"}} >
+        <Grid item xs={8} sx={{alignSelf:"start"}} >
           <ChatWall chatId={channel.chatChannel}/>
         </Grid>
-        <BackFab/>
+       
       </Grid>
 </Fragment> 
  );
