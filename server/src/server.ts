@@ -79,7 +79,7 @@ export const main = async () => {
   });
 
   //Deploy Setup
-  if(__prod__ ){
+  if(__prod__ || __staging__  ){
   app.use(express.static(path.resolve(__dirname, '../../client/build')));
   app.get('*', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
