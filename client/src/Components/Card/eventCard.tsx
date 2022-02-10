@@ -61,17 +61,18 @@ const link=qualityImgage(details)
 
  return(
     <Card   sx={{ minWidth: 400, maxWidth: 400 , maxHeight:"100%",marign:"15px"}} >
-      {details.images[0].url?
-      <CardMedia
-        component="img"
-        alt={details.name}
-        sx={ {maxHeight:"190px"}}
-        width="100%"
-        height="auto"
-        image={link}
-      />
+      {!details.images[0].url ?
+  
+  <Skeleton variant="rectangular" animation="wave"   height={140} />
       :
-      <Skeleton variant="rectangular" animation="wave"   height={140} />
+      <CardMedia
+      component="img"
+      alt={details.name}
+      sx={ {maxHeight:"190px"}}
+      width="100%"
+      height="auto"
+      image={link}
+    />
       }
       <CardContent sx={{padding:"15px 25px"}}>
         <Typography gutterBottom variant="h5" component="div">
@@ -86,9 +87,11 @@ const link=qualityImgage(details)
         )}
          </Typography>
          <Typography variant="body1" >
-        {details.dates? details.dates.start.localDate :(
+        {!details.dates? 
         <Skeleton />
-        )}
+        :
+        details.dates.start.localDate
+        }
          </Typography>
          <Grid container spacing={2} sx={{display:"flex",justifyContent:"start",flexDirection:"row", alignItems:"center"}}>
           <Grid item> 
@@ -96,10 +99,11 @@ const link=qualityImgage(details)
         </Grid>
         <Grid item> 
         <Typography variant="body2" >
-        {details._embedded.venues? details._embedded.venues[0].name
-       :(
-         <Skeleton />
-         )
+        {!details._embedded.venues? 
+       <Skeleton />
+       :
+       details._embedded.venues[0].name
+         
         }
         </Typography>
         </Grid>

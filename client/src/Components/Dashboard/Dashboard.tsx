@@ -49,19 +49,22 @@ const geo=useContext(GeoContext)
         columns={{ xs: 1, sm: 8, md: 12 }}
         sx={{...flexRowCenter}}
       >
-        {events
-          ? events.map((event: any) => (
-              <Grid item xs={12} sm={4} md={4} key={event.id} sx={{...flexRowCenter,marginBottom:15}}>
-                <Box sx={{ boxShadow: 5}}>
-                  <EventCard details={event} />
-                </Box>
-              </Grid>
-            ))
-          : Array.from(Array(12)).map((_, index) => (
-              <Grid item xs={12} sm={3} md={4} key={index}>
-                <EventCardSkeleton />
-              </Grid>
-            ))}
+        {
+        !events ? 
+          Array.from(Array(12)).map((_, index) => (
+             <Grid item xs={12} sm={3} md={4} key={index}>
+               <EventCardSkeleton />
+             </Grid>
+           ))
+          :
+          events.map((event: any) => (
+            <Grid item xs={12} sm={4} md={4} key={event.id} sx={{...flexRowCenter,marginBottom:15}}>
+              <Box sx={{ boxShadow: 5}}>
+                <EventCard details={event} />
+              </Box>
+            </Grid>
+          ))
+            }
       </Grid>
       <Button variant="contained" >
         Load More...

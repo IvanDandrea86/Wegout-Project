@@ -97,7 +97,7 @@ const channel=useContext(ChatChannelContext)
             </Box>
         </Paper>
 }
-        <BackFab/>
+    
     </Fragment>
     )
 }
