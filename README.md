@@ -9,7 +9,7 @@
 - Typescript
 
 
-## Server/Backe-end
+## Server/Backend
 ### Technologies
 ---
 
@@ -31,6 +31,11 @@ npm run dev-client
 npm run dev
 
 ```
+## Development Note
+
+Set "request.credentials": "include",
+into Graphql PLayGround to recvie session cookie
+
 ## Run  
 ---
 ```
@@ -71,17 +76,27 @@ redis-client
 ## Some Snapshot
 ---
 ### Login
-![Login](./snapshot/Signin.png)
-### Register
-![Register](./snapshot/Signup.png)
-### Post
-![Post](./snapshot/Post_Comment.png)
+![Login](./media/snapshot/login.png)
+
+### Hero
+![Post](./media/snapshot/hero.png)
 ### Profile
-![Profile](./snapshot/Profile.png)
-### Search
-![Search](./snapshot/Search.png)
-### Reels
-![Reels](./snapshot/ReelsPost.png)
+![Profile](./media/snapshot/profil.png)
+### Event
+![Events](./media/snapshot//events=desk.png)
+### Event Mobile
+![Events](./media/snapshot/events.png)
+
+### Filter
+![Filter](./media/snapshot/filters.png)
+### Event Mobile
+![Chat](./media/snapshot/chat.png)
+
+### Card
+![Chat](./media/snapshot/card.png)
+
+### Event Detail
+![Chat](./media/snapshot/event-detail.png)
 
 
 
@@ -90,12 +105,3 @@ redis-client
 
 
 
-
-
-
-## Note
-
-Must overload module "express-session"
-to add userid attribute to req.session
-Set "request.credentials": "include",
-into Graphql PLayGround to recvie session cookie
