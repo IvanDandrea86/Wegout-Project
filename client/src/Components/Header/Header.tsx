@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,22 +10,35 @@ import logo from "../../Assets/Images/logo.svg";
 import MenuIcon from "@mui/icons-material/Menu";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import { Button, Grid } from "@mui/material";
 import { iconNav } from "../../Assets/Style/style";
 import { headerContainer } from "./Header.style";
+import { UserContext } from "../../Context/UserContext";
+import Loading from "../Utility/Loading";
+import ErrorMess from "../Utility/ErrorMess";
 
 const LOGOUT_MUT = gql`
   mutation {
     logout
   }
 `;
+const RECIVEDMESSAGE=gql`
+query($userId:String!){messageRecived(userId:$userId){ users _id}}
+`
+
 
 export default function Header() {
+  const user=useContext(UserContext)
+ 
   const navigate = useNavigate();
+  const {data,loading,error}=useQuery(RECIVEDMESSAGE,{variables:{
+    userId:user._id}
+  })
   const [logout] = useMutation(LOGOUT_MUT);
+ 
 
   const logoutEvent = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -55,6 +68,20 @@ export default function Header() {
       console.log("iclicke")
       navigate("/chat")
   }
+  
+  
+
+
+  if (loading){return <Loading/>}
+  if(error){return <ErrorMess/>}
+ if(data){
+   console.log(data.messageRecived.length)
+ }
+
+  
+
+ 
+ 
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -76,7 +103,7 @@ export default function Header() {
       <MenuItem  onClick={handleClick} >
         <IconButton 
         size="large" aria-label="show 4 new mails" color="primary">
-          <Badge badgeContent={3} color="error">
+          <Badge badgeContent={data.messageRecived.length} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
@@ -102,6 +129,7 @@ export default function Header() {
     </Menu>
   );
 
+ 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -134,7 +162,7 @@ export default function Header() {
                   color="inherit"
                   onClick={()=>{navigate("/chat")}}
                 >
-                  <Badge badgeContent={4} color="error">
+                  <Badge badgeContent={data.messageRecived.length} color="error">
                     <MailIcon />
                   </Badge>
                 </IconButton>
@@ -169,5 +197,6 @@ export default function Header() {
       </AppBar>
       {renderMobileMenu}
     </Box>
-  );
+  ) 
+
 }

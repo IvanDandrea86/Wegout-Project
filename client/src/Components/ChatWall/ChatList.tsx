@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
-import { List, ListItem, Paper } from "@mui/material"
-import { FC, useContext, useEffect } from "react";
+import { List, ListItem, Paper, Typography } from "@mui/material"
+import { FC, Fragment, useContext, useEffect } from "react";
 import { ChatChannelContext } from "../../Context/ChatChannelProvider";
 import { UserContext } from "../../Context/UserContext";
 import { UserCardList } from "../Card/UserCardList";
@@ -46,7 +46,18 @@ if (error) return <ErrorMess/>
 
 
 return (
-
+<Fragment>
+{ data.findAllChat.filter((val:any) => {
+  return val.users.includes(user._id)}).length <= 0 ? 
+  <Paper>
+     <List className="list">
+      <ListItem>
+  <Typography variant="h6" color="initial">You have no chat yet</Typography>
+  </ListItem>
+  </List>
+  </Paper>
+ 
+  :
     <Paper>
     <List className="list">
       {data.findAllChat.filter((val:any) => {
@@ -60,6 +71,8 @@ return (
 ))}
     </List>
   </Paper>
+}
+</Fragment>
 )
 
     

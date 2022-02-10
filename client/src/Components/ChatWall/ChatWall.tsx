@@ -1,5 +1,5 @@
 import { FC, Fragment, useContext, useEffect } from "react"
-import { Avatar, Box, Divider, FormControl, Grid,  List, ListItem, ListItemText, Paper, Typography } from "@mui/material"
+import { Avatar, Box, Divider, FormControl, Grid,  List, ListItem, Paper, Typography } from "@mui/material"
 import {chatMessageStyle,chatWindowStyle} from "./Chat.style"
 import { UserContext } from "../../Context/UserContext";
 import { AvatarGenerator } from "random-avatar-generator";
@@ -54,9 +54,19 @@ const channel=useContext(ChatChannelContext)
       },[subscribeToMore,channel.chatChannel]);
     if (loading){return <Loading/>}
     if(error){return <ErrorMess/>}
+  
     return(
 <Fragment>
+{chatId==="" ? 
+  <Paper elevation={5}>
 
+  <Box p={3}>
+  <Typography variant="h4" gutterBottom>WeGoChat 1.0v</Typography>
+  <Divider/>
+  <Typography variant="h4" >Select one friend and start chat...</Typography>
+  </Box>
+  </Paper>
+:
         <Paper elevation={5}>
 
             <Box p={3}>
@@ -86,6 +96,7 @@ const channel=useContext(ChatChannelContext)
             </Grid>
             </Box>
         </Paper>
+}
         <BackFab/>
     </Fragment>
     )
