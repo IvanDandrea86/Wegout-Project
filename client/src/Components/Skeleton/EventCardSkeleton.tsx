@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, Fragment} from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,17 +9,17 @@ import { Skeleton } from '@mui/material';
 const  EventCardSkeleton:FC=()=> {
   
   return (
-    <Card   sx={{ maxWidth: 345 }}>
+   <Fragment>
       <Skeleton variant="rectangular" animation="wave"   height={140} />
-      <CardContent>
+   
         <Skeleton />
         <Skeleton />
-     </CardContent>
-      <CardActions>
+  
+  
         <Button size="small">I Go</Button>
         <Button size="small">Who Goes ?</Button>
-      </CardActions>
-    </Card>  
+</Fragment>
+   
   );
 }
 export default EventCardSkeleton

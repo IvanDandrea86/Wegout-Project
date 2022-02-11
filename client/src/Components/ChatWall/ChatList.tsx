@@ -48,17 +48,8 @@ if (error) return <ErrorMess/>
 
 return (
 <Fragment>
-{/* { data.findAllChat.filter((val:any) => {
-  return val.users.includes(user._id)}).length <= 0 ? 
-  <Paper>
-     <List className="list">
-      <ListItem>
-  <Typography variant="h6" color="initial">You have no chat yet</Typography>
-  </ListItem>
-  </List>
-  </Paper>
- 
-  : */}
+ { data.findAllChat.filter((val:any) => {
+  return val.users.includes(user._id)}).length >0 &&
     <Paper>
     <List style={chatliste}>
       {data.findAllChat.filter((val:any) => {
@@ -72,7 +63,7 @@ return (
 ))}
     </List>
   </Paper>
-{/* } */}
+ } 
 </Fragment>
 )
 
