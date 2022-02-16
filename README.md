@@ -83,7 +83,7 @@ redis-client
 ![Login](./media/snapshot/login.png)
 
 ### Hero
-![Post](./media/snapshot/hero.png)
+![Hero](./media/snapshot/hero.png)
 ### Profile
 ![Profile](./media/snapshot/profil.png)
 ### Event
