@@ -3,7 +3,7 @@
 ---
 Wegout is a web-app which aims to increase people's social life. Basically, it searches for events you are interested in and finds other people to do activities with.
 
-## Client/Front-end
+## Client/Frontend
 ### Technologies
 ---
 - React
